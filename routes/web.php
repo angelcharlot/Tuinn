@@ -13,10 +13,35 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+//errorer
+Route::get('errors/401', function () {
+    return view('errors/401');
+})->name('error.401');
+
+/////////////////////////////////////////////////////////////////
+
+
 Route::get('/', function () {
+    if (auth()->check()){
+        return redirect()->to('dashboard');
+    }
     return view('welcome');
 });
 
-Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
+/*rutas protegidas por auth*/
+/////////////////////////////////////////////////////////////////////////////////
+Route::middleware(['auth:sanctum', 'verified'])->group(function(){
+
+    Route::get('/dashboard', function () {
     return view('dashboard');
-})->name('dashboard');
+    })->name('dashboard');
+    Route::get('/negocio/index', function () {
+    return view('negocio/index');
+})->middleware('aut_negocio')->name('negocio.index');
+    Route::get('/producto/index', function () {
+    return view('producto/index');
+})->middleware('aut_negocio')->name('producto.index');
+
+});
+
+    

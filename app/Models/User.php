@@ -47,6 +47,10 @@ class User extends Authenticatable
      *
      * @var array
      */
+    public function personal()
+    {
+        return $this->hasMany('App\Models\User','fk_user');
+    }
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];

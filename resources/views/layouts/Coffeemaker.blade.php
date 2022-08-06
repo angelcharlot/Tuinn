@@ -1,3 +1,22 @@
+<!DOCTYPE html>
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="csrf-token" content="{{ csrf_token() }}">
+	<title>{{ config('app.name', 'Laravel') }}</title>
+	<!-- Fonts -->
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
+	<!-- Styles -->
+	<link rel="stylesheet" href="{{ mix('css/app.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/css.css') }}">
+	@yield('css')
+	@livewireStyles
+	<!-- Scripts -->
+
+</head>
+<body class="">
+<header>
 <nav x-data="{ open: false }" class="bg-white border-b border-gray-100">
     <!-- Primary Navigation Menu -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -14,12 +33,20 @@
                         {{ __('Dashboard') }}
                     </x-jet-nav-link>
                 </div>
-                 @if (Auth::user()->hasRole('negocio'))
+                @if (Auth::user()->hasRole('admin'))
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     <x-jet-nav-link href="{{ route('negocio.index') }}" :active="request()->routeIs('negocio.index')">
-                       Gestion
+                       Gestion de personal
                     </x-jet-nav-link>
                 </div>
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    <x-jet-nav-link href="{{ route('producto.index') }}" :active="request()->routeIs('producto.index')">
+                       Productos
+                    </x-jet-nav-link>
+                </div>
+
+
+
                 @endif
             </div>
 
@@ -195,3 +222,14 @@
         </div>
     </div>
 </nav>
+</header>
+<div class="containner">
+	@yield('body')
+</div>
+
+<script src="{{ mix('js/app.js') }}" defer></script>
+ @stack('modals')
+@livewireScripts
+
+</body>
+</html>
