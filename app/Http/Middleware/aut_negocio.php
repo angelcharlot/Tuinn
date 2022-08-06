@@ -16,9 +16,10 @@ class aut_negocio
      */
     public function handle(Request $request, Closure $next)
     {
-        if (Auth()->user()->hasRole('camarero') or Auth()->user()->hasRole('cocinero')) {
-            return abort(401, 'upsss!!!, no tienes acceso a esta pagina');
+        if (Auth()->user()->hasRole('admin')) {
+             return $next($request);
+            
       }
-        return $next($request);
+       return abort(401, 'upsss!!!, no tienes acceso a esta pagina');
     }
 }
