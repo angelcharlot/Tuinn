@@ -152,7 +152,24 @@
             <x-jet-responsive-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
                 {{ __('Dashboard') }}
             </x-jet-responsive-nav-link>
+             @if (Auth::user()->hasRole('admin'))
+            <x-jet-responsive-nav-link href="{{ route('negocio.index') }}" :active="request()->routeIs('negocio.index')">
+               Gestion de personal
+            </x-jet-responsive-nav-link>
+            <x-jet-responsive-nav-link href="{{ route('producto.index') }}" :active="request()->routeIs('producto.index')">
+                 Productos
+            </x-jet-responsive-nav-link>
+@endif
         </div>
+
+
+
+       
+            
+
+
+
+               
 
         <!-- Responsive Settings Options -->
         <div class="pt-4 pb-1 border-t border-gray-200">
@@ -167,7 +184,7 @@
                 </div>
             </div>
 
-            <div class="mt-3 space-y-1">
+            <div class="mt-3 space-y-1 border-b-8 border-purple-600">
                 <!-- Account Management -->
                 <x-jet-responsive-nav-link href="{{ route('profile.show') }}" :active="request()->routeIs('profile.show')">
                     {{ __('Profile') }}

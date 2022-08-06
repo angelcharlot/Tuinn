@@ -57,7 +57,7 @@
             <div class="grid grid-cols-1 gap-4 sm:grid-cols-3 p-5">
 
                 <div class="pt-3 bg-blue-50 shadow-md">
-                    <div class="grid justify-items-center ">
+                    <div class="grid justify-items-center h-60">
                         <img class="h-auto w-3/4 rounded-t-lg shadow-md" src="{{ asset("images/1.jpg") }}" alt=""/>
                     </div>
                     
@@ -68,7 +68,7 @@
                     
                 </div>
                 <div class="pt-3 bg-blue-50 shadow-md">
-                    <div class="grid justify-items-center">
+                    <div class="grid justify-items-center h-60">
                     <img class="h-auto w-3/4 rounded-t-lg shadow-md" src="{{ asset("images/2.jpg") }}" alt=""/>
                     </div>
                     <div class="w-full text-justify p-2">
@@ -78,9 +78,9 @@
                     
                 </div>
                 <div class=" pt-3 bg-blue-50 shadow-md">
-                    <div class="grid justify-items-center">
+                    <div class="grid justify-items-center h-60">
                     <img class="h-auto w-3/4 rounded-t-lg shadow-md" src="{{ asset("images/3.jpg") }}" alt=""/>
-                    <div class="grid justify-items-center">
+                    </div>
                     <div class="w-full text-justify p-2">
                        Paranoid sensory RAF uplink receding fluidity beef noodles numinous. Tube nano-gang Shibuya tower crypto-rebar face forwards construct. Human sentient pre-render-farm-ware pen decay tanto neural Legba smart-disposable industrial grade physical digital. 
                     </div>
