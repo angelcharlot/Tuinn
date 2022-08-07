@@ -32,7 +32,14 @@ class Personal extends Component
         'email.unique'=>'El email ya ha sido registrado.'
 
     ];
+    protected $rules = [
 
+        'name' => 'required|min:5',
+        'email' => 'required|email|unique:App\Models\User,email',
+        'rol'=> 'required',
+        'password'=> 'required'
+
+    ];
 
 
     public function render()
@@ -65,12 +72,7 @@ class Personal extends Component
 
 
            
-           $this->validate([
-                'name' => 'required|min:5',
-                'email' => 'required|email|unique:App\Models\User,email',
-                'rol'=> 'required',
-                'password'=> 'required'
-            ]);      
+           $this->validate();      
               
 
             
@@ -96,12 +98,7 @@ class Personal extends Component
         }  
                 public function update()
         {
-            $this->validate([
-                'selected_id' => 'required|numeric',
-                'name' => 'required|min:5',
-                'email' => 'required|email:rfc,dns',
-                'password'=> 'required'
-            ]);        
+            $this->validate();        
 
 
             $record = user::find($this->selected_id);
