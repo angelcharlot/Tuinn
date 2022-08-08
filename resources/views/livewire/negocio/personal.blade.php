@@ -1,94 +1,83 @@
+<div class="h-screen  m-10 p-5 rounded-sm border-gray-300 shadow-2xl bg-cool-gray-50">
 
-<div class="m-10 p-5 rounded-sm border-gray-300 shadow-2xl bg-gray-100">
-<div class="w-full h-16 bg-blue-200 grid justify-items-center  my-5 shadow-lg rounded text-gray-500 text-2xl pt-3"><span class="">gestion de usuario</span> </div>
-{{-- formulario --}}
-  @if($updateMode)
+        <h1 class="inline-block mb-5 text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight ">gestion de usuario</h1>
+
+    {{-- formulario --}}
+    @if ($updateMode)
         @include('livewire.negocio.update')
     @else
         @include('livewire.negocio.create')
     @endif
-{{-- tabla --}}
+    {{-- tabla --}}
+
+    <h1 class="inline-block text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight ">Personal</h1>
+    <table class="border-collapse table-auto  w-full text-xs md:text-sm ">
+        <thead>
+
+            <tr class="h-4 md:h-16 bg-gradient-to-b from-gray-50 to-gray-200">
+                <th class="  font-medium  p-2 md:p-4 pr-8 pt-0 pb-3 text-slate-400 text-left truncate">#</th>
+                <th class="  font-medium  p-2 md:p-4 pr-8 pt-0 pb-3 text-slate-400 text-left truncate">Name</th>
+                <th class="  font-medium  p-2 md:p-4 pr-8 pt-0 pb-3 text-slate-400 text-left hidden md:table-cell truncate">Email</th>
+                <th class="  font-medium  p-2 md:p-4 pr-8 pt-0 pb-3 text-slate-400 text-left hidden md:table-cell truncate">rol</th>
+                <th class="  font-medium  p-2 md:p-4 pr-8 pt-0 pb-3 text-slate-400 text-left hidden md:table-cell truncate" width="150px">
+                    Acciones</th>
+            </tr>
+
+        </thead>
 
 
-<table class="w-full flex flex-row flex-no-wrap sm:bg-white rounded-lg overflow-hidden sm:shadow-lg my-5">
+        @forelse ($usuarios as $usuario)
+            <tbody class="bg-white border-b-2 border-slate-100">
+                <tr>
+                    <td class=" border-slate-100  p-2 md:p-4 pl-8 text-slate-500 truncate">{{ $usuario->id }}</td>
+                    <td class=" border-slate-100  p-2 md:p-4 pl-8 text-slate-500 truncate">{{ $usuario->name }}</td>
+                    <td class=" border-slate-100 hidden md:table-cell  p-2 md:p-4 pl-8 text-slate-500 truncate">{{ $usuario->email }}</td>
 
-  <thead class="text-white">
-    @for ($i = 0; $i < count($usuarios) ; $i++)
-
-    <tr class="bg-teal-400 flex flex-col flex-no wrap sm:table-row rounded-l-lg sm:rounded-none mb-2 sm:mb-0">
-        <th class="p-3 text-left">#</th>
-        <th class="p-3 text-left">Name</th>
-        <th class="p-3 text-left">Email</th>
-        <th class="p-3 text-left">rol</th>
-        <th class="p-3 text-left" width="150px">Acciones</th>
-    </tr>
-
-    @endfor
-</thead> 
-
-            <tbody class="flex-1 sm:flex-none">
-                 @forelse ($usuarios as $usuario) 
-                <tr class="flex flex-col flex-no wrap sm:table-row mb-2 sm:mb-0">
-                    <td class="border-grey-light border hover:bg-gray-100 p-3">{{ $usuario->id }}</td>
-                    <td class="border-grey-light border hover:bg-gray-100 p-3 truncate">{{ $usuario->name }}</td>
-                     <td class="border-grey-light border hover:bg-gray-100 p-3 truncate">{{ $usuario->email }}</td>
-                    
-                     <td class="border-grey-light border hover:bg-gray-100 p-3 truncate">
-                        @if(isset($usuario->getRoleNames()[0]))
-                        {{ $usuario->getRoleNames()[0] }}
+                    <td class="hidden md:table-cell border-slate-100  p-2 md:p-4 pl-8 text-slate-500 truncate">
+                        @if (isset($usuario->getRoleNames()[0]))
+                            {{ $usuario->getRoleNames()[0] }}
                         @endif
                     </td>
 
-                    <td class="border-grey-light border hover:bg-gray-100 p-3 text-red-400 hover:text-red-600 hover:font-medium cursor-pointer">
+                    <td class=" border-slate-100  hidden md:table-cell p-2 md:p-4 pl-8 text-slate-500 truncate">
 
-                        <button wire:click="edit({{ $usuario->id }})" class="px-2  bg-blue-200 text-blue-500 hover:bg-blue-500 hover:text-white rounded">Editar</button>
-                        <button wire:click="destroy({{ $usuario->id }})" class="px-2  bg-red-200 text-red-500 hover:bg-red-500 hover:text-white rounded">Borrar</button>
+                        <button wire:click="edit({{ $usuario->id }})"
+                            class="px-2  bg-blue-200 text-blue-500 hover:bg-blue-500 hover:text-white rounded">Editar</button>
+                        <button wire:click="destroy({{ $usuario->id }})"
+                            class="px-2  bg-red-200 text-red-500 hover:bg-red-500 hover:text-white rounded">Borrar</button>
 
 
                     </td>
                 </tr>
-                @empty
+                <tr class="visible md:hidden ">
+                    <td class=" border-slate-100  p-2 md:p-4 text-slate-500" colspan="2">Email: {{ $usuario->email }}</td>
+                </tr>
+                <tr class="visible md:hidden ">
+                    <td class=" border-slate-100  p-2 md:p-4 text-slate-500" colspan="2">Rol:
+                        @if (isset($usuario->getRoleNames()[0]))
+                        {{ $usuario->getRoleNames()[0] }}
+                    @endif
+                    </td>
+                </tr>
+                <tr class="visible md:hidden ">
+                    <td class=" border-slate-100  p-2 md:p-4 text-slate-500" colspan="2">
+                        <button wire:click="edit({{ $usuario->id }})"
+                            class="px-2  bg-blue-200 text-blue-500 hover:bg-blue-500 hover:text-white rounded">Editar</button>
+                        <button wire:click="destroy({{ $usuario->id }})"
+                            class="px-2  bg-red-200 text-red-500 hover:bg-red-500 hover:text-white rounded">Borrar</button>
+                    </td>
+                </tr>
+
+            </tbody>
+            @empty
                 <div class="p-5 m-2 text-center text-4xl font-serif tracking-wide">
                     <h1> no hay registros</h1>
                 </div>
-               
-                @endforelse 
-            </tbody>
-
-</table>
+        @endforelse
 
 
 
-
-
-
-<style>
-  html,
-  body {
-    height: 100%;
-  }
-
-  @media (min-width: 640px) {
-    table {
-      display: inline-table !important;
-    }
-
-    thead tr:not(:first-child) {
-      display: none;
-    }
-  }
-
-  td:not(:last-child) {
-    border-bottom: 0;
-  }
-
-  th:not(:last-child) {
-    border-bottom: 2px solid rgba(0, 0, 0, .1);
-  }
-</style>
-        </tbody>
-
-</table>
+    </table>
 
 
 
