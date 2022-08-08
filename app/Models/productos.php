@@ -8,4 +8,15 @@ use Illuminate\Database\Eloquent\Model;
 class productos extends Model
 {
     use HasFactory;
+
+    public function usuario()
+    {
+        return $this->belongsTo('App\Models\User','id_usurio');
+    }
+    public function categoria()
+    {
+        return $this->belongsTo('App\Models\categorias','id_categoria');
+    }
+
+
 }

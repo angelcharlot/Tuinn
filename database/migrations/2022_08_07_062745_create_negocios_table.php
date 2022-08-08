@@ -15,13 +15,14 @@ class CreateNegociosTable extends Migration
     {
         Schema::create('negocios', function (Blueprint $table) {
             $table->id();
-            $table->integer('id_user');
+            $table->unsignedBigInteger('id_user');
             $table->string('name',200);
             $table->string('direccion',500);
             $table->text('denominacion_social');
             $table->string('nif',50);
             $table->decimal('iva', 5, 2)->nullable()->default(10.00);
             $table->timestamps();
+            $table->foreign('id_user')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

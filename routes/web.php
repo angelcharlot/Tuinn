@@ -38,10 +38,9 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function(){
     Route::get('/negocio/index', function () {
     return view('negocio/index');
 })->middleware('aut_negocio')->name('negocio.index');
-    Route::get('/producto/index', function () {
-    return view('producto/index');
-})->middleware('aut_negocio')->name('producto.index');
+    Route::get('/productos/index', function () {
+    return view('productos/index');
+})->middleware('aut_negocio')->name('productos.index');
 
 });
 
-    

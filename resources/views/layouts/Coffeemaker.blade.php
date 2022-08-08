@@ -42,7 +42,7 @@
                                 </x-jet-nav-link>
                             </div>
                             <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                                <x-jet-nav-link href="{{ route('producto.index') }}" :active="request()->routeIs('producto.index')">
+                                <x-jet-nav-link href="{{ route('productos.index') }}" :active="request()->routeIs('producto.index')">
                                     Productos
                                 </x-jet-nav-link>
                             </div>
@@ -168,7 +168,7 @@
                         <x-jet-responsive-nav-link href="{{ route('negocio.index') }}" :active="request()->routeIs('negocio.index')">
                             Gestion de personal
                         </x-jet-responsive-nav-link>
-                        <x-jet-responsive-nav-link href="{{ route('producto.index') }}" :active="request()->routeIs('producto.index')">
+                        <x-jet-responsive-nav-link href="{{ route('productos.index') }}" :active="request()->routeIs('producto.index')">
                             Productos
                         </x-jet-responsive-nav-link>
                     @endif

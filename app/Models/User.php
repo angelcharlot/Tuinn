@@ -47,10 +47,20 @@ class User extends Authenticatable
      *
      * @var array
      */
+    //relaciones
     public function personal()
     {
         return $this->hasMany('App\Models\User','fk_user');
     }
+    public function productos()
+    {
+        return $this->hasMany('App\Models\productos','id_usuario');
+    }
+    public function negocio() {
+        return $this->hasOne('App\Models\negocio','id_user');
+      }
+
+
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
