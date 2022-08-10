@@ -7,8 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class productos extends Model
 {
-    use HasFactory;
 
+    use HasFactory;
+    protected $fillable = ['img'];
     public function usuario()
     {
         return $this->belongsTo('App\Models\User','id_usurio');

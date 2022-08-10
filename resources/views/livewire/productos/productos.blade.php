@@ -15,6 +15,9 @@
             <thead>
                 <tr class="h-4 md:h-16 bg-gradient-to-b from-gray-50 to-gray-200">
                     <td class="  font-medium  p-2 md:p-4 pl-8 pt-0 pb-3 text-slate-400  text-left truncate">
+                        img
+                    </td>
+                    <td class="  font-medium  p-2 md:p-4 pl-8 pt-0 pb-3 text-slate-400  text-left truncate">
                         id
                     </td>
                     <td
@@ -45,6 +48,10 @@
             @foreach ($user->productos as $producto)
                 <tbody class="bg-white border-b-2 border-slate-100">
                     <tr>
+                        <td class=" border-slate-100  p-2 md:p-4 pl-8 text-slate-500 truncate">
+                            <img class="h-16 mx-auto w-16 object-cover rounded-lg border border-gray-200"
+                            src="{{ asset($producto->img) }}" alt="Current profile photo" />
+                        </td>
                         <td class=" border-slate-100  p-2 md:p-4 pl-8 text-slate-500 truncate">
                             {{ $producto->id }}
                         </td>
@@ -82,11 +89,11 @@
                     </tr>
                     <tr class="visible md:hidden ">
                         <td class=" border-slate-100  p-2 md:p-4 text-slate-500" colspan="4">
-{{--                            <button wire:click="edit({{ $producto->id }})"
+                            <button wire:click="edit({{ $producto->id }})"
                                 class="px-2  bg-blue-200 text-blue-500 hover:bg-blue-500 hover:text-white rounded">Editar</button>
                             <button wire:click="destroy({{ $producto->id }})"
                                 class="px-2  bg-red-200 text-red-500 hover:bg-red-500 hover:text-white rounded">Borrar</button>
- --}}
+
 
                         </td>
                     </tr>
