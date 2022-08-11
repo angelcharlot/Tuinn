@@ -62,7 +62,7 @@
                             {{ $producto->precio_venta }}
                         </td>
                         <td class=" border-slate-100  p-2 md:p-4 pr-8 text-slate-500 truncate">
-                            {{ $producto->precio_venta }}
+                            {{ $producto->precio_compra }}
                         </td>
                         <td class=" border-slate-100  p-2 md:p-4 pr-8 text-slate-500 truncate">
                             {{ $producto->categoria->name }}
@@ -73,7 +73,9 @@
                         <td class=" hidden md:table-cell border-slate-100  p-2 md:p-4 pr-8 text-slate-500 truncate">
                             <button wire:click="edit({{ $producto->id }})"
                                 class="px-2  bg-blue-200 text-blue-500 hover:bg-blue-500 hover:text-white rounded">Editar</button>
-                            <button wire:click="destroy({{ $producto->id }})"
+                                <button wire:click="copiar({{ $producto->id }})"
+                                    class="px-2 bg-green-200 text-green-500 hover:bg-green-500 hover:text-white rounded">copiar</button>
+                                <button wire:click="destroy({{ $producto->id }})"
                                 class="px-2  bg-red-200 text-red-500 hover:bg-red-500 hover:text-white rounded">Borrar</button>
                         </td>
 
@@ -91,9 +93,10 @@
                         <td class=" border-slate-100  p-2 md:p-4 text-slate-500" colspan="4">
                             <button wire:click="edit({{ $producto->id }})"
                                 class="px-2  bg-blue-200 text-blue-500 hover:bg-blue-500 hover:text-white rounded">Editar</button>
+                            <button wire:click="copiar({{ $producto->id }})"
+                                class="px-2  bg-red-200 text-red-500 hover:bg-red-500 hover:text-white rounded">copiar</button>
                             <button wire:click="destroy({{ $producto->id }})"
-                                class="px-2  bg-red-200 text-red-500 hover:bg-red-500 hover:text-white rounded">Borrar</button>
-
+                                    class="px-2  bg-red-200 text-red-500 hover:bg-red-500 hover:text-white rounded">Borrar</button>
 
                         </td>
                     </tr>

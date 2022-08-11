@@ -63,17 +63,20 @@ class Productos extends Component
             }
             $url=str_replace('storage','public',$record->img);
             Storage::disk('local')->delete($url);
-            $record->update([
-                'img' => $imagen,
-                'name' => $this->name,
-                'descrip' => $this->descrip,
-                'p_compra' => $this->p_compra,
-                'precio_venta' => $this->p_venta,
-                'peso' => $this->peso,
-                'unidad_medida' => $this->unidad_medida,
-                'volumen' => $this->volumen,
-                'id_categoria' => $this->categorias,
-            ]);
+
+
+
+            $record->img = $imagen;
+            $record->name = $this->name;
+            $record->descrip = $this->descrip;
+            $record->precio_compra = $this->p_compra;
+            $record->precio_venta = $this->p_venta;
+            $record->peso = $this->peso;
+            $record->unidad_medida = $this->unidad_medida;
+            $record->volumen = $this->volumen;
+            $record->id_categoria = $this->categorias;
+
+            $record->update();
 
             $this->resetInput();
             $this->updateMode = false;
@@ -103,6 +106,7 @@ class Productos extends Component
     }
     public function edit($id)
     {
+
         $change = producto::findOrFail($id);
         $this->selected_id = $id;
         $this->updateMode = true;
@@ -113,6 +117,22 @@ class Productos extends Component
         $this->peso = $change->peso;
         $this->unidad_medida = $change->unidad_medida;
         $this->volumen = $change->volumen;
+        $this->categorias=$change->id_categoria;
+    }
+        public function copiar($id)
+    {
+
+        $change = producto::findOrFail($id);
+        $this->selected_id = $id;
+
+        $this->name = $change->name;
+        $this->descrip = $change->descrip;
+        $this->p_compra = $change->precio_compra;
+        $this->p_venta = $change->precio_venta;
+        $this->peso = $change->peso;
+        $this->unidad_medida = $change->unidad_medida;
+        $this->volumen = $change->volumen;
+        $this->categorias=$change->id_categoria;
     }
 
     public function changeEvent($value)
@@ -122,5 +142,13 @@ class Productos extends Component
     private function resetInput()
     {
         $this->photo = null;
+        $this->name = null;
+        $this->descrip = null;
+        $this->p_compra = null;
+        $this->p_venta = null;
+        $this->peso = null;
+        $this->unidad_medida = null;
+        $this->volumen = null;
+        $this->categorias=null;
     }
 }

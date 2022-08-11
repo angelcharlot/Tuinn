@@ -3,8 +3,6 @@
     overflow: hidden;
 
   }
-
-
   .subir_foto input[type=file] {
     font-size: 100px;
     position: absolute;
@@ -12,3 +10,4 @@
     top: 0;
     opacity: 0;
   }
+

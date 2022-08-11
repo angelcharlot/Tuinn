@@ -1,6 +1,15 @@
 <h1 class="inline-block text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight ">
     Registrar producto</h1>
 
+<div wire:loading wire:target="photo" class="fixed z-40 w-full h-full top-0 left-0 bg-gray-500 bg-opacity-25">
+    <div class="w-ful h-full ">
+        <div class="flex justify-center h-full">
+
+            <div class="w-6 h-6 my-auto animate-spin bg-gradient-to-r from-blue-900 rounded-full to-blue-500"></div>
+
+        </div>
+    </div>
+</div>
 <form wire:submit.prevent="store()">
     <div
         class="w-full mt-4 grid
@@ -117,7 +126,7 @@
             <div class="w-auto pl-3 text-center align-middle">
                 <div class="pt-5">
                     <button type="submit"
-                        class="px-3 py-2 bg-purple-200 text-purple-500 hover:bg-purple-500 hover:text-purple-100 rounded">
+                        class="px-3 py-2 z-10 bg-indigo-500 text-white hover:bg-indigo-400 hover:shadow-lg hover:text-gray-100 rounded">
                         guardar producto</button>
 
                 </div>
@@ -125,8 +134,11 @@
 
         </div>
 
-    </div>
 
+    </div>
+    <div>
+
+    </div>
 </form>
 
 

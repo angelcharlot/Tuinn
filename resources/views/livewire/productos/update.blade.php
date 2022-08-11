@@ -1,6 +1,14 @@
 <h1 class="inline-block text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight ">
     Actualizar producto</h1>
+    <div wire:loading wire:target="photo" class="fixed z-40 w-full h-full top-0 left-0 bg-gray-500 bg-opacity-25">
+        <div class="w-ful h-full ">
+            <div class="flex justify-center h-full ">
 
+                <div class="w-6 h-6 my-auto animate-spin bg-gradient-to-r from-blue-900 rounded-full to-blue-500"></div>
+
+            </div>
+        </div>
+    </div>
 <form wire:submit.prevent="update()">
     <div
         class="w-full mt-4 grid
@@ -117,7 +125,6 @@
             <div class="w-auto pl-3 text-center align-middle">
                 <div class="pt-5">
                     <button  class="px-3 py-2 bg-orange-200 text-orange-500 hover:bg-orange-500 hover:text-orange-100 rounded">Actualizar contacto</button>
-
                 </div>
             </div>
 
