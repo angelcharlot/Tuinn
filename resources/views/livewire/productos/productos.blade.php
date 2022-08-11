@@ -1,4 +1,4 @@
-<div class=" h-screen mx-auto p-10 w-11/12 bg-cool-gray-50 shadow-lg my-5  ">
+<div class=" min-h-screen mx-auto p-10 w-11/12 bg-cool-gray-50 shadow-lg my-5  ">
     {{-- formularios --}}
 
     @if ($updateMode)

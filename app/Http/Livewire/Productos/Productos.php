@@ -28,7 +28,7 @@ class Productos extends Component
         'p_venta' => 'required|Numeric',
         'p_compra' => 'Numeric',
         'volumen' => 'Numeric',
-        'unidad_medida' => 'Numeric',
+        'unidad_medida' => 'required',
         'peso' => 'Numeric',
         'categorias' => 'required',
     ];
@@ -44,11 +44,8 @@ class Productos extends Component
     {
         if ($id) {
             $producto_delete = producto::find($id);
-
             $url=str_replace('storage','public',$producto_delete->img);
-            $this->name=$url;
             Storage::disk('local')->delete($url);
-            storage::delete($url);
             $producto_delete->delete();
             $this->photo=NULL;
         }
@@ -64,6 +61,8 @@ class Productos extends Component
             } else {
                 $imagen = 'images/icons8-cubiertos-100.png';
             }
+            $url=str_replace('storage','public',$record->img);
+            Storage::disk('local')->delete($url);
             $record->update([
                 'img' => $imagen,
                 'name' => $this->name,

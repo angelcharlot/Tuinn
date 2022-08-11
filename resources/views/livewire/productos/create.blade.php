@@ -55,7 +55,7 @@
             @enderror
         </div>
         <div class="text-left">
-            <label class="text-xs text-gray-700 mx-1 " for="">unidad de medida (mililitro(Ml))</label>
+            <label class="text-xs text-gray-700 mx-1 " for="">unidad de medida (ml,L,etc)</label>
             <input type="text" placeholder="200" id="unidad_medida" name="unidad_medida" wire:model="unidad_medida"
                 class="block  w-11/12 mx-1 my-1 bg-gray-50 rounded text-sm border borde-gray-400 focus:outline-none focus:shadow-md shadow-lg h-10 px-2 focus:bg-gray-100 focus:border-gray-600">
             @error('unidad_medida')
