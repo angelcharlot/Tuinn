@@ -15,6 +15,9 @@ class Productos extends Component
     public $user, $photo, $name, $descrip, $p_compra, $p_venta, $peso, $unidad_medida, $volumen, $categorias, $allcategorias, $selected_id;
     public $updateMode = false;
 
+    protected $listeners = ['destroy'];
+
+
     protected $messages = [
         'name.required' => 'campo obligatorio',
         'descrip.required' => 'campo obligatorio',
@@ -33,11 +36,18 @@ class Productos extends Component
         'categorias' => 'required',
     ];
 
+    public function cancelar(){
+        $this->resetInput();
+        $this->updateMode = false;
+
+
+    }
+
+
     public function render()
     {
         $this->user = auth()->user();
         $this->allcategorias = categorias::all();
-
         return view('livewire.productos.productos');
     }
     public function destroy($id)
@@ -80,6 +90,7 @@ class Productos extends Component
 
             $this->resetInput();
             $this->updateMode = false;
+            $this->emit('alert_update');
         }
     }
     public function store()
@@ -103,6 +114,10 @@ class Productos extends Component
         $newproduct->volumen = $this->volumen;
         $newproduct->id_categoria = $this->categorias;
         $newproduct->save();
+        $this->emit('alert_guardado');
+        $this->emit('enable_copy');
+        $this->resetInput();
+
     }
     public function edit($id)
     {
@@ -118,6 +133,7 @@ class Productos extends Component
         $this->unidad_medida = $change->unidad_medida;
         $this->volumen = $change->volumen;
         $this->categorias=$change->id_categoria;
+        $this->emit('bolqueo_copy');
     }
         public function copiar($id)
     {
@@ -133,6 +149,7 @@ class Productos extends Component
         $this->unidad_medida = $change->unidad_medida;
         $this->volumen = $change->volumen;
         $this->categorias=$change->id_categoria;
+        $this->emit('alert_copy');
     }
 
     public function changeEvent($value)
@@ -150,5 +167,6 @@ class Productos extends Component
         $this->unidad_medida = null;
         $this->volumen = null;
         $this->categorias=null;
+        $this->emit('enable_copy');
     }
 }

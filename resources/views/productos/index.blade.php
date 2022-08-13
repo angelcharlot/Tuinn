@@ -4,11 +4,5 @@
 @endsection
 @section('body')
         		@livewire('productos.productos')
-
-
 @endsection
-@section('js')
-<script type="text/javascript">
-    Swal.fire('Any fool can use a computer');
-</script>
-@endsection
+

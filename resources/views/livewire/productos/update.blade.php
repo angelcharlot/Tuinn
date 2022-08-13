@@ -1,3 +1,4 @@
+<div>
 <h1 class="inline-block text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight ">
     Actualizar producto</h1>
     <div wire:loading wire:target="photo" class="fixed z-40 w-full h-full top-0 left-0 bg-gray-500 bg-opacity-25">
@@ -125,6 +126,7 @@
             <div class="w-auto pl-3 text-center align-middle">
                 <div class="pt-5">
                     <button  class="px-3 py-2 bg-orange-200 text-orange-500 hover:bg-orange-500 hover:text-orange-100 rounded">Actualizar contacto</button>
+                    <a wire:click="cancelar()"  class="px-3 py-2 bg-orange-200 text-orange-500 hover:bg-orange-500 hover:text-orange-100 rounded">cancelar</a>
                 </div>
             </div>
 
@@ -133,3 +135,4 @@
     </div>
 
 </form>
+</div>

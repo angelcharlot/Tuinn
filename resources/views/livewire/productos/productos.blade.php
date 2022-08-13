@@ -50,7 +50,7 @@
                     <tr>
                         <td class=" border-slate-100  p-2 md:p-4 pl-8 text-slate-500 truncate">
                             <img class="h-16 mx-auto w-16 object-cover rounded-lg border border-gray-200"
-                            src="{{ asset($producto->img) }}" alt="Current profile photo" />
+                                src="{{ asset($producto->img) }}" alt="Current profile photo" />
                         </td>
                         <td class=" border-slate-100  p-2 md:p-4 pl-8 text-slate-500 truncate">
                             {{ $producto->id }}
@@ -73,10 +73,11 @@
                         <td class=" hidden md:table-cell border-slate-100  p-2 md:p-4 pr-8 text-slate-500 truncate">
                             <button wire:click="edit({{ $producto->id }})"
                                 class="px-2  bg-blue-200 text-blue-500 hover:bg-blue-500 hover:text-white rounded">Editar</button>
-                                <button wire:click="copiar({{ $producto->id }})"
-                                    class="px-2 bg-green-200 text-green-500 hover:bg-green-500 hover:text-white rounded">copiar</button>
-                                <button wire:click="destroy({{ $producto->id }})"
-                                class="px-2  bg-red-200 text-red-500 hover:bg-red-500 hover:text-white rounded">Borrar</button>
+                            <button wire:click="copiar({{ $producto->id }})"
+                                class="px-2 copiar disabled:bg-blue-800 bg-green-200 text-green-500 hover:bg-green-500 hover:text-white rounded">copiar</button>
+
+                                <button wire:click="$emit('borrar',{{ $producto->id }})"
+                                class="px-2   bg-red-200 text-red-500 hover:bg-red-500 hover:text-white rounded">Borrar</button>
                         </td>
 
                     </tr>
@@ -94,9 +95,10 @@
                             <button wire:click="edit({{ $producto->id }})"
                                 class="px-2  bg-blue-200 text-blue-500 hover:bg-blue-500 hover:text-white rounded">Editar</button>
                             <button wire:click="copiar({{ $producto->id }})"
-                                class="px-2  bg-red-200 text-red-500 hover:bg-red-500 hover:text-white rounded">copiar</button>
-                            <button wire:click="destroy({{ $producto->id }})"
-                                    class="px-2  bg-red-200 text-red-500 hover:bg-red-500 hover:text-white rounded">Borrar</button>
+                                class="px-2 copiar disabled:opacity-75  bg-red-200 text-red-500 hover:bg-red-500 hover:text-white rounded">copiar</button>
+
+                                <button wire:click="$emit('borrar',{{ $producto->id }})"
+                                class="px-2    bg-red-200 text-red-500 hover:bg-red-500 hover:text-white rounded">Borrar</button>
 
                         </td>
                     </tr>
@@ -105,4 +107,9 @@
 
         </table>
     </div>
+    @push('js')
+    <script src="{{asset('js/producto/producto.js')}}"></script>
+    @endpush
+
+
 </div>
