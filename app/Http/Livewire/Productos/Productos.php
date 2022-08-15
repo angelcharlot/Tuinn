@@ -136,6 +136,8 @@ class Productos extends Component
         $this->unidad_medida = $change->unidad_medida;
         $this->volumen = $change->volumen;
         $this->categorias=$change->id_categoria;
+
+
         $this->emit('bolqueo_copy');
     }
     public function copiar($id)

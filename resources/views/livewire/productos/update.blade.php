@@ -11,15 +11,7 @@
         </div>
     </div>
 <form wire:submit.prevent="update()">
-    <div
-        class="w-full mt-4 grid
-    border
-    border-gray-400
-    p-3
-    grid-cols-1
-    md:grid-cols-3
-    rounded
-    ">
+    <div class="w-full border border-gray-400 p-3 mt-4 rounded grid grid-cols-1  md:grid-cols-3 ">
 
         <div class="text-left">
             <label class="text-xs text-gray-700 mx-1 " for="">nombre</label>
@@ -29,7 +21,7 @@
                 <span class="text-red-500 text-xs italic">{{ $message }}</span>
             @enderror
         </div>
-        <div class="text-left col-span-2">
+        <div class="text-left md:col-span-2">
             <label class="text-xs text-gray-700 mx-1 " for="">Descripcion</label>
             <input type="text" wire:model="descrip"
                 placeholder="contenido alcohólico de 5,9% en volumen. De color dorado intenso y aroma afrutado, capaz de transformar los momentos cotidianos en instantes cruciales. Con un amargor moderado y aromático, coronada por una espuma de color blanco roto."
@@ -91,9 +83,9 @@
             </select>
             @error('categorias')
             <span class="text-red-500 text-xs italic">{{ $message }}</span>
-        @enderror
+            @enderror
         </div>
-        <div class="text-left col-span-2">
+        <div class="text-left md:col-span-2">
             <label class="text-xs text-gray-700 mx-1 " for="">imagen</label>
             <div class="subir_foto">
                 <button
@@ -105,9 +97,6 @@
                 @enderror
             </div>
         </div>
-
-
-
         <div class="md:m-2 m-1 ">
             @if ($photo)
                 <img class="h-16 mx-auto w-16 object-cover rounded-lg border border-gray-200"
@@ -118,15 +107,11 @@
             @endif
 
         </div>
-
-
-
-
-        <div class="text-left col-span-3">
+        <div class="text-left md:col-span-3">
             <div class="w-auto pl-3 text-center align-middle">
                 <div class="pt-5">
-                    <button  class="px-3 py-2 bg-orange-200 text-orange-500 hover:bg-orange-500 hover:text-orange-100 rounded">Actualizar contacto</button>
-                    <a wire:click="cancelar()"  class="px-3 py-2 bg-orange-200 text-orange-500 hover:bg-orange-500 hover:text-orange-100 rounded">cancelar</a>
+                    <button  class="px-3 py-2 bg-indigo-200 text-indigo-500 hover:bg-indigo-500 hover:text-indigo-100 rounded">Actualizar producto</button>
+                    <a wire:click="cancelar()"  class="px-3 py-2 bg-red-200 text-red-500 hover:bg-red-500 hover:text-indigo-100 rounded">cancelar</a>
                 </div>
             </div>
 

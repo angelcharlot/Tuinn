@@ -11,14 +11,7 @@
         </div>
     </div>
     <form wire:submit.prevent="store()">
-        <div class="w-full border border-gray-400 p-3 mt-4 rounded
-    grid
-    grid-cols-1
-    md:grid-cols-3
-
-
-
-    ">
+        <div class="w-full border border-gray-400 p-3 mt-4 rounded grid grid-cols-1  md:grid-cols-3 ">
 
             <div class="text-left">
                 <label class="text-xs text-gray-700 mx-1 " for="">nombre</label>
@@ -106,9 +99,6 @@
                     @enderror
                 </div>
             </div>
-
-
-
             <div class="md:m-2 m-1 ">
                 @if ($photo)
                     <img class="h-16 mx-auto w-16 object-cover rounded-lg border border-gray-200"
@@ -119,15 +109,11 @@
                 @endif
 
             </div>
-
-
-
-
-            <div class="text-left col-span-3">
+            <div class="text-left md:col-span-3">
                 <div class="w-auto pl-3 text-center align-middle">
                     <div class="pt-5">
                         <button type="submit"
-                            class="px-3 py-2 z-10 bg-indigo-500 text-white hover:bg-indigo-400 hover:shadow-lg hover:text-gray-100 rounded">
+                            class="px-3 py-2 z-10 bg-indigo-200 text-indigo-500 hover:bg-indigo-500 hover:shadow-lg hover:text-gray-100 rounded">
                             guardar producto</button>
 
                     </div>
@@ -135,9 +121,6 @@
 
             </div>
 
-
-        </div>
-        <div>
 
         </div>
     </form>

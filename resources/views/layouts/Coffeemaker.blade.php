@@ -254,7 +254,7 @@
             </div>
         </nav>
     </header>
-    <div class="containner">
+    <div class="containner mx-auto">
         @yield('body')
     </div>
 

@@ -2,25 +2,34 @@
 
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-2 flex flex-wrap justify-between items-center mb-5">
         {{-- nombre --}}
-        <div class="w-auto pr-2">
-            <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="name">Nombre</label>
-            <input class="appearance-none  w-full bg-gray-100 text-black-700 border {{ $errors->has('name') ? ' border-red-500' : 'border-gray-200' }} rounded py-3 px-4  focus:bg-blue" id="name" wire:model="name" type="text" placeholder="Nombre completo...">
+        <div class="w-auto px-3">
+            <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                for="name">Nombre</label>
+            <input
+                class="block  w-11/12 mx-1 my-1 bg-gray-50 rounded text-sm border borde-gray-400 focus:outline-none focus:shadow-md shadow-lg h-10 px-2 focus:bg-gray-100 focus:border-gray-600"
+                id="name" wire:model="name" type="text" placeholder="Nombre completo...">
             @error('name')
                 <span class="text-red-500 text-xs italic">{{ $message }}</span>
             @enderror
         </div>
-         {{-- email --}}
+        {{-- email --}}
         <div class="w-auto px-3">
-            <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="email">Email</label>
-            <input class="appearance-none  w-full bg-gray-100 text-black-700 border {{ $errors->has('name') ? ' border-red-500' : 'border-gray-200' }} rounded py-3 px-4  focus:bg-blue" id="email" wire:model="email" type="text" placeholder="Correo electrónico...">
+            <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                for="email">Email</label>
+            <input
+                class="block  w-11/12 mx-1 my-1 bg-gray-50 rounded text-sm border borde-gray-400 focus:outline-none focus:shadow-md shadow-lg h-10 px-2 focus:bg-gray-100 focus:border-gray-600"
+                id="email" wire:model="email" type="text" placeholder="Correo electrónico...">
             @error('email')
                 <span class="text-red-500 text-xs italic py-1">{{ $message }}</span>
             @enderror
         </div>
-         {{-- passwork --}}
+        {{-- passwork --}}
         <div class="w-auto px-3">
-            <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="email">password</label>
-            <input class="appearance-none  w-full bg-gray-100 text-black-700 border {{ $errors->has('name') ? ' border-red-500' : 'border-gray-200' }} rounded py-3 px-4  focus:bg-blue" id="password" wire:model="password" type="text" placeholder="password">
+            <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                for="email">password</label>
+            <input
+                class="block  w-11/12 mx-1 my-1 bg-gray-50 rounded text-sm border borde-gray-400 focus:outline-none focus:shadow-md shadow-lg h-10 px-2 focus:bg-gray-100 focus:border-gray-600"
+                id="password" wire:model="password" type="text" placeholder="password">
             @error('password')
                 <span class="text-red-500 text-xs italic py-1">{{ $message }}</span>
             @enderror
@@ -28,9 +37,12 @@
         {{-- rol --}}
         <div class="w-auto px-3" wire:ignore>
             <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="email">rol</label>
-            <select class="appearance-none  w-full bg-gray-100 text-black-700 border {{ $errors->has('name') ? ' border-red-500' : 'border-gray-200' }} rounded py-3 px-4  focus:bg-blue" id="rol" wire:model="rol" wire:click="changeEvent($event.target.value)" type="text" placeholder="rol ...">
+            <select
+                class="block  w-11/12 mx-1 my-1 bg-gray-50 rounded text-sm border borde-gray-400 focus:outline-none focus:shadow-md shadow-lg h-10 px-2 focus:bg-gray-100 focus:border-gray-600"
+                id="rol" wire:model="rol" wire:click="changeEvent($event.target.value)" type="text"
+                placeholder="rol ...">
                 <option value="" selected="true">seleccione </option>
-                <option value="camarero" >camarero</option>
+                <option value="camarero">camarero</option>
                 <option value="cocinero">cocinero</option>
             </select>
             @error('rol')
@@ -38,22 +50,20 @@
             @enderror
         </div>
     </div>
-            <div class="w-auto pl-3 text-center align-middle">
-            <div class="pt-5">
-                <button wire:click="store()" class="px-3 py-2 bg-purple-200 text-purple-500 hover:bg-purple-500 hover:text-purple-100 rounded">Agregar contacto</button>
-            </div>
+    <div class="w-auto pl-3 text-center align-middle">
+        <div class="pt-5">
+            <button wire:click="store()"
+                class="px-3 py-2 bg-indigo-200 text-indigo-500 hover:bg-indigo-500 hover:text-indigo-100 rounded">Agregar
+                contacto</button>
         </div>
+    </div>
 </div>
 @push('scripts')
+    <script>
+        $(document).ready(function() {
 
-<script>
+            $('.rol').select2();
 
-    $(document).ready(function() {
-
-        $('.rol').select2();
-
-    });
-
-</script>
-
+        });
+    </script>
 @endpush

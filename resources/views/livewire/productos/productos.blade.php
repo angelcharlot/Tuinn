@@ -1,4 +1,4 @@
-<div class=" min-h-screen mx-auto p-10 w-11/12 bg-cool-gray-50 shadow-lg my-5  ">
+<div class=" min-h-screen mx-auto p-10 w-full md:w-11/12 bg-cool-gray-50 shadow-lg my-5  ">
     {{-- formularios --}}
 
     @if ($updateMode)
@@ -10,8 +10,8 @@
 
 
     <div class="shadow-sm overflow-hidden my-8">
-        <h1 class="inline-block text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight ">Productos</h1>
-        <table class="border-collapse table-auto  w-full text-xs md:text-sm ">
+        <h1 class=" inline-block text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight ">Productos</h1>
+        <table class=" mt-10 border-collapse table-auto  w-full text-xs md:text-sm ">
             <thead>
                 <tr class="h-4 md:h-16 bg-gradient-to-b from-gray-50 to-gray-200">
                     <td class="  font-medium  p-2 md:p-4 pl-8 pt-0 pb-3 text-slate-400  text-left truncate">
@@ -21,24 +21,24 @@
                         id
                     </td>
                     <td
-                        class=" hidden md:table-cell font-medium  p-2 md:p-4 pr-8 pt-0 pb-3 text-slate-400 text-left truncate">
+                        class=" hidden md:table-cell font-medium  p-2 md:p-4  pt-0 pb-3 text-slate-400 text-left truncate">
                         nombre
                     </td>
-                    <td class="  font-medium  p-2 md:p-4 pr-8 pt-0 pb-3 text-slate-400 text-left truncate">
+                    <td class="  font-medium  p-2 md:p-4  pt-0 pb-3 text-slate-400 text-left truncate">
                         Venta &euro;
                     </td>
-                    <td class="  font-medium  p-2 md:p-4 pr-8 pt-0 pb-3 text-slate-400 text-left truncate">
+                    <td class="  font-medium  p-2 md:p-4  pt-0 pb-3 text-slate-400 text-left truncate">
                         Compra &euro;
                     </td>
-                    <td class="  font-medium  p-2 md:p-4  pr-8 pt-0 pb-3 text-slate-400 text-left truncate">
+                    <td class="  font-medium  p-2 md:p-4   pt-0 pb-3 text-slate-400 text-left truncate">
                         categoria
                     </td>
                     <td
-                        class=" hidden md:table-cell font-medium  p-2 md:p-4 pr-8 pt-0 pb-3 text-slate-400 text-left truncate">
+                        class=" hidden md:table-cell font-medium  p-2 md:p-4  pt-0 pb-3 text-slate-400 text-left truncate">
                         volumen/und medida
                     </td>
                     <td
-                        class=" hidden md:table-cell font-medium  p-2 md:p-4 pr-8 pt-0 pb-3 text-slate-400 text-left truncate">
+                        class=" hidden md:table-cell font-medium  p-2 md:p-4  pt-0 pb-3 text-slate-400 text-left truncate">
                         Accions
 
                     </td>
@@ -63,21 +63,21 @@
                         <td class=" hidden md:table-cell border-slate-100  p-2 md:p-4 text-slate-500 truncate">
                             {{ $producto->name }}
                         </td>
-                        <td class=" border-slate-100  p-2 md:p-4 pr-8 text-slate-500 truncate">
+                        <td class=" border-slate-100  p-2 md:p-4  text-slate-500 truncate">
                             {{ $producto->precio_venta }}
                         </td>
-                        <td class=" border-slate-100  p-2 md:p-4 pr-8 text-slate-500 truncate">
+                        <td class=" border-slate-100  p-2 md:p-4  text-slate-500 truncate">
                             {{ $producto->precio_compra }}
                         </td>
-                        <td class=" border-slate-100  p-2 md:p-4 pr-8 text-slate-500 truncate">
+                        <td class=" border-slate-100  p-2 md:p-4  text-slate-500 ">
                             {{ $producto->categoria->name }}
                         </td>
-                        <td class=" hidden md:table-cell border-slate-100  p-2 md:p-4 pr-8 text-slate-500 truncate">
+                        <td class=" hidden md:table-cell border-slate-100  p-2 md:p-4  text-slate-500 truncate">
                             {{ $producto->volumen }}/{{ $producto->unidad_medida }}
                         </td>
-                        <td class=" hidden md:table-cell border-slate-100  p-2 md:p-4 pr-8 text-slate-500 truncate">
+                        <td class=" hidden md:table-cell border-slate-100  p-2 md:p-4  text-slate-500 truncate">
                             <button wire:click="edit({{ $producto->id }})"
-                                class="px-2  bg-blue-200 text-blue-500 hover:bg-blue-500 hover:text-white rounded">Editar</button>
+                                class="px-2  bg-indigo-200 text-indigo-500 hover:bg-indigo-500 hover:text-white rounded">Editar</button>
                             <button wire:click="copiar({{ $producto->id }})"
                                 class="px-2 copiar disabled:bg-blue-800 bg-green-200 text-green-500 hover:bg-green-500 hover:text-white rounded">copiar</button>
 
@@ -87,23 +87,23 @@
 
                     </tr>
                     <tr class="visible md:hidden ">
-                        <td class=" border-slate-100  p-2 md:p-4 text-slate-500" colspan="4">Nombre:
+                        <td class=" border-slate-100  p-2 md:p-4 text-slate-500" colspan="5">Nombre:
                             {{ $producto->name }}</td>
                     </tr>
 
                     <tr class="visible md:hidden ">
-                        <td class=" border-slate-100  p-2 md:p-4 text-slate-500" colspan="4">Volumen:
+                        <td class=" border-slate-100  p-2 md:p-4 text-slate-500" colspan="5">Volumen:
                             {{ $producto->volumen }}/{{ $producto->unidad_medida }}</td>
                     </tr>
                     <tr class="visible md:hidden ">
-                        <td class=" border-slate-100  p-2 md:p-4 text-slate-500" colspan="4">
+                        <td class=" border-slate-100  p-2 md:p-4 text-slate-500" colspan="5">
                             <button wire:click="edit({{ $producto->id }})"
-                                class="px-2  bg-blue-200 text-blue-500 hover:bg-blue-500 hover:text-white rounded">Editar</button>
+                                class="px-2  bg-indigo-200 text-indigo-500 hover:bg-indigo-500 hover:text-white rounded">Editar</button>
                             <button wire:click="copiar({{ $producto->id }})"
-                                class="px-2 copiar disabled:opacity-75  bg-red-200 text-red-500 hover:bg-red-500 hover:text-white rounded">copiar</button>
+                                class="px-2 copiar disabled:bg-blue-800 bg-green-200 text-green-500 hover:bg-green-500 hover:text-white rounded">copiar</button>
 
                                 <button wire:click="$emit('borrar',{{ $producto->id }})"
-                                class="px-2    bg-red-200 text-red-500 hover:bg-red-500 hover:text-white rounded">Borrar</button>
+                                class="px-2   bg-red-200 text-red-500 hover:bg-red-500 hover:text-white rounded">Borrar</button>
 
                         </td>
                     </tr>
