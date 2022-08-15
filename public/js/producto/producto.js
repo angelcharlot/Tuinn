@@ -23,7 +23,7 @@ window.onload = function () {
 
     });
     //alerta copi
-    Livewire.on('alert_copy', etc5 => {
+    Livewire.on('subir-scroll', etc5 => {
 
         $('html, body').animate({
 

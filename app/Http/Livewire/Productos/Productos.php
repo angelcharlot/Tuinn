@@ -12,7 +12,7 @@ class Productos extends Component
 {
     use WithFileUploads;
 
-    public $user, $photo, $name, $descrip, $p_compra, $p_venta, $peso, $unidad_medida, $volumen, $categorias, $allcategorias, $selected_id;
+    public $user, $photo, $name, $descrip, $p_compra, $p_venta, $peso, $unidad_medida='Ml', $volumen, $categorias, $allcategorias, $selected_id;
     public $updateMode = false;
 
     protected $listeners = ['destroy'];
@@ -81,7 +81,8 @@ class Productos extends Component
             $record->descrip = $this->descrip;
             $record->precio_compra = $this->p_compra;
             $record->precio_venta = $this->p_venta;
-            $record->peso = $this->peso;
+            $peso = ($this->peso=="") ? NULL : $this->peso;
+            $record->peso = $peso;
             $record->unidad_medida = $this->unidad_medida;
             $record->volumen = $this->volumen;
             $record->id_categoria = $this->categorias;
@@ -109,7 +110,9 @@ class Productos extends Component
         $newproduct->descrip = $this->descrip;
         $newproduct->precio_compra = $this->p_compra;
         $newproduct->precio_venta = $this->p_venta;
-        $newproduct->peso = $this->peso;
+        $peso = ($this->peso=="") ? NULL : $this->peso;
+        $newproduct->peso = $peso;
+
         $newproduct->unidad_medida = $this->unidad_medida;
         $newproduct->volumen = $this->volumen;
         $newproduct->id_categoria = $this->categorias;
@@ -135,7 +138,7 @@ class Productos extends Component
         $this->categorias=$change->id_categoria;
         $this->emit('bolqueo_copy');
     }
-        public function copiar($id)
+    public function copiar($id)
     {
 
         $change = producto::findOrFail($id);
@@ -149,7 +152,7 @@ class Productos extends Component
         $this->unidad_medida = $change->unidad_medida;
         $this->volumen = $change->volumen;
         $this->categorias=$change->id_categoria;
-        $this->emit('alert_copy');
+        $this->emit('subir-scroll');
     }
 
     public function changeEvent($value)

@@ -48,8 +48,13 @@
             @foreach ($user->productos as $producto)
                 <tbody class="bg-white border-b-2 border-slate-100">
                     <tr>
-                        <td class=" border-slate-100  p-2 md:p-4 pl-8 text-slate-500 truncate">
-                            <img class="h-16 mx-auto w-16 object-cover rounded-lg border border-gray-200"
+                        <td class=" border-slate-100
+                        p-0
+                        md:p-4
+                        md:pl-8
+                        pl-2
+                        text-slate-500 truncate">
+                            <img class=" h-24  md:h-16 md:mx-auto w-48 md:w-16 object-cover rounded-lg border border-gray-200"
                                 src="{{ asset($producto->img) }}" alt="Current profile photo" />
                         </td>
                         <td class=" border-slate-100  p-2 md:p-4 pl-8 text-slate-500 truncate">

@@ -15,6 +15,9 @@
     grid
     grid-cols-1
     md:grid-cols-3
+
+
+
     ">
 
             <div class="text-left">
@@ -25,7 +28,7 @@
                     <span class="text-red-500 text-xs italic">{{ $message }}</span>
                 @enderror
             </div>
-            <div class="text-left md:col-span-2">
+            <div class="text-left sm:col-span-1 md:col-span-2">
                 <label class="text-xs text-gray-700 mx-1 " for="">Descripcion</label>
                 <input type="text" wire:model="descrip"
                     placeholder="contenido alcohólico de 5,9% en volumen. De color dorado intenso y aroma afrutado, capaz de transformar los momentos cotidianos en instantes cruciales. Con un amargor moderado y aromático, coronada por una espuma de color blanco roto."
@@ -61,7 +64,7 @@
             </div>
             <div class="text-left">
                 <label class="text-xs text-gray-700 mx-1 " for="">unidad de medida (ml,L,etc)</label>
-                <input type="text" placeholder="200" id="unidad_medida" name="unidad_medida"
+                <input type="text" placeholder="200" value="Ml" id="unidad_medida" name="unidad_medida"
                     wire:model="unidad_medida"
                     class="block  w-11/12 mx-1 my-1 bg-gray-50 rounded text-sm border borde-gray-400 focus:outline-none focus:shadow-md shadow-lg h-10 px-2 focus:bg-gray-100 focus:border-gray-600">
                 @error('unidad_medida')
