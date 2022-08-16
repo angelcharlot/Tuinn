@@ -23,45 +23,35 @@ class Productos extends Component
         'descrip.required' => 'campo obligatorio',
         'p_venta.required' => 'campo obligatorio',
         'numeric' => 'tienen que ser numerico',
-        'required' => 'campo requerido',
-    ];
+        'required' => 'campo requerido',];
     protected $rules = [
         'name' => 'required',
         'descrip' => 'required',
         'p_venta' => 'required|Numeric',
-        'p_compra' => 'Numeric',
-        'volumen' => 'Numeric',
+        'p_compra' => 'Nullable|Numeric',
+        'volumen' => 'Nullable|Numeric',
         'unidad_medida' => 'required',
-        'peso' => 'Numeric',
-        'categorias' => 'required',
-    ];
+        'peso' => 'Nullable|Numeric',
+        'categorias' => 'required',];
 
     public function cancelar(){
         $this->resetInput();
-        $this->updateMode = false;
+        $this->updateMode = false;}
 
 
-    }
-
-
-    public function render()
-    {
+    public function render(){
         $this->user = auth()->user();
         $this->allcategorias = categorias::all();
-        return view('livewire.productos.productos');
-    }
-    public function destroy($id)
-    {
+        return view('livewire.productos.productos');}
+    public function destroy($id) {
         if ($id) {
             $producto_delete = producto::find($id);
             $url=str_replace('storage','public',$producto_delete->img);
             Storage::disk('local')->delete($url);
             $producto_delete->delete();
-            $this->photo=NULL;
-        }
-    }
-    public function update()
-    {
+            $this->photo=NULL; }}
+
+    public function update(){
         $this->validate();
 
         if ($this->selected_id) {
@@ -92,11 +82,12 @@ class Productos extends Component
             $this->resetInput();
             $this->updateMode = false;
             $this->emit('alert_update');
-        }
-    }
+        }}
     public function store()
     {
+
         $this->validate();
+
         if ($this->photo) {
             $imagen = 'storage/' . $this->photo->store('productos', 'public');
         } else {

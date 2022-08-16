@@ -17,7 +17,7 @@
 
 </head>
 
-<body class="">
+<body class="bg-gray-100">
     <header>
         <nav x-data="{ open: false }" class="bg-white border-b border-gray-100">
             <!-- Primary Navigation Menu -->

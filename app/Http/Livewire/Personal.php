@@ -34,7 +34,7 @@ class Personal extends Component
     public function cancelar(){
 
         $this->updateMode = false;
-
+        $this->resetInput();
     }
     public function render()
     {

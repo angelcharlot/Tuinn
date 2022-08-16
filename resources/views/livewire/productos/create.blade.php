@@ -1,5 +1,5 @@
 <div>
-    <h1 class="inline-block text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight ">
+    <h1 class="inline-block text-2xl sm:text-3xl font-extrabold text-gray-500 tracking-tight ">
         Registrar producto</h1>
     <div wire:loading wire:target="photo" class="fixed z-40 w-full h-full top-0 left-0 bg-gray-500 bg-opacity-25">
         <div class="w-ful h-full ">
@@ -16,7 +16,7 @@
         <div class="w-full border border-gray-400 p-3 mt-4 rounded grid grid-cols-1  md:grid-cols-3 ">
 
             <div class="text-left">
-                <label class="text-xs text-gray-700 mx-1 " for="">nombre</label>
+                <label class="text-xs text-gray-500 mx-1 " for="">nombre</label>
                 <input type="text" placeholder="cañan Cruz campo" name="name" id="name" wire:model="name"
                     class="block  w-11/12 mx-1 my-1 bg-gray-50 rounded text-sm border borde-gray-400 focus:outline-none focus:shadow-md shadow-lg h-10 px-2 focus:bg-gray-100 focus:border-gray-600">
                 @error('name')
@@ -24,7 +24,7 @@
                 @enderror
             </div>
             <div class="text-left sm:col-span-1 md:col-span-2">
-                <label class="text-xs text-gray-700 mx-1 " for="">Descripcion</label>
+                <label class="text-xs text-gray-500 mx-1 " for="">Descripcion</label>
                 <input type="text" wire:model="descrip"
                     placeholder="contenido alcohólico de 5,9% en volumen. De color dorado intenso y aroma afrutado, capaz de transformar los momentos cotidianos en instantes cruciales. Con un amargor moderado y aromático, coronada por una espuma de color blanco roto."
                     name="descrip" id="descrip"
@@ -34,7 +34,7 @@
                 @enderror
             </div>
             <div class="text-left">
-                <label class="text-xs text-gray-700 mx-1 " for="">precio de compra</label>
+                <label class="text-xs text-gray-500 mx-1 " for="">precio de compra</label>
                 <input type="num" placeholder="1.00" name="p_compra" id="p_compra" wire:model="p_compra"
                     class="block  w-11/12 mx-1 my-1 bg-gray-50 rounded text-sm border borde-gray-400 focus:outline-none focus:shadow-md shadow-lg h-10 px-2 focus:bg-gray-100 focus:border-gray-600">
                 @error('p_compra')
@@ -42,7 +42,7 @@
                 @enderror
             </div>
             <div class="text-left">
-                <label class="text-xs text-gray-700 mx-1 " for="">precio de venta</label>
+                <label class="text-xs text-gray-500 mx-1 " for="">precio de venta</label>
                 <input type="text" placeholder="1.20" name="p_venta" id="p-venta" wire:model="p_venta"
                     class="block  w-11/12 mx-1 my-1 bg-gray-50 rounded text-sm border borde-gray-400 focus:outline-none focus:shadow-md shadow-lg h-10 px-2 focus:bg-gray-100 focus:border-gray-600">
                 @error('p_venta')
@@ -50,7 +50,7 @@
                 @enderror
             </div>
             <div class="text-left">
-                <label class="text-xs text-gray-700 mx-1 " for="">peso(gramos(g))</label>
+                <label class="text-xs text-gray-500 mx-1 " for="">peso(gramos(g))</label>
                 <input type="text" placeholder="100" id="peso" name="peso" wire:model="peso"
                     class="block  w-11/12 mx-1 my-1 bg-gray-50 rounded text-sm border borde-gray-400 focus:outline-none focus:shadow-md shadow-lg h-10 px-2 focus:bg-gray-100 focus:border-gray-600">
                 @error('peso')
@@ -58,7 +58,7 @@
                 @enderror
             </div>
             <div class="text-left">
-                <label class="text-xs text-gray-700 mx-1 " for="">unidad de medida (ml,L,etc)</label>
+                <label class="text-xs text-gray-500 mx-1 " for="">unidad de medida (ml,L,etc)</label>
                 <input type="text" placeholder="200" value="Ml" id="unidad_medida" name="unidad_medida"
                     wire:model="unidad_medida"
                     class="block  w-11/12 mx-1 my-1 bg-gray-50 rounded text-sm border borde-gray-400 focus:outline-none focus:shadow-md shadow-lg h-10 px-2 focus:bg-gray-100 focus:border-gray-600">
@@ -67,7 +67,7 @@
                 @enderror
             </div>
             <div class="text-left">
-                <label class="text-xs text-gray-700 mx-1 " for="">volumen(centimetro
+                <label class="text-xs text-gray-500 mx-1 " for="">volumen(centimetro
                     cubicos(Cm<sub>2</sub>))</label>
                 <input type="text" placeholder="1" id="volumen" name="volumen" wire:model="volumen"
                     class="block  w-11/12 mx-1 my-1 bg-gray-50 rounded text-sm border borde-gray-400 focus:outline-none focus:shadow-md shadow-lg h-10 px-2 focus:bg-gray-100 focus:border-gray-600">
@@ -76,7 +76,7 @@
                 @enderror
             </div>
             <div>
-                <label class="text-xs text-gray-700 mx-1 " for="">Categoria</label>
+                <label class="text-xs text-gray-500 mx-1 " for="">Categoria</label>
                 <select name="" id="" wire:model="categorias"
                     wire:click="changeEvent($event.target.value)"
                     class="block  w-11/12 mx-1 my-1 bg-gray-50 rounded text-sm border borde-gray-400 focus:outline-none focus:shadow-md shadow-lg h-10 px-2 focus:bg-gray-100 focus:border-gray-600">
@@ -90,7 +90,7 @@
                 @enderror
             </div>
             <div class="text-left md:col-span-2">
-                <label class="text-xs text-gray-700 mx-1 " for="">imagen</label>
+                <label class="text-xs text-gray-500 mx-1 " for="">imagen</label>
                 <div class="subir_foto">
                     <button
                         class="block  w-11/12 mx-1 my-1 bg-gray-50 rounded text-sm border borde-gray-400 focus:outline-none focus:shadow-md shadow-lg h-10 px-2 focus:bg-gray-100 focus:border-gray-600">Subir
