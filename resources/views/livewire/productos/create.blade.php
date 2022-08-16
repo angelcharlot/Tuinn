@@ -5,7 +5,9 @@
         <div class="w-ful h-full ">
             <div class="flex justify-center h-full">
 
-                <div class="w-6 h-6 my-auto animate-spin bg-gradient-to-r from-blue-900 rounded-full to-blue-500"></div>
+                <div class="w-24 h-24 my-auto animate-spin ">
+                    <img class="w-full h-full" src="{{asset('images/load2.png')}}" alt="">
+                </div>
 
             </div>
         </div>

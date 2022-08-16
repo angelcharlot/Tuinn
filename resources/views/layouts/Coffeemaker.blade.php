@@ -38,12 +38,12 @@
                         @if (Auth::user()->hasRole('admin'))
                             <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                                 <x-jet-nav-link href="{{ route('negocio.index') }}" :active="request()->routeIs('negocio.index')">
-                                    Gestion de personal
+                                     {{ __('Gestion de personal') }}
                                 </x-jet-nav-link>
                             </div>
                             <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                                 <x-jet-nav-link href="{{ route('productos.index') }}" :active="request()->routeIs('producto.index')">
-                                    Productos
+                                    {{ __('Productos') }}
                                 </x-jet-nav-link>
                             </div>
                         @endif
@@ -80,11 +80,11 @@
                             <x-slot name="content">
                                 <!-- Account Management -->
                                 <div class="block px-4 py-2 text-xs text-gray-400">
-                                    {{ __('Manage Account') }}
+                                    {{ __('cuenta') }}
                                 </div>
 
                                 <x-jet-dropdown-link href="{{ route('profile.show') }}">
-                                    {{ __('Profile') }}
+                                    {{ __('perfil') }}
                                 </x-jet-dropdown-link>
 
                                 @if (Laravel\Jetstream\Jetstream::hasApiFeatures())
@@ -166,10 +166,10 @@
                     </x-jet-responsive-nav-link>
                     @if (Auth::user()->hasRole('admin'))
                         <x-jet-responsive-nav-link href="{{ route('negocio.index') }}" :active="request()->routeIs('negocio.index')">
-                            Gestion de personal
+                            {{ __('Gestion de personal') }}
                         </x-jet-responsive-nav-link>
                         <x-jet-responsive-nav-link href="{{ route('productos.index') }}" :active="request()->routeIs('producto.index')">
-                            Productos
+                            {{ __('Productos') }}
                         </x-jet-responsive-nav-link>
                     @endif
                 </div>
@@ -200,7 +200,7 @@
                     <div class="mt-3 space-y-1 border-b-8 border-purple-600">
                         <!-- Account Management -->
                         <x-jet-responsive-nav-link href="{{ route('profile.show') }}" :active="request()->routeIs('profile.show')">
-                            {{ __('Profile') }}
+                            {{ __('prefil') }}
                         </x-jet-responsive-nav-link>
 
                         @if (Laravel\Jetstream\Jetstream::hasApiFeatures())

@@ -1,5 +1,21 @@
 window.onload = function () {
+    //alerta de validacion
+    Livewire.on('alert_validation', etc6 => {
 
+        Swal.fire({
+            icon: 'debe completar los datos abligatorios',
+            title: 'Oops...',
+            text: 'Something went wrong!',
+
+          })
+
+        $('html, body').animate({
+
+            scrollTop: 0
+
+        }, 1000);
+
+    });
     //bloquear boton de copiar cuando se este editando
     Livewire.on('bolqueo_copy', etc2 => {
         $('.copiar').attr('disabled', true);

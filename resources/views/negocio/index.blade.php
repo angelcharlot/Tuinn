@@ -7,10 +7,12 @@
 
 
 @section('body')
-	    
-	    	
+
+
         		@livewire('personal')
-        	
-    		
-    	
+
+
+
 @endsection
+
+
