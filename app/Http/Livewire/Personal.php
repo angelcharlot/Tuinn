@@ -13,7 +13,7 @@ class Personal extends Component
     public $usuarios, $name, $email, $password, $rol, $usuario;
     public $updateMode = false;
     public $personal;
-
+    protected $listeners = ['destroy'];
     protected $messages = [
         'email.required' => 'email obligatorio',
         'email.email' => 'email no valido',
@@ -28,7 +28,14 @@ class Personal extends Component
         'rol' => 'required',
         'password' => 'required',
     ];
+    public function destroy(user $user){
+        $user->delete();
+   }
+    public function cancelar(){
 
+        $this->updateMode = false;
+
+    }
     public function render()
     {
         $this->usuario = Auth()->user()->id;
@@ -38,12 +45,10 @@ class Personal extends Component
             ->get();
         return view('livewire.negocio.personal');
     }
-
     public function changeEvent($value)
     {
         $this->rol = $value;
     }
-
     public function store()
     {
         $this->validate();
@@ -54,7 +59,7 @@ class Personal extends Component
             'email' => $this->email,
             'password' => Hash::make($this->password),
         ])->assignRole($this->rol);
-
+        $this->emit('alert_guardad');
         $this->resetInput();
     }
     public function edit($id)
@@ -69,7 +74,6 @@ class Personal extends Component
     public function update()
     {
         $this->validate();
-
         $record = user::find($this->selected_id);
         if (isset($record->getRoleNames()[0])) {
             $record->removeRole($record->getRoleNames()[0]);
@@ -86,8 +90,8 @@ class Personal extends Component
             $this->resetInput();
             $this->updateMode = false;
         }
+        $this->emit('alert_editado');
     }
-
     private function resetInput()
     {
         $this->name = null;

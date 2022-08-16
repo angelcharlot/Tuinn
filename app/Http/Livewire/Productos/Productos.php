@@ -102,7 +102,6 @@ class Productos extends Component
         } else {
             $imagen = 'images/icons8-cubiertos-100.png';
         }
-
         $newproduct = new producto();
         $newproduct->id_usuario = $this->user->id;
         $newproduct->img = $imagen;
@@ -112,7 +111,6 @@ class Productos extends Component
         $newproduct->precio_venta = $this->p_venta;
         $peso = ($this->peso=="") ? NULL : $this->peso;
         $newproduct->peso = $peso;
-
         $newproduct->unidad_medida = $this->unidad_medida;
         $newproduct->volumen = $this->volumen;
         $newproduct->id_categoria = $this->categorias;
@@ -124,7 +122,6 @@ class Productos extends Component
     }
     public function edit($id)
     {
-
         $change = producto::findOrFail($id);
         $this->selected_id = $id;
         $this->updateMode = true;
@@ -142,7 +139,6 @@ class Productos extends Component
     }
     public function copiar($id)
     {
-
         $change = producto::findOrFail($id);
         $this->selected_id = $id;
 
@@ -156,7 +152,6 @@ class Productos extends Component
         $this->categorias=$change->id_categoria;
         $this->emit('subir-scroll');
     }
-
     public function changeEvent($value)
     {
         $this->categorias = $value;
