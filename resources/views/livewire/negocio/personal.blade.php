@@ -9,7 +9,7 @@
 
 
     <div class="shadow-sm overflow-hidden my-8">
-        <h1 class=" inline-block text-2xl sm:text-3xl font-extrabold text-gray-400 tracking-tight ">Personal</h1>
+        <h1 class=" inline-block text-2xl sm:text-3xl  text-gray-400 tracking-tight font-mono font-black ">Personal</h1>
         <table class="border-collapse table-auto  w-full text-xs md:text-sm ">
             <thead>
 
@@ -32,7 +32,7 @@
 
             @forelse ($usuarios as $usuario)
                 <tbody class="bg-white border-b-2 border-slate-100">
-                    <tr class="hover:bg-gray-600 ">
+                    <tr>
                         <td class=" border-slate-100  p-2 md:p-4 pl-8 text-gray-400  truncate">{{ $usuario->id }}</td>
                         <td class=" border-slate-100  p-2 md:p-4 pl-8 text-gray-400 truncate">{{ $usuario->name }}</td>
                         <td class=" border-slate-100 hidden md:table-cell  p-2 md:p-4 pl-8 text-gray-400 truncate">

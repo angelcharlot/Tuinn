@@ -10,7 +10,7 @@ use Spatie\Permission\Models\Role;
 
 class Personal extends Component
 {
-    public $usuarios, $name, $email, $password, $rol, $usuario;
+    public $usuarios, $name, $email, $password,$password_confirmation, $rol, $usuario;
     public $updateMode = false;
     public $personal;
     protected $listeners = ['destroy'];
@@ -20,13 +20,15 @@ class Personal extends Component
         'name.required' => 'nombre obligatorio',
         'name.min' => 'minimo 5 caracteres',
         'password.required' => 'campo obligatorio',
+        'password.confirmed' => 'los campos no considen',
         'email.unique' => 'El email ya ha sido registrado.',
     ];
     protected $rules = [
         'name' => 'required|min:5',
         'email' => 'required|email|unique:App\Models\User,email',
         'rol' => 'required',
-        'password' => 'required',
+        'password' => 'required|confirmed',
+
     ];
     public function destroy(user $user){
         $user->delete();
@@ -69,11 +71,13 @@ class Personal extends Component
         $this->name = $change->name;
         $this->email = $change->email;
         $this->password = '';
+        $this->password_confirmation='';
         $this->updateMode = true;
     }
     public function update()
     {
-        $this->validate();
+
+
         $record = user::find($this->selected_id);
         if (isset($record->getRoleNames()[0])) {
             $record->removeRole($record->getRoleNames()[0]);
@@ -97,5 +101,6 @@ class Personal extends Component
         $this->name = null;
         $this->email = null;
         $this->password = null;
+        $this->password_confirmation = null;
     }
 }

@@ -12,7 +12,7 @@ class Productos extends Component
 {
     use WithFileUploads;
 
-    public $user, $photo, $name, $descrip, $p_compra, $p_venta, $peso, $unidad_medida='Ml', $volumen, $categorias, $allcategorias, $selected_id;
+    public $user, $photo, $name, $descrip, $p_compra, $p_venta, $peso, $unidad_medida='ml', $volumen, $categorias, $allcategorias, $selected_id;
     public $updateMode = false;
 
     protected $listeners = ['destroy'];
@@ -26,12 +26,13 @@ class Productos extends Component
         'required' => 'campo requerido',];
     protected $rules = [
         'name' => 'required',
-        'descrip' => 'required',
+        'descrip' => 'Nullable',
         'p_venta' => 'required|Numeric',
         'p_compra' => 'Nullable|Numeric',
         'volumen' => 'Nullable|Numeric',
         'unidad_medida' => 'required',
         'peso' => 'Nullable|Numeric',
+        'photo'=>'Nullable|image',
         'categorias' => 'required',];
 
     public function cancelar(){
@@ -53,6 +54,7 @@ class Productos extends Component
 
     public function update(){
         $this->validate();
+
 
         if ($this->selected_id) {
             $record = producto::find($this->selected_id);

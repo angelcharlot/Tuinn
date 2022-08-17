@@ -10,7 +10,7 @@
 
 
     <div class="shadow-sm overflow-hidden my-8">
-        <h1 class=" inline-block text-2xl sm:text-3xl font-extrabold text-gray-500 tracking-tight ">Productos</h1>
+        <h1 class=" inline-block text-2xl sm:text-3xl  text-gray-500 tracking-tight font-mono font-black">Productos</h1>
         <table class=" mt-10 border-collapse table-auto  w-full text-xs md:text-sm ">
             <thead>
                 <tr class="h-4 md:h-16 bg-gradient-to-b from-gray-50 to-gray-200">
