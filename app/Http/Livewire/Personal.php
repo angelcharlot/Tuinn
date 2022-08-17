@@ -77,6 +77,30 @@ class Personal extends Component
     public function update()
     {
 
+        $this->validate(
+            ['name' => 'required|min:5'],
+        );
+
+
+        $this->validate(
+            ['password' =>'required|confirmed|min:8' ],
+            [
+                'min' => 'minimo 8 caracteres',
+                'confirmed' => 'los campos no considen',
+                'required' => 'campo obligatorio.',
+
+            ],
+        );
+        $this->validate(
+
+
+            ['rol' =>'required' ],
+            [
+                'required' => 'campo obligatorio.',
+            ],
+
+
+        );
 
         $record = user::find($this->selected_id);
         if (isset($record->getRoleNames()[0])) {
