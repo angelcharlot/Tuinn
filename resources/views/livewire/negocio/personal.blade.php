@@ -49,7 +49,7 @@
                             <button wire:click="edit({{ $usuario->id }})"
                                 class="px-2  bg-blue-200 text-blue-500 hover:bg-blue-500 hover:text-white rounded">Editar</button>
                                 <button wire:click="$emit('delete',{{ $usuario->id }})"
-                                class="px-2  bg-red-200 text-red-500 hover:bg-red-500 hover:text-white rounded">Borrar</button>
+                                class="px-2 borrarr bg-red-200 text-red-500 hover:bg-red-500 hover:text-white rounded">Borrar</button>
 
 
                         </td>
@@ -69,8 +69,8 @@
                         <td class=" border-slate-100  p-2 md:p-4 text-gray-400" colspan="2">
                             <button wire:click="edit({{ $usuario->id }})"
                                 class="px-2  bg-blue-200 text-blue-500 hover:bg-blue-500 hover:text-white rounded">Editar</button>
-                            <button wire:click="$emit('delete',{{ $usuario->id }})"
-                                class="px-2  bg-red-200 text-red-500 hover:bg-red-500 hover:text-white rounded">Borrar</button>
+                            <button  wire:click="$emit('delete',{{ $usuario->id }})"
+                                class="px-2 borrarr  bg-red-200 text-red-500 hover:bg-red-500 hover:text-white rounded">Borrar</button>
                         </td>
                     </tr>
 

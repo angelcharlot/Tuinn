@@ -127,11 +127,12 @@ class Productos extends Component
         $this->volumen = $change->volumen;
         $this->categorias=$change->id_categoria;
 
-
+        $this->resetValidation();
         $this->emit('bolqueo_copy');
     }
     public function copiar($id)
     {
+        $this->resetValidation();
         $change = producto::findOrFail($id);
         $this->selected_id = $id;
 
@@ -161,5 +162,6 @@ class Productos extends Component
         $this->volumen = null;
         $this->categorias=null;
         $this->emit('enable_copy');
+        $this->resetValidation();
     }
 }

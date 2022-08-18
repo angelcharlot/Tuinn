@@ -1,5 +1,14 @@
 window.onload = function () {
 
+    Livewire.on('subir-scroll', etc5 => {
+
+        $('html, body').animate({
+
+            scrollTop: 0
+
+        }, 1000);
+
+    });
 
     Livewire.on('alert_guardad', x => {
         Swal.fire({
@@ -10,6 +19,12 @@ window.onload = function () {
             timer: 1500
         })
 
+
+    });
+
+    Livewire.on('block_eliminar', x => {
+
+        $('.borrarr').attr('disabled', true);
 
     });
     Livewire.on('alert_editado', x => {

@@ -21,13 +21,14 @@ class Personal extends Component
         'name.min' => 'minimo 5 caracteres',
         'password.required' => 'campo obligatorio',
         'password.confirmed' => 'los campos no considen',
+        'password.min' => 'minimo 8 caracteres',
         'email.unique' => 'El email ya ha sido registrado.',
     ];
     protected $rules = [
         'name' => 'required|min:5',
         'email' => 'required|email|unique:App\Models\User,email',
         'rol' => 'required',
-        'password' => 'required|confirmed',
+        'password' => 'required|confirmed|min:8',
 
     ];
     public function destroy(user $user){
@@ -66,6 +67,7 @@ class Personal extends Component
     }
     public function edit($id)
     {
+        $this->resetValidation();
         $change = user::findOrFail($id);
         $this->selected_id = $id;
         $this->name = $change->name;
@@ -73,17 +75,15 @@ class Personal extends Component
         $this->password = '';
         $this->password_confirmation='';
         $this->updateMode = true;
+        $this->emit('block_eliminar');
+        $this->emit('subir-scroll');
     }
     public function update()
     {
 
-        $this->validate(
-            ['name' => 'required|min:5'],
-        );
-
 
         $this->validate(
-            ['password' =>'required|confirmed|min:8' ],
+            ['password' =>'required|confirmed|min:8','rol' =>'required', 'name' => 'required|min:5'],
             [
                 'min' => 'minimo 8 caracteres',
                 'confirmed' => 'los campos no considen',
@@ -91,16 +91,7 @@ class Personal extends Component
 
             ],
         );
-        $this->validate(
 
-
-            ['rol' =>'required' ],
-            [
-                'required' => 'campo obligatorio.',
-            ],
-
-
-        );
 
         $record = user::find($this->selected_id);
         if (isset($record->getRoleNames()[0])) {
@@ -122,6 +113,7 @@ class Personal extends Component
     }
     private function resetInput()
     {
+        $this->resetValidation();
         $this->name = null;
         $this->email = null;
         $this->password = null;

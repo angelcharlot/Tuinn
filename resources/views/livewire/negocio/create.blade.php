@@ -29,7 +29,7 @@
             <input
                 class="block   w-8/12 mx-1 my-1 bg-gray-50 rounded text-sm border borde-gray-400 focus:outline-none focus:shadow-md shadow-lg h-8 px-2 focus:bg-gray-100 focus:border-gray-600"
                 id="password" wire:model="password" type="password" placeholder="password">
-            @error('password')
+            @error('password_confirmation')
                 <span class="text-red-500 text-xs italic py-1">{{ $message }}</span>
             @enderror
         </div>
