@@ -81,16 +81,19 @@
                 @enderror
             </div>
             <div class="px-3">
-                <label class="text-xs text-gray-500 mx-1 " for="">Categoria</label>
+                <label class="text-xs text-gray-500 mx-1 block " for="">Categoria</label>
                 <select name="" id="" wire:model="categorias"
                     wire:click="changeEvent($event.target.value)"
-                    class="block  w-10/12 mx-1 my-1 bg-gray-50 rounded text-sm border borde-gray-200 focus:outline-none focus:shadow-md shadow-xs h-10 px-2 focus:bg-gray-100 focus:border-gray-600">
+                    class=" inline w-10/12 mx-1 my-1 bg-gray-50 rounded text-sm border borde-gray-200 focus:outline-none focus:shadow-md shadow-xs h-10 px-2 focus:bg-gray-100 focus:border-gray-600">
                     <option value="">seleccione</option>
                     @foreach ($allcategorias as $categoria)
                         <option value="{{ $categoria->id }}">{{ $categoria->name }}</option>
                     @endforeach
                 </select>
-                <img src="{{asset('images/icons/icons8-más-24(-ldpi).png')}}" alt="">
+                <a href="" class=" align-middle">
+                    <i class=" inline  bi bi-plus-circle text-3xl  text-indigo-400  hover:text-indigo-700 m-0 p-0"></i>
+                </a>
+
                 @error('categorias')
                     <span class="text-red-500 text-xs italic">{{ $message }}</span>
                 @enderror
