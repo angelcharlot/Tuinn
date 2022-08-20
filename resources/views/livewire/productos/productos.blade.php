@@ -122,6 +122,17 @@
 
         </table>
     </div>
+    <div id="myModal" class="modalContainer ">
+        <div class="modal-content ">
+        <span class="close">×</span> <h2>Modal</h2>
+        <p>Se ha desplegado el modal y bloqueado el scroll del body!</p>
+
+        @livewire('categorias.categorias')
+
+    </div>
+
+        </div>
+
     @push('js')
     <script src="{{asset('js/producto/producto.js')}}"></script>
     @endpush

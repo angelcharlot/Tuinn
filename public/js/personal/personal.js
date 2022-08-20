@@ -1,5 +1,7 @@
 window.onload = function () {
 
+
+
     Livewire.on('subir-scroll', etc5 => {
 
         $('html, body').animate({

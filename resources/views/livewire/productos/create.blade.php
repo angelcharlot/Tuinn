@@ -90,7 +90,8 @@
                         <option value="{{ $categoria->id }}">{{ $categoria->name }}</option>
                     @endforeach
                 </select>
-                <a href="" class=" align-middle">
+
+                <a href="#" id="btnModal" wire:click="$emit('mostrar')" >
                     <i class=" inline  bi bi-plus-circle text-3xl  text-indigo-400  hover:text-indigo-700 m-0 p-0"></i>
                 </a>
 

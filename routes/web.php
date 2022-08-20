@@ -32,15 +32,24 @@ Route::get('/', function () {
 /////////////////////////////////////////////////////////////////////////////////
 Route::middleware(['auth:sanctum', 'verified'])->group(function(){
 
+
+
     Route::get('/dashboard', function () {
     return view('dashboard');
     })->name('dashboard');
+
+    Route::get('categorias/index', function () {
+    return view('productos/categorias');
+    })->middleware('aut_negocio')->name('categorias.index');
+
+
     Route::get('/negocio/index', function () {
     return view('negocio/index');
-})->middleware('aut_negocio')->name('negocio.index');
+    })->middleware('aut_negocio')->name('negocio.index');
+
     Route::get('/productos/index', function () {
     return view('productos/index');
-})->middleware('aut_negocio')->name('productos.index');
+    })->middleware('aut_negocio')->name('productos.index');
 
 });
 
