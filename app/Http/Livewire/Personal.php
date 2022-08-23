@@ -10,7 +10,7 @@ use Spatie\Permission\Models\Role;
 
 class Personal extends Component
 {
-    public $usuarios, $name, $email, $password,$password_confirmation, $rol, $usuario;
+    public $usuarios, $name, $email, $password, $password_confirmation, $rol, $usuario;
     public $updateMode = false;
     public $personal;
     protected $listeners = ['destroy'];
@@ -31,10 +31,12 @@ class Personal extends Component
         'password' => 'required|confirmed|min:8',
 
     ];
-    public function destroy(user $user){
+    public function destroy(user $user)
+    {
         $user->delete();
-   }
-    public function cancelar(){
+    }
+    public function cancelar()
+    {
 
         $this->updateMode = false;
         $this->resetInput();
@@ -42,10 +44,7 @@ class Personal extends Component
     public function render()
     {
         $this->usuario = Auth()->user()->id;
-        $this->usuarios = auth()
-            ->user()
-            ->personal()
-            ->get();
+        $this->usuarios = auth()->user()->personal()->get();
         return view('livewire.negocio.personal');
     }
     public function changeEvent($value)
@@ -73,7 +72,7 @@ class Personal extends Component
         $this->name = $change->name;
         $this->email = $change->email;
         $this->password = '';
-        $this->password_confirmation='';
+        $this->password_confirmation = '';
         $this->updateMode = true;
         $this->emit('block_eliminar');
         $this->emit('subir-scroll');
@@ -83,7 +82,7 @@ class Personal extends Component
 
 
         $this->validate(
-            ['password' =>'required|confirmed|min:8','rol' =>'required', 'name' => 'required|min:5'],
+            ['password' => 'required|confirmed|min:8', 'rol' => 'required', 'name' => 'required|min:5'],
             [
                 'min' => 'minimo 8 caracteres',
                 'confirmed' => 'los campos no considen',

@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Http\Livewire\Productos;
+
+use App\Http\Livewire\Categorias\Categorias as CategoriasCategorias;
 use Livewire\WithFileUploads;
 use Livewire\Component;
 use App\Models\productos as producto;
@@ -43,6 +45,7 @@ class Productos extends Component
     public function render(){
         $this->user = auth()->user();
         $this->allcategorias = categorias::all();
+
         return view('livewire.productos.productos');}
     public function destroy($id) {
         if ($id) {

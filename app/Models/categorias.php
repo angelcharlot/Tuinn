@@ -9,9 +9,17 @@ class categorias extends Model
 {
     use HasFactory;
 
+    public function cat_hijos()
+    {
+        return $this->hasMany('App\Models\categorias','id_categoria');
+    }
     public function productos()
     {
         return $this->hasMany('App\Models\productos','id_categoria');
+    }
+    public function cat_padre()
+    {
+        return $this->belongsTo('App\Models\categorias','id_categoria');
     }
 
 
