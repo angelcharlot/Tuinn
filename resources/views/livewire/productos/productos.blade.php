@@ -6,9 +6,6 @@
     @else
         @include('livewire.productos.create')
     @endif
-
-
-
     <div class="shadow-sm overflow-hidden my-8">
         <h1 class=" inline-block text-2xl sm:text-3xl  text-gray-500 tracking-tight font-mono font-black">Productos</h1>
         <table class=" mt-10 border-collapse table-auto  w-full text-xs md:text-sm ">
@@ -48,7 +45,8 @@
             @foreach ($user->productos as $producto)
                 <tbody class="bg-white border-b-2 border-slate-100">
                     <tr>
-                        <td class=" border-slate-100
+                        <td
+                            class=" border-slate-100
                         p-0
                         md:p-4
                         md:pl-8
@@ -81,14 +79,14 @@
                             <button wire:click="copiar({{ $producto->id }})"
                                 class="px-2 copiar disabled:bg-blue-800 bg-green-200 text-green-500 hover:bg-green-500 hover:text-white rounded">copiar</button>
 
-                                <button wire:click="$emit('borrar',{{ $producto->id }})"
+                            <button wire:click="$emit('borrar',{{ $producto->id }})"
                                 class="px-2   bg-red-200 text-red-500 hover:bg-red-500 hover:text-white rounded">Borrar</button>
                         </td>
-                        <tr>
-                            <td class="hidden md:table-cell p-2 md:p-4 text-gray-700 " colspan="8">
-                                <span class="font-bold text-sm text-black"> Descripcion: </span>{{$producto->descrip}}
-                            </td>
-                        </tr>
+                    <tr>
+                        <td class="hidden md:table-cell p-2 md:p-4 text-gray-700 " colspan="8">
+                            <span class="font-bold text-sm text-black"> Descripcion: </span>{{ $producto->descrip }}
+                        </td>
+                    </tr>
 
                     </tr>
                     <tr class="visible md:hidden ">
@@ -102,7 +100,7 @@
                     </tr>
                     <tr class="visible md:hidden ">
                         <td class=" p-2 md:p-4 text-gray-700 " colspan="8">
-                            <span class="font-bold text-sm text-black"> Descripcion: </span>{{$producto->descrip}}
+                            <span class="font-bold text-sm text-black"> Descripcion: </span>{{ $producto->descrip }}
                         </td>
                     </tr>
                     <tr class="visible md:hidden ">
@@ -112,7 +110,7 @@
                             <button wire:click="copiar({{ $producto->id }})"
                                 class="px-2 copiar disabled:bg-blue-800 bg-green-200 text-green-500 hover:bg-green-500 hover:text-white rounded">copiar</button>
 
-                                <button wire:click="$emit('borrar',{{ $producto->id }})"
+                            <button wire:click="$emit('borrar',{{ $producto->id }})"
                                 class="px-2   bg-red-200 text-red-500 hover:bg-red-500 hover:text-white rounded">Borrar</button>
 
                         </td>
@@ -122,19 +120,17 @@
 
         </table>
     </div>
-    <div id="myModal" class="modalContainer ">
+    <div id="myModal"  class="modalContainer ">
         <div class="modal-content ">
-        <span class="close">×</span> <h2>Modal</h2>
-        <p>Se ha desplegado el modal y bloqueado el scroll del body!</p>
-
-        @livewire('categorias.categorias')
-
+            <span class="close">×</span>
+            <h2>Modal</h2>
+            <p>Se ha desplegado el modal y bloqueado el scroll del body!</p>
+            @livewire('categorias.categorias')
+        </div>
     </div>
 
-        </div>
-
     @push('js')
-    <script src="{{asset('js/producto/producto.js')}}"></script>
+        <script src="{{ asset('js/producto/producto.js') }}"></script>
     @endpush
 
 

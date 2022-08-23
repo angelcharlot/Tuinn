@@ -11,14 +11,14 @@ class Categorias extends Component
 
     public $categorias = NULL, $id_atras = NULL, $categoria_seleccionada = array('home');
     public $updateMode = false;
-    public $name, $id_padre_categoria, $descrip,$id_select;
+    public $name, $id_padre_categoria, $descrip, $id_select;
 
-    protected $rules=[
-        'name'=>'required',
-        'descrip'=>'required',
+    protected $rules = [
+        'name' => 'required',
+        'descrip' => 'required',
     ];
-    protected $messages=[
-        'required'=>'campo oblicatorio',
+    protected $messages = [
+        'required' => 'campo oblicatorio',
     ];
 
     public function render()
@@ -33,10 +33,14 @@ class Categorias extends Component
     public function buscar($xx, $bn)
     {
 
+        $this->emitTo('productos.productos', 'updateselect');
+
         $categoria = category::find($xx);
 
         if ($categoria) {
             $this->categorias = category::where('id_categoria', '=', $categoria->id)->get();
+
+
 
             $this->id_atras = $retVal = ($categoria->id_categoria) ? $categoria->id_categoria : 10000;
             $categoria->id_categoria;
@@ -47,6 +51,7 @@ class Categorias extends Component
             } else if ($bn == 1) {
                 array_pop($this->categoria_seleccionada);
             }
+
         } else {
 
             $this->categorias = NULL;
@@ -62,7 +67,9 @@ class Categorias extends Component
         $newcategoria->descrip = $this->descrip;
         $newcategoria->id_categoria = $this->id_padre_categoria;
         $newcategoria->save();
+
         $this->resete();
+
         $this->buscar($this->id_padre_categoria, 3);
     }
     public function delete(category $cat)
@@ -73,32 +80,28 @@ class Categorias extends Component
     }
     public function edit(category $cat)
     {
-        $this->updateMode=true;
-        $this->id_select=$cat->id;
+        $this->updateMode = true;
+        $this->id_select = $cat->id;
         $this->name = $cat->name;
         $this->descrip = $cat->descrip;
-
     }
     public function update()
     {
         $this->Validate();
-        $cat=category::find($this->id_select);
+        $cat = category::find($this->id_select);
         $xx = $cat->id_categoria;
-        $cat->name=$this->name;
-        $cat->descrip=$this->descrip;
+        $cat->name = $this->name;
+        $cat->descrip = $this->descrip;
         $cat->update();
-        $this->updateMode=false;
+        $this->updateMode = false;
         $this->resete();
         $this->buscar($xx, 3);
-
     }
     public function resete()
     {
 
 
-        $this->name="";
-       $this->descrip="";
-
-
+        $this->name = "";
+        $this->descrip = "";
     }
 }
