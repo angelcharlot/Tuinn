@@ -7,8 +7,8 @@ use App\Models\categorias as category;
 class Categorias extends Component
 {
 
-public $categorias=NULL,$id_atras;
-
+public $categorias=NULL,$id_atras,$categoria_seleccionada;
+public $updateMode=false;
 
     public function render()
     {
@@ -19,9 +19,19 @@ public $categorias=NULL,$id_atras;
 
         return view('livewire.categorias.categorias');
     }
-    public function buscar(category $categoria = NULL){
+    public function buscar(category $categoria = NULL, $bn ){
+
+
+        if ($bn == 1 ) {
+            $str = str_replace(' -> '.$categoria->name, "", $this->categoria_seleccionada);
+            $this->categoria_seleccionada = $str;
+        }else{
+
+            $this->categoria_seleccionada.=' -> '.$categoria->name;
+        }
 
         $this->id_atras=$categoria->id_categoria;
+
         $this->categorias=category::where('id_categoria','=',$categoria->id)->get();
 
     }
