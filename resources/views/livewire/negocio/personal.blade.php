@@ -6,10 +6,8 @@
         @include('livewire.negocio.create')
     @endif
     {{-- tabla --}}
-
-
     <div class="shadow-sm overflow-hidden my-8">
-        <h1 class=" inline-block text-2xl sm:text-3xl  text-gray-400 tracking-tight font-mono font-black ">Personal</h1>
+        <h1 class=" inline-block text-2xl sm:text-3xl  text-gray-500 tracking-tight font-black ">Personal</h1>
         <table class="border-collapse table-auto  w-full text-xs md:text-sm ">
             <thead>
 
