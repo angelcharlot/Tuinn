@@ -40,6 +40,13 @@ if(document.getElementById("btnModal")){
         console.log($('#modal').toggle(500));
 
     });
+    Livewire.on('actualizar_update_select', function (e) {
+
+        Livewire.emitTo('productos.productos', 'select_update', e);
+
+    });
+
+
     //alerta de validacion
     Livewire.on('alert_validation', etc6 => {
 

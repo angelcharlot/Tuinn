@@ -33,7 +33,7 @@ class Categorias extends Component
     public function buscar($xx, $bn)
     {
 
-        $this->emitTo('productos.productos', 'updateselect');
+        $this->emit( 'actualizar_update_select',$xx);
 
         $categoria = category::find($xx);
 

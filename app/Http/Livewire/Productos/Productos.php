@@ -17,7 +17,7 @@ class Productos extends Component
     public $user, $photo, $name, $descrip, $p_compra, $p_venta, $peso, $unidad_medida = 'ml', $volumen, $categorias, $allcategorias, $selected_id;
     public $updateMode = false;
 
-    protected $listeners = ['destroy'];
+    protected $listeners = ['destroy','select_update'];
 
 
     protected $messages = [
@@ -45,12 +45,6 @@ class Productos extends Component
         $this->updateMode = false;
     }
 
-    public function updateselect()
-    {
-
-        $this->name='lkjsdhkjsh';
-
-    }
 
     public function render()
     {

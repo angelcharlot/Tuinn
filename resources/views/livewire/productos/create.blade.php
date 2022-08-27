@@ -82,7 +82,7 @@
             </div>
             <div class="px-3">
                 <label class="text-xs text-gray-500 mx-1 block " for="">Categoria</label>
-                <select name="" id="" wire:model="categorias"
+                <select name="" id="categorias" wire:model="categorias"
                     wire:click="changeEvent($event.target.value)"
                     class=" inline w-10/12 mx-1 my-1 bg-gray-50 rounded text-sm border borde-gray-200 focus:outline-none focus:shadow-md shadow-xs h-10 px-2 focus:bg-gray-100 focus:border-gray-600">
                     <option value="">seleccione</option>

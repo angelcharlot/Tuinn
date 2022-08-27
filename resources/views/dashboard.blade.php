@@ -1,5 +1,3 @@
-
- 
 @extends('layouts/Coffeemaker')
 @section('css')
 
@@ -9,10 +7,10 @@
 
 
 @section('body')
-        
-       
-            
-        
+
+
+
+
 @endsection
 
 
