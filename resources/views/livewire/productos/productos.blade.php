@@ -7,73 +7,68 @@
         @include('livewire.productos.create')
     @endif
     <div class="shadow-sm overflow-hidden my-8">
-        <h1 class=" inline-block text-2xl sm:text-3xl  text-gray-500 tracking-tight font-mono font-black">Productos</h1>
-        <table class=" mt-10 border-collapse table-auto  w-full text-xs md:text-sm ">
+        <h1 class="titulo_form">Productos</h1>
+        <table class=" tabla md:text-base ">
             <thead>
-                <tr class="h-4 md:h-16 bg-gradient-to-b from-gray-50 to-gray-200">
-                    <td class="  font-medium  p-2 md:p-4 pl-8 pt-0 pb-3 text-slate-400  text-left truncate">
+                <tr class="">
+                    <th class="">
                         img
-                    </td>
-                    <td class="  font-medium  p-2 md:p-4 pl-8 pt-0 pb-3 text-slate-400  text-left truncate">
+                    </th>
+                    <th class="">
                         id
-                    </td>
-                    <td
-                        class=" hidden md:table-cell font-medium  p-2 md:p-4  pt-0 pb-3 text-slate-400 text-left truncate">
+                    </th>
+                    <th
+                        class=" hidden md:table-cell ">
                         nombre
-                    </td>
-                    <td class="  font-medium  p-2 md:p-4  pt-0 pb-3 text-slate-400 text-left truncate">
+                    </th>
+                    <th class="  ">
                         Venta &euro;
-                    </td>
-                    <td class="  font-medium  p-2 md:p-4  pt-0 pb-3 text-slate-400 text-left truncate">
+                    </th>
+                    <th class="  ">
                         Compra &euro;
-                    </td>
-                    <td class="  font-medium  p-2 md:p-4   pt-0 pb-3 text-slate-400 text-left truncate">
+                    </th>
+                    <th class=" ">
                         categoria
-                    </td>
-                    <td
-                        class=" hidden md:table-cell font-medium  p-2 md:p-4  pt-0 pb-3 text-slate-400 text-left truncate">
+                    </th>
+                    <th
+                        class=" hidden md:table-cell ">
                         volumen/und medida
-                    </td>
-                    <td
-                        class=" hidden md:table-cell font-medium  p-2 md:p-4  pt-0 pb-3 text-slate-400 text-left truncate">
+                    </th>
+                    <th
+                        class=" hidden md:table-cell ">
                         Accions
 
-                    </td>
+                    </th>
 
                 </tr>
             </thead>
             @foreach ($user->productos as $producto)
-                <tbody class="bg-white border-b-2 border-slate-100">
+                <tbody class="bg-white border-b-2 ">
                     <tr>
                         <td
-                            class=" border-slate-100
-                        p-0
-                        md:p-4
-                        md:pl-8
-                        pl-2
-                        text-gray-500 truncate">
-                            <img class=" h-24  md:h-16 md:mx-auto w-48 md:w-16 object-cover rounded-lg border border-gray-200"
+                            class="">
+                            <img class=" h24-  md:h-16 w-48 md:w-16  rounded-lg border border-gray-200"
                                 src="{{ asset($producto->img) }}" alt="Current profile photo" />
                         </td>
-                        <td class=" border-slate-100  p-2 md:p-4 pl-8 text-gray-500 truncate">
+                        <td class=" ">
                             {{ $producto->id }}
                         </td>
-                        <td class=" hidden md:table-cell border-slate-100  p-2 md:p-4 text-gray-500 truncate">
+                        <td class=" hidden md:table-cell ">
                             {{ $producto->name }}
                         </td>
-                        <td class=" border-slate-100  p-2 md:p-4  text-gray-500 truncate">
+                        <td class=" ">
                             {{ $producto->precio_venta }}
                         </td>
-                        <td class=" border-slate-100  p-2 md:p-4  text-gray-500 truncate">
+                        <td class="">
                             {{ $producto->precio_compra }}
                         </td>
-                        <td class=" border-slate-100  p-2 md:p-4  text-gray-500 ">
+                        <td class="  ">
                             {{ $producto->categoria->name }}
                         </td>
-                        <td class=" hidden md:table-cell border-slate-100  p-2 md:p-4  text-gray-500 truncate">
+                        <td class=" hidden md:table-cell ">
                             {{ $producto->volumen }}/{{ $producto->unidad_medida }}
                         </td>
-                        <td class=" hidden md:table-cell border-slate-100  p-2 md:p-4  text-gray-500 truncate">
+                        <td class=" hidden md:table-cell ">
                             <button wire:click="edit({{ $producto->id }})"
                                 class="px-2  bg-indigo-200 text-indigo-500 hover:bg-indigo-500 hover:text-white rounded">Editar</button>
                             <button wire:click="copiar({{ $producto->id }})"
@@ -82,13 +77,14 @@
                             <button wire:click="$emit('borrar',{{ $producto->id }})"
                                 class="px-2   bg-red-200 text-red-500 hover:bg-red-500 hover:text-white rounded">Borrar</button>
                         </td>
+                    </tr>
                     <tr>
                         <td class="hidden md:table-cell p-2 md:p-4 text-gray-700 " colspan="8">
                             <span class="font-bold text-sm text-black"> Descripcion: </span>{{ $producto->descrip }}
                         </td>
                     </tr>
 
-                    </tr>
+
                     <tr class="visible md:hidden ">
                         <td class=" border-slate-100  p-2 md:p-4 text-gray-500" colspan="5">Nombre:
                             {{ $producto->name }}</td>

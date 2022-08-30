@@ -1,5 +1,5 @@
 <div>
-    <h1 class="inline-block text-2xl sm:text-3xl  text-gray-500 tracking-tight font-mono font-black">
+    <h1 class="titulo_form">
         Registrar producto</h1>
     <div wire:loading wire:target="photo" class="fixed z-40 w-full h-full top-0 left-0 bg-gray-500 bg-opacity-25">
         <div class="w-ful h-full ">

@@ -1,5 +1,5 @@
 <div class="w-full">
-    <h1 class="inline-block text-2xl sm:text-3xl  text-gray-500 tracking-tight font-mono font-black">
+    <h1 class="titulo_form">
         Registrar categoria</h1>
         <div class="w-full border border-gray-400 p-3 mt-4 rounded grid   grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-2">
 

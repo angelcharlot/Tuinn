@@ -1,0 +1,29 @@
+.tabla {
+
+    @apply border-collapse table-auto w-full text-xs;
+
+}
+
+.tabla>thead>tr>th {
+    @apply font-bold text-gray-700 text-left;
+
+}
+
+.tabla>tbody>tr>td {
+    @apply font-normal text-sm text-gray-500 text-left;
+
+}
+
+.tabla>tbody>tr>td,
+.tabla>thead>tr>th {
+    @apply pl-8 pt-3 pb-4 ;
+
+}
+.titulo_form{
+    @apply inline-block text-lg  text-gray-800  font-black;
+
+}
+
+input,select{
+    @apply block w-full bg-gray-50 rounded-md text-sm border  shadow-lg h-8 px-2  ;
+}
