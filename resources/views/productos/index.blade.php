@@ -6,3 +6,6 @@
         		@livewire('productos.productos')
 @endsection
 
+@push('js')
+<script src="{{ asset('js/producto.js') }}"></script>
+@endpush

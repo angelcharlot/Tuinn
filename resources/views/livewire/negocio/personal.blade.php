@@ -85,7 +85,5 @@
 
 
     </div>
-    @push('js')
-        <script src="{{ asset('js/personal/personal.js') }}"></script>
-    @endpush
+
 </div>

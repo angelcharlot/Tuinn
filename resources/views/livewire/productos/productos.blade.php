@@ -129,9 +129,4 @@
     </div>
 
 
-    @push('js')
-        <script src="{{ asset('js/producto/producto.js') }}"></script>
-    @endpush
-
-
 </div>
