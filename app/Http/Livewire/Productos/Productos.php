@@ -16,8 +16,8 @@ class Productos extends Component
 
     public $user, $photo, $name, $descrip, $p_compra, $p_venta, $peso, $unidad_medida = 'ml', $volumen, $categorias, $allcategorias, $selected_id;
     public $updateMode = false;
-
-    protected $listeners = ['destroy','select_update'];
+    public $nombre_categoria;
+    protected $listeners = ['destroy', 'select_update'];
 
 
     protected $messages = [
@@ -96,7 +96,7 @@ class Productos extends Component
 
             $this->resetInput();
             $this->updateMode = false;
-            $this->emit('alert_update');
+            $this->emit('alert-update');
         }
     }
     public function select_update($id)
@@ -163,9 +163,12 @@ class Productos extends Component
         $this->categorias = $change->id_categoria;
         $this->emit('subir-scroll');
     }
-    public function changeEvent($value)
+    public function changeEvent($value1, $value2)
     {
-        $this->categorias = $value;
+        $this->categorias = $value1;
+        $this->nombre_categoria = $value2;
+        // $this->emit('invisible');
+
     }
     private function resetInput()
     {

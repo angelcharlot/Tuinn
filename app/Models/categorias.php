@@ -8,7 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class categorias extends Model
 {
     use HasFactory;
-
+    public $profundidad=2;
+    protected $fillable = ['img','profundidad'];
 
     public function cat_hijos()
     {

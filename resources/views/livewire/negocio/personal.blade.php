@@ -1,4 +1,4 @@
-<div class=" min-h-screen mx-auto p-10 w-full md:w-11/12 bg-cool-gray-50 shadow-lg my-5  ">
+<div class="hoja_base">
     {{-- formulario --}}
     @if ($updateMode)
         @include('livewire.negocio.update')

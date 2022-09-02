@@ -1,4 +1,17 @@
-<div class=" min-h-screen mx-auto p-10 w-full md:w-11/12 bg-cool-gray-50 shadow-lg my-5  ">
+<div class=" hoja_base ">
+    {{-- loading --}}
+    <div wire:loading wire:target="photo,changeEvent"
+        class="fixed z-40 w-full h-full top-0 left-0 bg-gray-500 bg-opacity-25">
+        <div class="w-ful h-full ">
+            <div class="flex justify-center h-full">
+
+                <div class="w-24 h-24 my-auto animate-spin ">
+                    <img class="w-full h-full" src="{{ asset('images/load2.png') }}" alt="">
+                </div>
+
+            </div>
+        </div>
+    </div>
     {{-- formularios --}}
 
     @if ($updateMode)
@@ -6,6 +19,8 @@
     @else
         @include('livewire.productos.create')
     @endif
+
+    {{-- registros --}}
     <div class="shadow-sm overflow-hidden my-8">
         <h1 class="titulo_form">Productos</h1>
         <table class=" tabla md:text-base ">
@@ -17,8 +32,7 @@
                     <th class="">
                         id
                     </th>
-                    <th
-                        class=" hidden md:table-cell ">
+                    <th class=" hidden md:table-cell ">
                         nombre
                     </th>
                     <th class="  ">
@@ -30,12 +44,10 @@
                     <th class=" ">
                         categoria
                     </th>
-                    <th
-                        class=" hidden md:table-cell ">
+                    <th class=" hidden md:table-cell ">
                         volumen/und medida
                     </th>
-                    <th
-                        class=" hidden md:table-cell ">
+                    <th class=" hidden md:table-cell ">
                         Accions
 
                     </th>
@@ -45,8 +57,7 @@
             @foreach ($user->productos as $producto)
                 <tbody class="bg-white border-b-2 ">
                     <tr>
-                        <td
-                            class="">
+                        <td class="">
                             <img class=" h24-  md:h-16 w-48 md:w-16  rounded-lg border border-gray-200"
                                 src="{{ asset($producto->img) }}" alt="Current profile photo" />
                         </td>
@@ -116,14 +127,7 @@
 
         </table>
     </div>
-    <div id="myModal"  class="modalContainer ">
-        <div class="modal-content ">
-            <span class="close">×</span>
-            <h2>Modal</h2>
-            <p>Se ha desplegado el modal y bloqueado el scroll del body!</p>
-            @livewire('categorias.categorias')
-        </div>
-    </div>
+
 
     @push('js')
         <script src="{{ asset('js/producto/producto.js') }}"></script>

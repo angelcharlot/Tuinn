@@ -1,4 +1,4 @@
-<div class=" min-h-screen mx-auto p-10 w-full md:w-11/12 bg-cool-gray-50 shadow-lg my-5  ">
+<div class="hoja_base">
 
     {{-- formulario --}}
     @if ($updateMode)
@@ -7,10 +7,10 @@
         @include('livewire.categorias.create')
     @endif
 
-    <div class=" min-h-1/2 mx-auto p-10 w-full md:w-11/12 bg-cool-gray-50 shadow-lg my-5 ">
+    <div class=" shadow-sm overflow-hidden my-8 ">
         <div class="w-full my-4">
 
-            <div class="rounded-t-lg overflow-hidden border-2  border-gray-400 p-4">
+            <div class="rounded-t-lg overflow-hidden border  border-gray-400 p-4">
 
                 @if ($categoria_seleccionada)
 
@@ -36,21 +36,24 @@
 
 
         </div>
-        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-2 text-gray-600">
+
+        <div class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-1 text-gray-600">
 
             @forelse ($categorias as $categoria)
                 <div
-                    class="border-2 border-gray-200 min-h-30 rounded-lg shadow-sm bg-white hover:bg-gray-100  divide-y divide-solid ">
-                    <div class=" header   grid grid-cols-6 p-3 text-base bg-gray-50">
-                        <div class=" text-left col-span-1"><i class="bi bi-bookmarks"></i></div>
-                        <div wire:click="buscar({{ $categoria->id }},0)"  class=" text-center col-span-3 font-semibold">{{ $categoria->name }}</div>
-                        <div wire:click="delete({{ $categoria->id }})" class=" text-right cols-span-1"><i class="bi bi-x-circle"></i></div>
-                        <div wire:click="edit({{ $categoria->id }})" class=" text-right cols-span-1"><i class="bi bi-pencil"></i></div>
+                    class="border-2 grid border-gray-200 h-32 w-full rounded-sm shadow-md bg-white hover:bg-gray-100  divide-y divide-solid ">
+                    <div class=" text-center text-sm">
+
+                        <div   class=" font-semibold">{{ $categoria->name }}</div>
+
                     </div>
-                    <div class="p-3 text-xs ">
+                    <div wire:click="buscar({{ $categoria->id }},0)" class="p-3 text-xs ">
                         {{ $categoria->descrip }}
                     </div>
-                    <div></div>
+                    <div class="grid grid-cols-2 p-1 gap-2 items-baseline "  >
+                        <div wire:click="delete({{ $categoria->id }})" class="border p-0 text-center rounded-md text-red-500 bg-red-200 border-red-300 hover:bg-red-500 hover:text-white  "><i class="bi bi-x-circle"></i></div>
+                        <div wire:click="edit({{ $categoria->id }})" class="  border p-0 text-center rounded-md text-indigo-500 bg-indigo-200 border-indigo-300  hover:bg-indigo-500 hover:text-white"><i class="bi bi-pencil"></i></div>
+                    </div>
 
                 </div>
 

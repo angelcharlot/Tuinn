@@ -2,7 +2,7 @@
     <h1 class="titulo_form">
         Registrar empleado
     </h1>
-    <div class="w-full border border-gray-200 p-3 mt-4 rounded-sm grid grid-cols-1 md:grid-cols-2  lg:grid-cols-5 gap-2">
+    <div class="div-form-container grid grid-cols-1 md:grid-cols-2  lg:grid-cols-5 ">
         {{-- nombre --}}
         <div class="w-auto px-3">
             <label class="text-xs text-gray-500 mx-1 " for="name">Nombre</label>

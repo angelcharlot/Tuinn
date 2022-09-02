@@ -3,6 +3,19 @@
     @apply border-collapse table-auto w-full text-xs;
 
 }
+/* btn file */
+.subir_foto {
+    position: relative;
+    overflow: hidden;
+
+  }
+  .subir_foto .imputable {
+    font-size: 100px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    opacity: 0;
+  }
 
 .tabla>thead>tr>th {
     @apply font-bold text-gray-700 text-left;
@@ -16,14 +29,54 @@
 
 .tabla>tbody>tr>td,
 .tabla>thead>tr>th {
-    @apply pl-8 pt-3 pb-4 ;
-
-}
-.titulo_form{
-    @apply inline-block text-lg  text-gray-800  font-black;
+    @apply pl-8 pt-3 pb-4;
 
 }
 
-input,select{
-    @apply block w-full bg-gray-50 rounded-md text-sm border  shadow-lg h-8 px-2  ;
+.titulo_form {
+    @apply inline-block text-lg text-gray-800 font-black;
+
+}
+
+/* elefonos */
+input,
+select,
+.file_cam
+ {
+    @apply block w-full bg-gray-50 rounded-md text-sm border shadow-lg h-8 px-2;
+
+}
+
+.hoja_base {
+
+    @apply min-h-screen mx-auto p-2 w-full bg-cool-gray-50 shadow-lg my-5;
+
+}
+
+.div-form-container {
+
+    @apply w-full p-3 mt-4 rounded gap-1;
+
+}
+
+
+/* pantallas grandes */
+@media screen and (min-width: 768px) {
+
+    input,
+    select {
+        @apply block w-full bg-gray-50 rounded-sm text-sm border shadow-lg h-10 px-2;
+    }
+
+    .hoja_base {
+        @apply w-11/12 p-10;
+    }
+
+    .div-form-container {
+
+        @apply border border-gray-200 gap-3;
+
+    }
+
+
 }
