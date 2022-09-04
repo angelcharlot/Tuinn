@@ -15,9 +15,12 @@ class CreateCategoriasTable extends Migration
     {
         Schema::create('categorias', function (Blueprint $table) {
             $table->id();
-            $table->integer('id_categoria');
+            $table->unsignedBigInteger('id_categoria')->nullable()->default(NULL);;
+            $table->unsignedBigInteger('id_negocio');
             $table->string('name',100);
             $table->string('descrip',500)->nullnable();
+            $table->foreign('id_categoria')->references('id')->on('categorias');
+            $table->foreign('id_negocio')->references('id')->on('negocios');
             $table->timestamps();
         });
     }

@@ -7,19 +7,20 @@ use Livewire\WithFileUploads;
 use Livewire\Component;
 use App\Models\productos as producto;
 use App\Models\User;
+use App\Models\categorias_productos;
 use App\Models\categorias;
+use App\Models\negocio;
 use Illuminate\Support\Facades\Storage;
 
 class Productos extends Component
 {
     use WithFileUploads;
 
-    public $user, $photo, $name, $descrip, $p_compra, $p_venta, $peso, $unidad_medida = 'ml', $volumen, $categorias, $allcategorias, $selected_id;
+    public $productos,$negocio,$user, $photo, $name, $descrip, $p_compra, $p_venta, $peso, $unidad_medida = 'ml', $volumen, $categorias, $allcategorias, $selected_id;
     public $updateMode = false;
     public $nombre_categoria;
+    public $array_cat;
     protected $listeners = ['destroy', 'select_update'];
-
-
     protected $messages = [
         'name.required' => 'campo obligatorio',
         'descrip.required' => 'campo obligatorio',
@@ -49,8 +50,16 @@ class Productos extends Component
     public function render()
     {
         $this->user = auth()->user();
-        $this->allcategorias = categorias::whereNull('id_categoria')->get();
 
+        $negocioid = auth()->user()->negocio;
+       // dd($negocioid);
+        $this->negocio=negocio::find($negocioid->id);
+       // dd($negocio->productos);
+        $this->productos=$this->negocio->productos;
+        $this->allcategorias = categorias::where("id_negocio","=",auth()->user()->negocio->id,"and")->whereNull('id_categoria')->get();
+        for ($i=0; $i < count($this->allcategorias) ; $i++) {
+            $this->allcategorias[$i]->ids=$this->allcategorias[$i]->id;
+        }
         return view('livewire.productos.productos');
     }
     public function destroy($id)
@@ -78,9 +87,6 @@ class Productos extends Component
             }
             $url = str_replace('storage', 'public', $record->img);
             Storage::disk('local')->delete($url);
-
-
-
             $record->img = $imagen;
             $record->name = $this->name;
             $record->descrip = $this->descrip;
@@ -90,13 +96,12 @@ class Productos extends Component
             $record->peso = $peso;
             $record->unidad_medida = $this->unidad_medida;
             $record->volumen = $this->volumen;
-            $record->id_categoria = $this->categorias;
-
             $record->update();
-
+            $ids = explode("-", $this->array_cat);
+            $record->categorias()->sync($ids);
             $this->resetInput();
             $this->updateMode = false;
-            $this->emit('alert-update');
+            $this->emit('alert_update');
         }
     }
     public function select_update($id)
@@ -114,7 +119,7 @@ class Productos extends Component
             $imagen = 'images/icons8-cubiertos-100.png';
         }
         $newproduct = new producto();
-        $newproduct->id_usuario = $this->user->id;
+        $newproduct->id_negocio = $this->negocio->id;
         $newproduct->img = $imagen;
         $newproduct->name = $this->name;
         $newproduct->descrip = $this->descrip;
@@ -124,8 +129,13 @@ class Productos extends Component
         $newproduct->peso = $peso;
         $newproduct->unidad_medida = $this->unidad_medida;
         $newproduct->volumen = $this->volumen;
-        $newproduct->id_categoria = $this->categorias;
+
         $newproduct->save();
+
+        $ids = explode("-", $this->array_cat);
+
+        $newproduct->categorias()->attach($ids);
+
         $this->emit('alert_guardado');
         $this->emit('enable_copy');
         $this->resetInput();
@@ -163,11 +173,13 @@ class Productos extends Component
         $this->categorias = $change->id_categoria;
         $this->emit('subir-scroll');
     }
-    public function changeEvent($value1, $value2)
+    public function changeEvent($value1, $value2,$value3)
     {
         $this->categorias = $value1;
         $this->nombre_categoria = $value2;
-        // $this->emit('invisible');
+        $this->array_cat=$value3;
+
+
 
     }
     private function resetInput()

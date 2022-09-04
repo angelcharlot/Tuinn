@@ -54,7 +54,8 @@
 
                 </tr>
             </thead>
-            @foreach ($user->productos as $producto)
+
+            @foreach ($productos as $producto)
                 <tbody class="bg-white border-b-2 ">
                     <tr>
                         <td class="">
@@ -74,7 +75,14 @@
                             {{ $producto->precio_compra }}
                         </td>
                         <td class="  ">
-                            {{ $producto->categoria->name }}
+
+                            @foreach ($producto->categorias as $categoria )
+                                {{$categoria->name}}
+                            @endforeach
+
+
+
+
                         </td>
                         <td class=" hidden md:table-cell ">
                             {{ $producto->volumen }}/{{ $producto->unidad_medida }}

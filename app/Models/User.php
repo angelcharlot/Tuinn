@@ -10,6 +10,7 @@ use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
+
 class User extends Authenticatable
 {
     use HasApiTokens;
@@ -25,6 +26,7 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'fk_user',
+        'id_negocio',
         'name',
         'email',
         'password',
@@ -50,15 +52,12 @@ class User extends Authenticatable
     //relaciones
     public function personal()
     {
-        return $this->hasMany('App\Models\User','fk_user');
+        return $this->hasMany('App\Models\User', 'fk_user');
     }
-    public function productos()
+    public function negocio()
     {
-        return $this->hasMany('App\Models\productos','id_usuario');
+        return $this->belongsTo('App\Models\negocio', 'id_negocio');
     }
-    public function negocio() {
-        return $this->hasOne('App\Models\negocio','id_user');
-      }
 
 
     protected $casts = [

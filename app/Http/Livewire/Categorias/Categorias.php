@@ -24,9 +24,8 @@ class Categorias extends Component
     public function render()
     {
         if ($this->categorias == NULL) {
-            $this->categorias = category::whereNULL('id_categoria')->get();
+            $this->categorias = category::where('id_negocio',"=",auth()->user()->negocio->id,'and')->whereNull('id_categoria')->get();
         }
-
 
         return view('livewire.categorias.categorias');
     }
@@ -66,6 +65,7 @@ class Categorias extends Component
         $newcategoria->name = $this->name;
         $newcategoria->descrip = $this->descrip;
         $newcategoria->id_categoria = $this->id_padre_categoria;
+        $newcategoria->id_negocio=auth()->user()->negocio->id;
         $newcategoria->save();
 
         $this->resete();

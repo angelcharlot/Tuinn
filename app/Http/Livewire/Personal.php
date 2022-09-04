@@ -57,10 +57,12 @@ class Personal extends Component
 
         User::create([
             'name' => $this->name,
+            'id_negocio'=> auth()->user()->id_negocio,
             'fk_user' => $this->usuario,
             'email' => $this->email,
             'password' => Hash::make($this->password),
         ])->assignRole($this->rol);
+
         $this->emit('alert_guardad');
         $this->resetInput();
     }
