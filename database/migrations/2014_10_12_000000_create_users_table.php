@@ -25,8 +25,8 @@ class CreateUsersTable extends Migration
             $table->foreignId('current_team_id')->nullable();
             $table->text('profile_photo_path')->nullable();
             $table->timestamps();
-            $table->foreign('fk_user')->references('id')->on('users');
-            $table->foreign('id_negocio')->references('id')->on('negocios');
+            $table->foreign('fk_user')->references('id')->on('users')->onDelete('CASCADE')->onUpdate('CASCADE');
+            $table->foreign('id_negocio')->references('id')->on('negocios')->onDelete('CASCADE')->onUpdate('CASCADE');
         });
     }
 

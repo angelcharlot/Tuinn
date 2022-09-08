@@ -17,6 +17,7 @@ class CreateProductosTable extends Migration
             $table->id();
             $table->unsignedBigInteger('id_negocio');
             $table->text('img',500)->nullable();
+            $table->boolean('activo');
             $table->string('name', 100);
             $table->text('descrip', 100)->nullable();
             $table->text('descrip2', 100)->nullable();
@@ -26,7 +27,7 @@ class CreateProductosTable extends Migration
             $table->char('volumen')->nullable();
             $table->decimal('precio_compra', 8, 2)->nullnable();
             $table->decimal('precio_venta', 8, 2);
-            $table->foreign('id_negocio')->references('id')->on('negocios')->onDelete('cascade');
+            $table->foreign('id_negocio')->references('id')->on('negocios')->onDelete('CASCADE')->onUpdate('CASCADE');
             $table->timestamps();
         });
     }

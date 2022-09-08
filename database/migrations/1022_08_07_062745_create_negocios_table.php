@@ -15,10 +15,12 @@ class CreateNegociosTable extends Migration
     {
         Schema::create('negocios', function (Blueprint $table) {
             $table->id();
-
+            $table->text('img',500)->nullable();
             $table->string('name',200)->nullable();
             $table->string('direccion',500)->nullable();
             $table->text('denominacion_social')->nullable();
+            $table->text('telefono1',500)->nullable();
+            $table->text('telefono2',500)->nullable();
             $table->string('nif',50)->nullable();
             $table->decimal('iva', 5, 2)->nullable()->default(10.00);
             $table->timestamps();

@@ -49,6 +49,7 @@ class Productos extends Component
 
     public function render()
     {
+
         $this->user = auth()->user();
 
         $negocioid = auth()->user()->negocio;

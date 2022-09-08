@@ -19,8 +19,8 @@ class CreateCategoriasTable extends Migration
             $table->unsignedBigInteger('id_negocio');
             $table->string('name',100);
             $table->string('descrip',500)->nullnable();
-            $table->foreign('id_categoria')->references('id')->on('categorias');
-            $table->foreign('id_negocio')->references('id')->on('negocios');
+            $table->foreign('id_categoria')->references('id')->on('categorias')->onDelete('CASCADE')->onUpdate('CASCADE');
+            $table->foreign('id_negocio')->references('id')->on('negocios')->onDelete('CASCADE')->onUpdate('CASCADE');
             $table->timestamps();
         });
     }

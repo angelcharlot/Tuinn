@@ -28,8 +28,12 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-/*rutas protegidas por auth*/
-/////////////////////////////////////////////////////////////////////////////////
+Route::get('/menu/{id?}', function ($id=0) {
+    return view('menu/index')->with('id_negocio',$id);
+});
+
+/*rutas protegidas por auth
+/////////////////////////////////////////////////////////////////////////////////*/
 Route::middleware(['auth:sanctum', 'verified'])->group(function(){
 
 
