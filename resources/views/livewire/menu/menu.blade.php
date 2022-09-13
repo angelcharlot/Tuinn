@@ -2,7 +2,7 @@
 
     <div class="w-full my-3">
         <div class="w-full">
-            <img src="{{ asset('images/olvera.jpg') }}" alt="">
+            <img src="{{ asset($negocio->img) }}" alt="">
         </div>
 
         <div class="text-center  mt-3 text-lg font-bold">{{ $negocio->name }}</div>
