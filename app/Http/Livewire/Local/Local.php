@@ -41,7 +41,7 @@ class Local extends Component
     public function update()
     {
 
-        $this->validate();
+
 
         if ($this->photo) {
             $imagen = 'storage/' . $this->photo->store('banner', 'public');
