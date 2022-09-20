@@ -17,7 +17,7 @@ class CreateProductosTable extends Migration
             $table->id();
             $table->unsignedBigInteger('id_negocio');
             $table->text('img',500)->nullable();
-            $table->boolean('activo');
+            $table->boolean('activo')->nullable()->default('1');
             $table->string('name', 100);
             $table->text('descrip', 100)->nullable();
             $table->text('descrip2', 100)->nullable();
