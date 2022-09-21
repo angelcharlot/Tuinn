@@ -59,6 +59,9 @@
                     <option value="ml" selected>mililitro (ml)</option>
                     <option value="cl">centilitro (cl)</option>
                     <option value="dl">decilitro (dl)</option>
+                    <option value="tapa">tapa (tp)</option>
+                    <option value="media">media racion (MR)</option>
+                    <option value="media">racion (R)</option>
 
                 </select>
                 @error('unidad_medida')

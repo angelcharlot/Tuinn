@@ -16,6 +16,8 @@ class Menu extends Component
     public $categorias;
     public $categoria_padre;
     public $id_atras = null;
+    public $open=false;
+    public $producto_selecionado;
 
 
 
@@ -28,6 +30,7 @@ class Menu extends Component
         $this->categoria_padre->name = "inicio";
         $this->categoria_padre->id_categoria = Null;
         $this->categoria_padre->productos = productos::where('id_negocio', '=', $this->id_negocio)->get();
+        $this->producto_selecionado= new productos();
     }
     public function render()
     {
@@ -61,5 +64,11 @@ class Menu extends Component
             }
 
         }
+    }
+    public function producto(productos $producto){
+
+        $this->producto_selecionado=$producto;
+        $this->open=true;
+
     }
 }

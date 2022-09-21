@@ -1,4 +1,16 @@
 <div class=" hoja_base ">
+
+@if (count($allcategorias)==0)
+
+<h1 class="w-full h-16 rounded-md border border-red-700 p-4 bg-gray-50 text-lg text-center text-red-400">
+    tiene que registrar las <a class="link underline decoration-solid hover:text-red-700" href="{{route('categorias.index')}}">categorias</a>
+
+</h1>
+
+@else
+
+
+
     {{-- loading --}}
     <div wire:loading wire:target="photo,changeEvent"
         class="fixed z-40 w-full h-full top-0 left-0 bg-gray-500 bg-opacity-25">
@@ -21,6 +33,7 @@
     @endif
 
     {{-- registros --}}
+
     <div class="shadow-sm overflow-hidden my-8">
         <h1 class="titulo_form">Productos</h1>
         <table class=" tabla md:text-base ">
@@ -136,5 +149,5 @@
         </table>
     </div>
 
-
+@endif
 </div>
