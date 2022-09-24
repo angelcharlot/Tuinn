@@ -16,13 +16,11 @@ class Menu extends Component
     public $categorias;
     public $categoria_padre;
     public $id_atras = null;
-    public $open=false;
-    public $producto_selecionado;
+
 
 
 
     public function mount()
-
     {
         $this->categoria_padre = new categorias();
         $this->negocio = negocio::find($this->id_negocio);
@@ -65,10 +63,5 @@ class Menu extends Component
 
         }
     }
-    public function producto(productos $producto){
 
-        $this->producto_selecionado=$producto;
-        $this->open=true;
-
-    }
 }
