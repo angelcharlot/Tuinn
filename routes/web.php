@@ -1,6 +1,9 @@
 <?php
 
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Storage;
+use Stichoza\GoogleTranslate\GoogleTranslate;
 
 /*
 |--------------------------------------------------------------------------
@@ -12,6 +15,16 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+//prueba
+
+Route::get('prueba/', function () {
+
+    $tr = new GoogleTranslate();
+    echo $tr->setSource('es')->setTarget('en')->translate('hola amor');
+    QrCode::size(200)->style('round')->format('svg')->generate('https://www.tuinn.es/menu/'.auth()->user()->negocio->id, Storage::path('qr/'.auth()->user()->negocio->id.'.svg'));
+
+
+});
 
 //errorer
 Route::get('errors/401', function () {

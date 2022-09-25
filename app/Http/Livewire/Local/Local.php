@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Storage;
 use Livewire\WithFileUploads;
 use App\Models\negocio;
 use Livewire\Component;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 class Local extends Component
 {

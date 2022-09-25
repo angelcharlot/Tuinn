@@ -87,6 +87,16 @@
                 autocomplete="iva" />
             <x-jet-input-error for="iva" class="mt-2" />
         </div>
+        <div class="col-span-6 sm:col-span-4">
+
+            <div>
+                QR-Menu
+            </div>
+            <div>
+                <img src="{{asset("storage/qr/")}}/{{$this->negocio->id}}.svg" alt="insertar SVG con la etiqueta image">
+            </div>
+
+        </div>
 
     </x-slot>
 

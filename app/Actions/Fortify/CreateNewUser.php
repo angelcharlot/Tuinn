@@ -7,7 +7,8 @@ use App\Models\negocio;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Laravel\Fortify\Contracts\CreatesNewUsers;
-
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
+use Illuminate\Support\Facades\Storage;
 class CreateNewUser implements CreatesNewUsers
 {
     use PasswordValidationRules;
@@ -28,7 +29,7 @@ class CreateNewUser implements CreatesNewUsers
 
         $negocio= new negocio();
         $negocio->save();
-
+        QrCode::format('svg')->generate('https://www.tuinn.es/menu/'.$negocio->id, Storage::path('qr/'.$negocio->id.'.svg'));
         return User::create([
             'name' => $input['name'],
             'email' => $input['email'],
