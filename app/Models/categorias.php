@@ -22,10 +22,6 @@ class categorias extends Model
 
         return $this->hasMany('App\Models\categorias','id_categoria')->with('cat_hijos');
     }
-
-
-
-
     public function productos(){
         return $this->belongsToMany('App\Models\productos');
     }

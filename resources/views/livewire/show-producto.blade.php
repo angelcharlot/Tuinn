@@ -60,7 +60,11 @@
                 &euro; {{ $producto->precio_venta }}
             </div>
             <div class="  w-5/6 mx-auto text-lg font-bold">descripcion:</div>
+
+           {{--  <div class="  w-5/6 mx-auto text-base text-gray-400 text-justify">{{ $producto->descrip }} --}}
             <div class="  w-5/6 mx-auto text-base text-gray-400 text-justify">{{ $producto->descrip }}
+
+
             </div>
 
 

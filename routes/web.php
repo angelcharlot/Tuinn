@@ -1,6 +1,6 @@
 <?php
 
-use SimpleSoftwareIO\QrCode\Facades\QrCode;
+use SimpleSoftwareIO\QrCode\Facades\QrCode ;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Storage;
 use Stichoza\GoogleTranslate\GoogleTranslate;
@@ -41,7 +41,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/menu/{id?}', function ($id=0) {
+Route::get('/menu/{id?}', function ($id=1) {
     return view('menu/index')->with('id_negocio',$id);
 });
 
