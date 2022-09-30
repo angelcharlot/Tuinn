@@ -15,78 +15,57 @@ class Menu extends Component
     public $negocio;
     /*categorias y productos*/
     public $categorias;
-    public $categoria_padre;
-    public $idioma="es";
-    public $open=false;
+    public $idioma = "es";
+    public $open = false;
     public $producto_selecionado;
     public $productos;
-    public $sorf;
+    public $migas;
+
 
 
 
     public function mount()
     {
-        $this->producto_selecionado=new productos();
+        $this->producto_selecionado = new productos();
+        $this->migas[] = ['name' => 'Todos', 'id' => 'principal'];
         $this->negocio = negocio::find($this->id_negocio);
-        $this->categorias = categorias::where('id_negocio','=', $this->negocio->id)->whereNull('id_categoria')->get();
-        $this->categoria_padre = categorias::find(1);
-        $this->categoria_padre->productos = productos::where('id_negocio','=',$this->negocio->id)->get();
-
+        $this->categorias = categorias::where('id_negocio', '=', $this->negocio->id)->whereNull('id_categoria')->get();
+        $this->productos = productos::where('id_negocio', '=', $this->negocio->id)->get();
     }
 
 
     public function render()
     {
-        $this->productos= productos::where('id_negocio','=',$this->negocio->id)->where('name','like','%'.$this->sorf.'%')->get();
-          $tr = new GoogleTranslate();
-        for ($i=0; $i < count($this->productos) ; $i++) {
-            $this->productos[$i]->descrip=$tr->setSource()->setTarget($this->idioma)->translate($this->productos[$i]->descrip);
+
+        $tr = new GoogleTranslate();
+        for ($i = 0; $i < count($this->productos); $i++) {
+            $this->productos[$i]->descrip = $tr->setSource()->setTarget($this->idioma)->translate($this->productos[$i]->descrip);
         }
-        $productos=$this->productos;
-        return view('livewire.menu.menu',compact('productos'));
-
+        $productos = $this->productos;
+        return view('livewire.menu.menu', compact('productos'));
     }
-
-
-
-
-    public function navegacion($id,$bn)
+    public function nav_categorias($id)
     {
 
-        if ($bn == 0)
-        {
-            $this->categoria_padre = categorias::find($id);
+        if ($id == 'principal') {
+            $this->productos = productos::where('id_negocio', '=', $this->negocio->id)->get();
+            $this->categorias = categorias::where('id_negocio', '=', $this->negocio->id)->whereNull('id_categoria')->get();
+            $this->migas = array();
+            $this->migas[] = ['name' => 'Todos', 'id' => 'principal'];
+        } else {
+            $categoria = categorias::find($id);
             $this->categorias = categorias::where('id_categoria', '=', $id)->get();
 
-            if (count($this->categorias) == 0) {
-                $this->categorias = categorias::where('id', '=', $id)->get();
-            }
-        }else{
-
-            if ($this->categoria_padre->id_categoria=='') {
-            $this->categoria_padre = new categorias();
-            $this->negocio = negocio::find($this->id_negocio);
-            $this->categorias = categorias::where('id_negocio', '=',$this->negocio->id)->whereNull('id_categoria')->get();
-            $this->categoria_padre->name = "inicio";
-            $this->categoria_padre->id_categoria = Null;
-            $this->categoria_padre->productos = productos::where('id_negocio', '=', $this->id_negocio)->get();
-            $this->productos= productos::where('id_negocio','=',$this->negocio->id)->get();
-            }else{
-                $this->categoria_padre = categorias::find($this->categoria_padre->id_categoria);
-                $this->productos= $this->categoria_padre->productos;
-                $this->categorias = categorias::where('id_categoria', '=',$this->categoria_padre->id)->get();
-
-            }
-
+            $this->migas[] = ['name' => $categoria->name, 'id' => $categoria->id];
+            $this->productos=$categoria->productos;
         }
     }
 
-    public function producto(productos $producto){
+    public function producto(productos $producto)
+    {
         $tr = new GoogleTranslate();
-        $this->producto_selecionado=$producto;
-        $this->producto_selecionado->descrip=$tr->setSource()->setTarget($this->idioma)->translate($this->producto_selecionado->descrip);
-        $this->open=true;
-
+        $this->producto_selecionado = $producto;
+        $this->producto_selecionado->descrip = $tr->setSource()->setTarget($this->idioma)->translate($this->producto_selecionado->descrip);
+        $this->open = true;
     }
-
 }
