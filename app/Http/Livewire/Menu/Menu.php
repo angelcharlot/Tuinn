@@ -53,8 +53,16 @@ class Menu extends Component
             $this->migas = array();
             $this->migas[] = ['name' => 'Todos', 'id' => 'principal'];
         } else {
+            $offset=NULL;
             $categoria = categorias::find($id);
             $this->categorias = categorias::where('id_categoria', '=', $id)->get();
+            for ($i=0; $i < count($this->migas) ; $i++) {
+                if ($this->migas[$i]['name']==$categoria->name) {
+                    $offset=$i;
+                }
+            }
+
+            $this->migas=(array_slice($this->migas,0,$offset));
 
             $this->migas[] = ['name' => $categoria->name, 'id' => $categoria->id];
             $this->productos=$categoria->productos;
