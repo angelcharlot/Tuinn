@@ -1,8 +1,8 @@
-<div>
-    <div class=" bg-whitem mb-10 h-min-screen my-10 container mx-auto rounded-md shadow-sm ">
+<div class="  ">
+    <div class=" bg-whitem mb-10 h-min-96 my-10 container mx-auto rounded-md shadow-sm ">
 
         <div class="w-full my-3">
-            <div class="w-full">
+            <div class="w-5/12 mx-auto ">
                 <img src="{{ asset($negocio->img) }}" alt="">
             </div>
 
@@ -10,32 +10,75 @@
             <div class="text-center text-md">{{ $negocio->direccion }}</div>
             <div class="text-center mb-3 text-xs">{{ $negocio->nif }}</div>
         </div>
-        <div>
-            <select wire:model='idioma' name="" id="">
+        <div class=" w-4/12 mx-auto mb-5">
+            <select wire:model='idioma' class=" rounded-lg " name="" id="">
                 <option value="es">español</option>
                 <option value="it">Italiano</option>
                 <option value="de">Alemán</option>
                 <option value="fr">Francés</option>
                 <option value="en">Inglés</option>
-                <option value="ja">japones</option>
+                <option value="ca">catalan</option>
             </select>
         </div>
+        <div class=" border-gray-200 border border-light shadow-card  py-2 px-2 sm:px-6 md:px-8 md:py-2 ">
 
-        <div class="div-form-container grid grid-cols-12 gap-1 mb-5">
-            @foreach ($migas as $miga)
-            <div wire:click="nav_categorias('{{$miga['id']}}')">{{$miga['name']}}</div>
-            @endforeach
+            <ul class="flex items-center">
+                {{-- miga home --}}
+                <li class="flex items-center">
+                    <a wire:click="nav_categorias('principal')"
+                        class="font-semibold text-2xl text-blue-800 hover:text-blue-500  cursor-pointer hover:text-primary">
+                        <i class="bi bi-house-door"></i> </a>
+                    @if (count($migas) > 0)
+                        <span class="px-3">
+                            <i class="bi bi-chevron-right"></i>
+                        </span>
+                    @endif
+                </li>
+                {{-- migas --}}
+                @foreach ($migas as $index => $miga)
+                    @if ($index != count($migas) - 1)
+                        <li class="flex items-center">
+
+                            <a wire:click="nav_categorias('{{ $miga['id'] }}')"
+                                class="font-semibold hover:text-blue-800 cursor-pointer text-base text-black hover:text-primary">
+                                {{ $miga['name'] }}
+                            </a>
+
+                            <span class="px-3">
+                                <i class="bi bi-chevron-right"></i>
+                            </span>
+
+                        </li>
+                    @else
+                        <li class="flex items-center">
+
+                            <a wire:click="nav_categorias('{{ $miga['id'] }}')"
+                                class="font-semibold text-base text-blue-800  border-b-4 border-blue-800  hover:text-primary">
+                                {{ $miga['name'] }}
+                            </a>
+                        </li>
+                    @endif
+                @endforeach
+            </ul>
         </div>
+        {{-- selector de categorias --}}
+
         <div class="div-form-container grid grid-cols-6 gap-1 mb-5">
             @foreach ($categorias as $categoria)
-            <div wire:click="nav_categorias('{{$categoria->id}}')" class="bg-blue-200">{{$categoria->name}}</div>
+                <div wire:click="nav_categorias('{{ $categoria->id }}')"
+                class="cursor-pointer hover:bg-blue-400  bg-blue-200 py-2 px-2 rounded-md border border-gray-400">
+                {{ $categoria->name }}
+                </div>
             @endforeach
         </div>
+
+        {{-- cartas de los productos --}}
         <div class=" grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 gap-3 text-xs mx-auto">
             @foreach ($productos as $producto)
                 <div wire:click="producto('{{ $producto->id }}')"
                     class=" grid-cols-2 grid border border-gray-200 m-1 rounded-md shadow-xs p-1 hover:border-indigo-300 hover:shadow-2xl ">
-                    <div><img class="w-full rounded-md" src="{{ asset($producto->img) }}" alt="Sunset in the mountains">
+                    <div><img class="w-full rounded-md" src="{{ asset($producto->img) }}"
+                            alt="Sunset in the mountains">
                     </div>
                     <div>
                         <table class="w-full ">
@@ -74,6 +117,7 @@
 
 
     </div>
+    {{-- modal de los productos --}}
     <x-jet-dialog-modal wire:model="open">
         <x-slot name="title">
             <div class="grid grid-cols-6">

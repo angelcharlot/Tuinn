@@ -27,7 +27,7 @@ class Menu extends Component
     public function mount()
     {
         $this->producto_selecionado = new productos();
-        $this->migas[] = ['name' => 'Todos', 'id' => 'principal'];
+        $this->migas=array();
         $this->negocio = negocio::find($this->id_negocio);
         $this->categorias = categorias::where('id_negocio', '=', $this->negocio->id)->whereNull('id_categoria')->get();
         $this->productos = productos::where('id_negocio', '=', $this->negocio->id)->get();
@@ -39,7 +39,10 @@ class Menu extends Component
 
         $tr = new GoogleTranslate();
         for ($i = 0; $i < count($this->productos); $i++) {
-            $this->productos[$i]->descrip = $tr->setSource()->setTarget($this->idioma)->translate($this->productos[$i]->descrip);
+            $this->productos[$i]->descrip = $tr->setSource('es')->setTarget($this->idioma)->translate($this->productos[$i]->descrip);
+        }
+        for ($i = 0; $i < count($this->categorias); $i++) {
+            $this->categorias[$i]->name = $tr->setSource('es')->setTarget($this->idioma)->translate($this->categorias[$i]->name);
         }
         $productos = $this->productos;
         return view('livewire.menu.menu', compact('productos'));
@@ -51,7 +54,7 @@ class Menu extends Component
             $this->productos = productos::where('id_negocio', '=', $this->negocio->id)->get();
             $this->categorias = categorias::where('id_negocio', '=', $this->negocio->id)->whereNull('id_categoria')->get();
             $this->migas = array();
-            $this->migas[] = ['name' => 'Todos', 'id' => 'principal'];
+
         } else {
             $offset=NULL;
             $categoria = categorias::find($id);
@@ -73,7 +76,7 @@ class Menu extends Component
     {
         $tr = new GoogleTranslate();
         $this->producto_selecionado = $producto;
-        $this->producto_selecionado->descrip = $tr->setSource()->setTarget($this->idioma)->translate($this->producto_selecionado->descrip);
+        $this->producto_selecionado->descrip = $tr->setSource('es')->setTarget($this->idioma)->translate($this->producto_selecionado->descrip);
         $this->open = true;
     }
 }
