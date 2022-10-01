@@ -2,7 +2,7 @@
     <div class=" bg-whitem mb-10 h-min-96 my-10 container mx-auto rounded-md shadow-sm ">
 
         <div class="w-full my-3">
-            <div class="w-5/12 mx-auto ">
+            <div class="w-8/12 mx-auto ">
                 <img src="{{ asset($negocio->img) }}" alt="">
             </div>
 
@@ -63,7 +63,7 @@
         </div>
         {{-- selector de categorias --}}
 
-        <div class="div-form-container grid grid-cols-6 gap-1 mb-5">
+        <div class="div-form-container grid grid-cols-4 gap-1 mb-5">
             @foreach ($categorias as $categoria)
                 <div wire:click="nav_categorias('{{ $categoria->id }}')"
                 class="cursor-pointer hover:bg-blue-400  bg-blue-200 py-2 px-2 rounded-md border border-gray-400">
