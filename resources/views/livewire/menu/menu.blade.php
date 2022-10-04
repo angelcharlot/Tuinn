@@ -1,16 +1,19 @@
 <div class="  ">
-        {{-- loading --}}
-        <div wire:loading wire:target="idioma"
-        class="fixed z-40 w-full h-full top-0 left-0 bg-gray-800 bg-opacity-75">
+    {{-- loading --}}
+    <div wire:loading wire:target="idioma" class="fixed z-40 w-full h-full top-0 left-0 bg-gray-800 bg-opacity-75">
         <div class="w-ful h-full ">
             <div class="flex justify-center h-full">
 
                 <div class="w-24 h-24 my-auto z-50 ">
                     <div role="status">
-                        <svg class="animate-spin -ml-1 mr-3 h-18 w-18 text-blue-800" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                          </svg>
+                        <svg class="animate-spin -ml-1 mr-3 h-18 w-18 text-blue-800" xmlns="http://www.w3.org/2000/svg"
+                            fill="none" viewBox="0 0 24 24">
+                            <circle class="opacity-25" cx="12" cy="12" r="10"
+                                stroke="currentColor" stroke-width="4"></circle>
+                            <path class="opacity-75" fill="currentColor"
+                                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
+                            </path>
+                        </svg>
                         <span class="sr-only">Loading...</span>
                     </div>
                 </div>
@@ -21,7 +24,7 @@
     <div class=" bg-whitem mb-10 h-min-96 my-10 container mx-auto rounded-md shadow-sm ">
 
         <div class="w-full my-3">
-           {{--  imagen del negocio --}}
+            {{--  imagen del negocio --}}
             <div class="w-8/12 mx-auto ">
                 <img src="{{ asset($negocio->img) }}" alt="">
             </div>
@@ -40,7 +43,8 @@
                 <option value="ca">catalan</option>
             </select>
         </div>
-        <div class=" border-gray-200 container w-11/12 mx-auto  border border-light shadow-card  py-1 px-2 sm:px-6 md:px-8 md:py-2 ">
+        <div
+            class=" border-gray-200 container w-11/12 mx-auto  border border-light shadow-card  py-1 px-2 sm:px-6 md:px-8 md:py-2 ">
 
             <ul class="flex items-center">
                 {{-- miga home --}}
@@ -86,8 +90,8 @@
         <div class=" container w-11/12 h-10 mx-auto mt-2 grid grid-cols-4 gap-1 mb-5">
             @foreach ($categorias as $categoria)
                 <div wire:click="nav_categorias('{{ $categoria->id }}')"
-                class=" cursor-pointer hover:bg-blue-500 text-white  bg-blue-600 border-blue-800 border-b-4 text-center py-1">
-                {{ $categoria->name }}
+                    class=" cursor-pointer rounded-md hover:bg-blue-500 text-white  bg-blue-600 border-blue-800 border-b-4 text-center py-1">
+                    {{ $categoria->name }}
                 </div>
             @endforeach
         </div>
@@ -97,7 +101,7 @@
             @foreach ($productos as $producto)
                 <div wire:click="producto('{{ $producto->id }}')"
                     class=" grid-cols-2 grid border border-gray-200 m-1 rounded-md shadow-xs p-1 hover:border-indigo-300 hover:shadow-2xl ">
-                    <div><img class="w-full rounded-md" src="{{ asset($producto->img) }}"
+                    <div><img class="h-full object-scale-down rounded-md" src="{{ asset($producto->img) }}"
                             alt="Sunset in the mountains">
                     </div>
                     <div>
@@ -107,18 +111,33 @@
                                     <td class=" text-center font-extrabold  ">
                                         {{ $producto->name }}
                                     </td>
-                                </tr>
 
-                                <tr>
-                                    <td class="text-center text-green-900 text-2xl font-medium ">
-                                        &euro; {{ $producto->precio_venta }}
-                                    </td>
+
                                 </tr>
+                                @if (isset($producto->presentaciones))
+                                    @foreach ($producto->presentaciones as $presentacion)
+                                        <tr class="">
+                                            <td class="pl-2 text-green-900 text-xs font-medium ">
+                                                {{ $presentacion->name }}: &euro;{{ $presentacion->precio_venta }}
+                                            </td>
+
+                                        </tr>
+                                    @endforeach
+                                @else
+                                <tr class="">
+                                    <td class="pl-2 text-green-900 text-2xl font-medium ">
+                                        &euro;{{ $producto->precio_venta }}
+                                    </td>
+
+                                </tr>
+                                @endif
+
+
                             </tbody>
                         </table>
 
                     </div>
-                    <div class="col-span-2 text-ellipsis overflow-hidden ... h-10  ">
+                    <div class="col-span-2 text-ellipsis overflow-hidden h-10  ">
                         {{ $producto->descrip }}
                     </div>
                     <div class="col-span-2  flex items-center ">
