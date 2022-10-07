@@ -16,7 +16,7 @@ class CreateProductosTable extends Migration
         Schema::create('productos', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('id_negocio');
-            $table->text('img',500)->nullable();
+            $table->text('img',500)->nullable()->default('images/icons8-cubiertos-100.png');
             $table->boolean('activo')->nullable()->default('1');
             $table->string('name', 100);
             $table->text('descrip', 100)->nullable();

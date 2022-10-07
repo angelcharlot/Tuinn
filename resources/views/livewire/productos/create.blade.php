@@ -59,9 +59,6 @@
                     <option value="ml" selected>mililitro (ml)</option>
                     <option value="cl">centilitro (cl)</option>
                     <option value="dl">decilitro (dl)</option>
-                    <option value="tapa">tapa (tp)</option>
-                    <option value="media">media racion (MR)</option>
-                    <option value="media">racion (R)</option>
 
                 </select>
                 @error('unidad_medida')
@@ -113,27 +110,52 @@
                     <span class="text-red-500 text-xs italic">{{ $message }}</span>
                 @enderror
             </div>
-            <div class="px-3 text-left md:col-span-2">
-                <label class="text-xs text-gray-500 mx-1 " for="">imagen</label>
-                <div class="subir_foto ">
-                    <button
-                        class="file_cam">Subir
-                        Archivo</button>
-                    <input class="imputable " type="file" name="photo" accept="image/png, image/gif, image/jpeg" id="photo"
-                        wire:model="photo" />
-                    @error('photo')
-                        <span class="error">{{ $message }}</span>
-                    @enderror
+            <div class="px-3 text-left md:col-span-2 items-center">
+
+                <div x-data="{photoName: null, photoPreview: null}" class="col-span-6 sm:col-span-4">
+                    <!-- Profile Photo File Input -->
+                    <input type="file" class="hidden"
+                                wire:model="photo"
+                                x-ref="photo"
+                                x-on:change="
+                                        photoName = $refs.photo.files[0].name;
+                                        const reader = new FileReader();
+                                        reader.onload = (e) => {
+                                            photoPreview = e.target.result;
+                                        };
+                                        reader.readAsDataURL($refs.photo.files[0]);
+                                " />
+
+
+
+                    @if ($photo)
+                         <!-- Current Profile Photo -->
+                    <div class="mt-2" x-show="! photoPreview">
+                        <img src="{{ asset($this->photo) }}" alt="{{ $this->name }}" class="rounded-full h-20 w-20 object-cover">
+                    </div>
+
+                    <!-- New Profile Photo Preview -->
+                    <div class="mt-2" x-show="photoPreview">
+                        <span class="block rounded-full w-20 h-20"
+                              x-bind:style="'background-size: cover; background-repeat: no-repeat; background-position: center center; background-image: url(\'' + photoPreview + '\');'">
+                        </span>
+                    </div>
+
+                    @endif
+
+
+                    <x-jet-secondary-button class="mt-2 mr-2" type="button" x-on:click.prevent="$refs.photo.click()">
+                        {{ __('Cargar imagen del producto') }}
+                    </x-jet-secondary-button>
+
+
+                    <x-jet-input-error for="photo" class="mt-2" />
                 </div>
+
             </div>
-            <div class="px-3 md:m-2 m-1 ">
-                @if ($photo)
-                    <img class="h-16 mx-auto w-16 object-cover rounded-lg border border-gray-200"
-                        src="{{ $photo->temporaryUrl() }}" alt="Current profile photo" />
-                @else
-                    <img class="h-16 mx-auto w-16 object-cover rounded-lg border border-gray-200"
-                        src="{{ asset('images/icons8-cubiertos-100.png') }}" alt="Current profile photo" />
-                @endif
+            <div class="px-3 md:m-2 mx-auto ">
+
+
 
             </div>
             <div class="px-3 text-left md:col-span-4">
