@@ -54,18 +54,10 @@
                     <th class=" hidden md:table-cell ">
                         nombre
                     </th>
-                    <th class="  ">
-                        Venta &euro;
-                    </th>
-                    <th class="  ">
-                        Compra &euro;
-                    </th>
                     <th class=" ">
                         categoria
                     </th>
-                    <th class=" hidden md:table-cell ">
-                        volumen/und medida
-                    </th>
+                   
                     <th class=" hidden md:table-cell ">
                         Accions
 
@@ -87,12 +79,6 @@
                         <td class=" hidden md:table-cell ">
                             {{ $producto->name }}
                         </td>
-                        <td class=" ">
-                            {{ $producto->precio_venta }}
-                        </td>
-                        <td class="">
-                            {{ $producto->precio_compra }}
-                        </td>
                         <td class="  ">
 
                             @foreach ($producto->categorias as $categoria )
@@ -103,9 +89,7 @@
 
 
                         </td>
-                        <td class=" hidden md:table-cell ">
-                            {{ $producto->volumen }}/{{ $producto->unidad_medida }}
-                        </td>
+                     
                         <td class=" hidden md:table-cell ">
                             <button wire:click="edit({{ $producto->id }})"
                                 class="px-2  bg-indigo-200 text-indigo-500 hover:bg-indigo-500 hover:text-white rounded">Editar</button>
@@ -128,10 +112,7 @@
                             {{ $producto->name }}</td>
                     </tr>
 
-                    <tr class="visible md:hidden ">
-                        <td class=" border-slate-100  p-2 md:p-4 text-gray-500" colspan="5">Volumen:
-                            {{ $producto->volumen }}/{{ $producto->unidad_medida }}</td>
-                    </tr>
+                    
                     <tr class="visible md:hidden ">
                         <td class=" p-2 md:p-4 text-gray-700 " colspan="8">
                             <span class="font-bold text-sm text-black"> Descripcion: </span>{{ $producto->descrip }}
