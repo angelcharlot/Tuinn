@@ -6,7 +6,7 @@
             <div class="flex">
                 <!-- Logo -->
                 <div class="flex-shrink-0 flex items-center">
-                    <p>CoffeeMaker</p>
+                    <p>Tuinn</p>
                 </div>
                 @auth
                     <!-- Navigation Links -->

@@ -13,7 +13,7 @@
 
     <div class=" bg-gray-100 text-center min-h-screen mt-10 pt-5">
 
-        <div class="text-2xl font-bold">bienvenidos a Coffeemaker¡</div>
+        <div class="text-2xl font-bold">bienvenidos a tuinn</div>
         <div class="text-justify p-10">
             <cite class="text-justify">Contrary to popular belief, Lorem Ipsum is not simply random text. It has
                 roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard
@@ -38,12 +38,12 @@
                     </p>
                 </div>
                 <div class="px-6 pt-4 pb-2">
-                    <span
+               {{--      <span
                         class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#photography</span>
                     <span
                         class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#travel</span>
                     <span
-                        class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#winter</span>
+                        class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#winter</span> --}}
                 </div>
             </div>
                             <div class="max-w-sm rounded overflow-hidden shadow-lg">
@@ -56,12 +56,12 @@
                     </p>
                 </div>
                 <div class="px-6 pt-4 pb-2">
-                    <span
+               {{--      <span
                         class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#photography</span>
                     <span
                         class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#travel</span>
                     <span
-                        class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#winter</span>
+                        class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#winter</span> --}}
                 </div>
             </div>
                             <div class="max-w-sm rounded overflow-hidden shadow-lg">
@@ -74,12 +74,12 @@
                     </p>
                 </div>
                 <div class="px-6 pt-4 pb-2">
-                    <span
+               {{--      <span
                         class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#photography</span>
                     <span
                         class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#travel</span>
                     <span
-                        class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#winter</span>
+                        class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#winter</span> --}}
                 </div>
             </div>
 
