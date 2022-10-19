@@ -179,9 +179,11 @@
                         @enderror
                     </div>
                     <div class="px-3 text-left block-inline">
+                     @if (count($presentaciones) >1 )
                         <button wire:click="remove_pre({{$index}})" type="button" class=" mt-6 focus:outline-none text-white bg-red-300 rounded-lg p-1 hover:bg-red-500">
                             delete
                         </button>
+                        @endif
                     </div >
                 
                 

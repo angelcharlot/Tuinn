@@ -14,76 +14,32 @@ use Illuminate\Support\Facades\Storage;
 class Productos extends Component
 {
     use WithFileUploads;
-    
-    //variables globales
+  
     public $productos,$negocio,$user, $categorias, $allcategorias, $selected_id;
     public $updateMode = false;
     public $nombre_categoria;
     public $array_cat;
     public $photo=NULL, $name, $descrip;
-
-    //variables de presentacion
     public  $presentaciones;
-
-    
-    
- 
-    public $i=1;
     protected $listeners = ['destroy', 'select_update'];
-   /*  protected $messages = [
-        'name.required' => 'campo obligatorio',
-        'descrip.required' => 'campo obligatorio',
-        'p_venta.required' => 'campo obligatorio',
-        'numeric' => 'tienen que ser numerico',
-        'required' => 'campo requerido',
-    ];
-    */
-    protected $rules = [
-        'name' => 'required',
-        'descrip' => 'Nullable',
-        'photo' => '',
-        'categorias' => 'required',
-        'presentaciones.*.name'=> 'required',
-        'presentaciones.*.volumen'=> 'required',
-        'presentaciones.*.peso'=> 'required',
-        'presentaciones.*.costo'=> 'required',
-        'presentaciones.*.precio_venta'=> 'required',
-        'presentaciones.*.unidad_medida'=> 'required',
-    ]; 
+    protected $messages = ['name.required' => 'campo obligatorio','descrip.required' => 'campo obligatorio','p_venta.required' => 'campo obligatorio','numeric' => 'tienen que ser numerico','required' => 'campo requerido',];
+    protected $rules = [ 
+        'name' => 'required', 
+        'descrip' => 'Nullable', 
+        'categorias' => 'required', 
+        'presentaciones.*.name'=> 'required', 
+        'presentaciones.*.volumen'=> '', 
+        'presentaciones.*.peso'=> '', 
+        'presentaciones.*.costo'=> '', 
+        'presentaciones.*.precio_venta'=> 'required', 
+        'presentaciones.*.unidad_medida'=> '',]; 
 
-
-
-
- public function mount(){
-    $this->presentaciones=new Collection();
-    $this->presentaciones->push(new presentacion());
-    
- }
-
-
-    
-    public function add(){
-        
-       $this->presentaciones->push(new presentacion());
-       
-    }
-    public function remove_pre($index){
-
-        $this->presentaciones[$index]->delete();
-        $this->presentaciones->forget($index);
-       
-    }
-    public function cancelar()
-    {
-        $this->resetInput();
-        $this->updateMode = false;
+    public function mount(){
         $this->presentaciones=new Collection();
         $this->presentaciones->push(new presentacion());
+        
     }
-
-
-    public function render()
-    {
+    public function render() {
 
         $this->user = auth()->user();
 
@@ -98,8 +54,25 @@ class Productos extends Component
         }
         return view('livewire.productos.productos');
     }
-    public function destroy($id)
-    {
+    public function add(){
+        
+       $this->presentaciones->push(new presentacion());
+       
+    }
+    public function remove_pre($index){
+
+        $this->presentaciones[$index]->delete();
+        $this->presentaciones->forget($index);
+       
+    }
+    public function cancelar(){
+        $this->resetInput();
+        $this->updateMode = false;
+        $this->presentaciones=new Collection();
+        $this->presentaciones->push(new presentacion());
+        $this->resetValidation();
+    }
+    public function destroy($id) {
         if ($id) {
             $producto_delete = producto::find($id);
             $url = str_replace('storage', 'public', $producto_delete->img);
@@ -108,14 +81,10 @@ class Productos extends Component
             $this->photo = NULL;
         }
     }
-
-
-    public function select_update($id)
-    {
+    public function select_update($id){
         $this->categorias = $id;
     }
-    public function store()
-    {
+    public function store(){
 
         $this->validate();
 
@@ -159,19 +128,20 @@ class Productos extends Component
         $this->presentaciones->push(new presentacion());
         $this->resetInput();
     }
-        public function update()
-    {
+    public function update(){
         $this->validate();
 
 
         if ($this->selected_id) {
             $record = producto::find($this->selected_id);
 
-            $url = str_replace('storage', 'public', $record->img);
-            Storage::disk('local')->delete($url);
+
 
 
             if ( is_object($this->photo)) {
+                $url = str_replace('storage', 'public', $record->img);
+                Storage::disk('local')->delete($url);
+
                 $record->img = 'storage/' . $this->photo->store('productos', 'public');
             }
 
@@ -193,8 +163,7 @@ class Productos extends Component
             $this->emit('alert_update');
         }
     }
-    public function edit($id)
-    {
+    public function edit($id){
         $change = producto::findOrFail($id);
         $this->selected_id = $id;
         $this->photo = $change->img;
@@ -203,12 +172,11 @@ class Productos extends Component
         $this->descrip = $change->descrip;
         $this->presentaciones=presentacion::where('producto_id','=',$change->id)->get();
         $this->categorias = $change->id_categoria;
-       // $this->resetValidation();
+        $this->resetValidation();
         $this->emit('bolqueo_copy');
     }
-    public function copiar($id)
-    {
-       // $this->resetValidation();
+    public function copiar($id){
+        $this->resetValidation();
         $change = producto::findOrFail($id);
         $this->selected_id = $id;
 
@@ -222,17 +190,12 @@ class Productos extends Component
         $this->categorias = $change->id_categoria;
         $this->emit('subir-scroll');
     }
-    public function changeEvent($value1, $value2,$value3)
-    {
+    public function changeEvent($value1, $value2,$value3){
         $this->categorias = $value1;
         $this->nombre_categoria = $value2;
         $this->array_cat=$value3;
-
-
-
     }
-    private function resetInput()
-    {
+    private function resetInput() {
         $this->photo = null;
         $this->name = null;
         $this->descrip = null;
@@ -243,6 +206,6 @@ class Productos extends Component
         $this->volumen = null;
         $this->categorias = null;
         $this->emit('enable_copy');
-      //  $this->resetValidation();
+        $this->resetValidation();
     }
 }

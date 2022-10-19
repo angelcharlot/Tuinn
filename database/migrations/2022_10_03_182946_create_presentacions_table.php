@@ -17,10 +17,10 @@ class CreatePresentacionsTable extends Migration
             $table->id();
             $table->unsignedBigInteger('producto_id');
             $table->string('name', 100);
-            $table->integer('peso')->nullable();
-            $table->char('unidad_medida')->nullable();
-            $table->char('volumen')->nullable();
-            $table->decimal('costo', 8, 2)->nullnable();
+            $table->integer('peso')->nullable()->default(0);
+            $table->char('unidad_medida')->nullable()->default('Ml');
+            $table->char('volumen')->nullable()->default(0);
+            $table->decimal('costo', 8, 2)->nullable()->default(0);
             $table->decimal('precio_venta', 8, 2);
             $table->foreign('producto_id')->references('id')->on('productos')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();

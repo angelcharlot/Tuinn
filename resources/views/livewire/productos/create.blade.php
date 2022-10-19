@@ -99,7 +99,8 @@
                 </div>
 
             </div>
-            <div class="px-3 text-left sm:col-span-1 md:col-span-3">
+            
+            <div class="px-3 text-left md:col-span-3">
                 <label class="text-xs text-gray-500 mx-1 " for="">Descripcion</label>
                 <textarea wire:model.defer="descrip"
                     placeholder="contenido alcohólico de 5,9% en volumen. De color dorado intenso y aroma afrutado, capaz de transformar los momentos cotidianos en instantes cruciales. Con un amargor moderado y aromático, coronada por una espuma de color blanco roto."
@@ -109,19 +110,20 @@
                     <span class="text-red-500 text-xs italic">{{ $message }}</span>
                 @enderror
             </div>
-            <div class="col-span-4">
+
+            <div class="md:col-span-3">
                 <div class="flex items-center mt-2 justify-between mb-b border-b pb-4 mx-5">
-                @if (count($presentaciones)<3 )
-                    <h2 class="text-xl text-gray-600">Presentaciones</h2>
-                   
-                    <button wire:click="add" type="button" class="focus:outline-none text-white bg-blue-300 rounded-lg p-1 hover:bg-blue-500">
-                        Add
-                    </button>
-                @endif
+                    @if (count($presentaciones)<3 )
+                        <h2 class="text-xl text-gray-600">Presentaciones</h2>
+                    
+                        <button wire:click="add" type="button" class="focus:outline-none text-white bg-blue-300 rounded-lg p-1 hover:bg-blue-500">
+                            Add
+                        </button>
+                    @endif
                 </div>
 
                 @foreach ($presentaciones as $index => $presentacion )
-                <div class="grid grid-cols-7" >
+                <div class="grid md:grid-cols-7" >
                     <div class="px-3 text-left">
                         <label class="text-xs text-gray-500 mx-1 " for="">presentacion</label>
                         <input type="test" step="0.01" autocomplete="true" value="0" placeholder="1.00"  
@@ -196,8 +198,7 @@
                 
             </div>
             
-
-            <div class="px-3 text-left md:col-span-3">
+            <div class="px-3 text-center  ">
                 <div class="w-auto pl-3 text-center align-middle">
                     <div class="pt-5">
                         <button type="submit"
@@ -207,7 +208,7 @@
                     </div>
                 </div>
 
-            </div>
+            </div> 
 
 
         </div>
