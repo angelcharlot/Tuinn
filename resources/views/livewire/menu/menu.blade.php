@@ -21,25 +21,39 @@
             </div>
         </div>
     </div>
+
+  
+
     <div class=" bg-whitem mb-10 h-min-96 my-10 container mx-auto rounded-md shadow-sm ">
-
-        <div class="w-full my-3">
-            {{--  imagen del negocio --}}
-            <div class="w-8/12 mx-auto ">
-                <img src="{{ asset($negocio->img) }}" alt="">
+        
+        <div class="w-full my-3 grid grid-cols-6 md:grid-cols-12 border-b-8 border-blue-500 gap-1">
+            {{--1  imagen del negocio --}}
+            <div class="  col-span-2 md:col-span-1 mx-auto  flex items-center">
+                    <img class="object-scale-down  h-20 rounded-full" src="{{ asset($negocio->img) }}" alt="">
             </div>
+            {{--2  nombre del negocio --}}
+            <div class=" col-span-4 md:col-span-9 mx-auto  " >
+                <div class="text-center font-Lobster   mt-3 text-4xl text-gray-700 font-bold">{{ $negocio->name }}</div>
+               
+            </div>
+            {{--3  datos del negocio --}}
+            <div class=" col-span-6 md:col-span-2 mx-auto  items-center">
+                <div class="w-full text-left text-md font-bold">{{ $negocio->direccion }}</div>
+                <div class="text-left mb-3 text-xs font-bold">{{ $negocio->nif }}</div>
+            </div>
+           
 
-            <div class="text-center font-Lobster   mt-3 text-4xl text-gray-700 font-bold">{{ $negocio->name }}</div>
-            <div class="text-center text-md">{{ $negocio->direccion }}</div>
-            <div class="text-center mb-3 text-xs">{{ $negocio->nif }}</div>
+           
         </div>
-        <div class=" w-4/12 mx-auto mb-5">
+  
+        <div class=" w-4/12  m-5">
+        <label class="text-xs text-gray-500 mx-1 " for="">Idioma</label>
             <select wire:model='idioma' class=" rounded-lg " name="" id="">
                 <option value="es">español</option>
+                <option value="en">Inglés</option>
+                <option value="fr">Francés</option>
                 <option value="it">Italiano</option>
                 <option value="de">Alemán</option>
-                <option value="fr">Francés</option>
-                <option value="en">Inglés</option>
                 <option value="ca">catalan</option>
             </select>
         </div>
@@ -99,21 +113,17 @@
         {{-- cartas de los productos --}}
         <div class=" grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 gap-3 text-xs mx-auto">
             @foreach ($productos as $producto)
+                
                 <div wire:click="producto('{{ $producto->id }}')"
                     class=" grid-cols-2 grid border border-gray-200 m-1 rounded-md shadow-xs p-1 hover:border-indigo-300 hover:shadow-2xl ">
+                    <div class="col-span-2 text-center font-extrabold" >{{ $producto->name }} </div>
                     <div><img class="h-full object-scale-down rounded-md" src="{{ asset($producto->img) }}"
                             alt="Sunset in the mountains">
                     </div>
                     <div>
                         <table class="w-full ">
                             <tbody>
-                                <tr>
-                                    <td class=" text-center font-extrabold  ">
-                                        {{ $producto->name }}
-                                    </td>
-
-
-                                </tr>
+                               
                                 @if (isset($producto->presentaciones))
                                     @foreach ($producto->presentaciones as $presentacion)
                                         <tr class="">
