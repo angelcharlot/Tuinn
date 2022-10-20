@@ -199,11 +199,17 @@
             </div>
         </x-slot>
         <x-slot name="footer">
+            <div class="flex items-center justify-between">
             <div class="">
-                @foreach ($producto_selecionado->categorias as $categoria)
+                <x-jet-button wire:click="$set('open',false)">cerrar</x-jet-button>
+            </div>
+            <div>
+            @foreach ($producto_selecionado->categorias as $categoria)
                     <span
                         class="inline-block bg-gray-200 rounded-full px-1 py-1  font-semibold text-gray-700 mr-2 mb-2">#{{ $categoria->name }}</span>
                 @endforeach
+            </div>
+                
             </div>
         </x-slot>
 
