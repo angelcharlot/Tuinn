@@ -182,13 +182,11 @@ class Productos extends Component
 
         $this->name = $change->name;
         $this->descrip = $change->descrip;
-        
-        $this->presentaciones=presentacion::select('name','volumen','costo','precio_venta','peso','unidad_medida')->where('producto_id','=',$change->id)->get(); 
-        
-
         $this->photo=$change->img;
         $this->categorias = $change->id_categoria;
+        $this->presentaciones=presentacion::select('name','volumen','costo','precio_venta','peso','unidad_medida')->where('producto_id','=',$change->id)->get(); 
         $this->emit('subir-scroll');
+       
     }
     public function changeEvent($value1, $value2,$value3){
         $this->categorias = $value1;

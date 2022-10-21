@@ -4012,6 +4012,35 @@ module.exports = {
 
 /***/ }),
 
+/***/ "./resources/js/alert.js":
+/*!*******************************!*\
+  !*** ./resources/js/alert.js ***!
+  \*******************************/
+/***/ (() => {
+
+window.onload = function () {
+  Livewire.on('ok', function () {
+    Swal.fire({
+      position: 'top-end',
+      icon: 'success',
+      title: 'ok',
+      showConfirmButton: false,
+      timer: 1500
+    });
+  });
+  Livewire.on('btn', function () {
+    if ($(".dropdown-menu").hasClass("invisible")) {
+      $(".dropdown-menu").removeClass("invisible");
+      $(".dropdown-menu").addClass("visible");
+    } else {
+      $(".dropdown-menu").removeClass("visible");
+      $(".dropdown-menu").addClass("invisible");
+    }
+  });
+};
+
+/***/ }),
+
 /***/ "./resources/js/app.js":
 /*!*****************************!*\
   !*** ./resources/js/app.js ***!
@@ -4021,8 +4050,6 @@ module.exports = {
 window.$ = __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js");
 
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
-/* require('./alert'); */
-
 
 __webpack_require__(/*! alpinejs */ "./node_modules/alpinejs/dist/alpine.js");
 
@@ -4058,6 +4085,8 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 // });
 
 var Swal = window.Swal = __webpack_require__(/*! sweetalert2 */ "./node_modules/sweetalert2/dist/sweetalert2.all.js");
+
+__webpack_require__(/*! ./alert */ "./resources/js/alert.js");
 
 /***/ }),
 

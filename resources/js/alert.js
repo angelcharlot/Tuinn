@@ -1,38 +1,26 @@
 window.onload = function () {
 
-/*     Livewire.on('subir-scroll', etc5 => {
+   
+   Livewire.on('ok', function(){
 
-        $('html, body').animate({
-
-            scrollTop: 0
-
-        }, 1000);
-
-    });
-
-    Livewire.on('alert-guardad', x => {
-        Swal.fire({
+            Swal.fire({
             position: 'top-end',
             icon: 'success',
-            title: 'Registro guardado exitosamente',
+            title: 'ok',
             showConfirmButton: false,
             timer: 1500
         })
 
-
     });
-    Livewire.on('alert-editado', x => {
-        Swal.fire({
-            position: 'top-end',
-            icon: 'success',
-            title: 'Your work has been saved',
-            showConfirmButton: false,
-            timer: 1500
-        })
+    Livewire.on('btn',function(){
+        if ($(".dropdown-menu").hasClass("invisible")) {
+            $(".dropdown-menu").removeClass("invisible");
+            $(".dropdown-menu").addClass("visible");
+        } else {
+            $(".dropdown-menu").removeClass("visible");
+            $(".dropdown-menu").addClass("invisible");
 
-
+        }
     });
-
- */
-
+    
 };

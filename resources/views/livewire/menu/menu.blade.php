@@ -182,19 +182,19 @@
 
         </x-slot>
         <x-slot name="content">
-            <div class="justify-center h-48 w-5/6 mx-auto mb-5 ">
+            <div class="justify-center h-36 md:h-48 w-5/6 mx-auto  ">
                 <img class=" h-full object-scale-down mx-auto " src="{{ asset($producto_selecionado->img) }}"
                     alt="Sunset">
             </div>
             @foreach ($producto_selecionado->presentaciones as $presentacion)
-                <div class="  w-5/6 mx-auto mt-2"
+                <div class=" w-5/6 mx-auto"
                 style="letter-spacing: -0.044em;font-weight: 600;font-size: 21px;font-style: italic;">
                  {{$presentacion->name}} &euro; {{ $presentacion->precio_venta }}
             </div> 
             @endforeach
            
-            <div class=" mt-5 w-5/6 mx-auto text-lg font-bold">descripcion:</div>
-            <div class="  w-5/6 mx-auto h-40 p-5 overflow-auto text-base text-gray-400 text-justify">
+            <div class=" mt-5 w-full mx-auto text-lg font-bold">descripcion:</div>
+            <div class="  w-full mx-auto h-40 p-5 overflow-auto text-base text-gray-700 text-justify">
                 {{ $producto_selecionado->descrip }}
             </div>
         </x-slot>

@@ -61,5 +61,6 @@ class Local extends Component
         $this->negocio->iva = $this->iva;
         $this->negocio->nif = $this->nif;
         $this->negocio->update();
+        $this->emit('ok');
     }
 }

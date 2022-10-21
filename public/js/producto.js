@@ -1,8 +1,5 @@
 window.onload = function () {
 
-
-
-
     Livewire.on('btn',function(){
         if ($(".dropdown-menu").hasClass("invisible")) {
             $(".dropdown-menu").removeClass("invisible");
