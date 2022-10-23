@@ -111,7 +111,7 @@ class Productos extends Component
         $newproduct->save();
         $ids = explode("-", $this->array_cat);
         $newproduct->categorias()->attach($ids);
-        $this->emit('alert_guardado');
+        $this->emit('ok');
         $this->emit('enable_copy');
         
         foreach ($this->presentaciones as  $presentacion) {

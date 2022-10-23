@@ -1,6 +1,4 @@
-window.onload = function () {
 
-   
    Livewire.on('ok', function(){
 
             Swal.fire({
@@ -12,15 +10,6 @@ window.onload = function () {
         })
 
     });
-    Livewire.on('btn',function(){
-        if ($(".dropdown-menu").hasClass("invisible")) {
-            $(".dropdown-menu").removeClass("invisible");
-            $(".dropdown-menu").addClass("visible");
-        } else {
-            $(".dropdown-menu").removeClass("visible");
-            $(".dropdown-menu").addClass("invisible");
-
-        }
-    });
+  
     
-};
+

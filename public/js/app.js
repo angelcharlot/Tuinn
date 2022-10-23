@@ -4018,26 +4018,15 @@ module.exports = {
   \*******************************/
 /***/ (() => {
 
-window.onload = function () {
-  Livewire.on('ok', function () {
-    Swal.fire({
-      position: 'top-end',
-      icon: 'success',
-      title: 'ok',
-      showConfirmButton: false,
-      timer: 1500
-    });
+Livewire.on('ok', function () {
+  Swal.fire({
+    position: 'top-end',
+    icon: 'success',
+    title: 'ok',
+    showConfirmButton: false,
+    timer: 1500
   });
-  Livewire.on('btn', function () {
-    if ($(".dropdown-menu").hasClass("invisible")) {
-      $(".dropdown-menu").removeClass("invisible");
-      $(".dropdown-menu").addClass("visible");
-    } else {
-      $(".dropdown-menu").removeClass("visible");
-      $(".dropdown-menu").addClass("invisible");
-    }
-  });
-};
+});
 
 /***/ }),
 
@@ -4046,8 +4035,6 @@ window.onload = function () {
   !*** ./resources/js/app.js ***!
   \*****************************/
 /***/ ((__unused_webpack_module, __unused_webpack_exports, __webpack_require__) => {
-
-window.$ = __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js");
 
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
@@ -4083,6 +4070,8 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 //     cluster: process.env.MIX_PUSHER_APP_CLUSTER,
 //     forceTLS: true
 // });
+
+window.$ = __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js");
 
 var Swal = window.Swal = __webpack_require__(/*! sweetalert2 */ "./node_modules/sweetalert2/dist/sweetalert2.all.js");
 
