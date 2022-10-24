@@ -1,14 +1,7 @@
+
 window.onload = function () {
 
-
-    Livewire.on('block_eliminar', x => {
-
-        $('.borrarr').attr('disabled', true);
-
-    });
-
-
-    Livewire.on('delete', x => {
+    Livewire.on('borrar', productoId => {
 
         Swal.fire({
             title: 'estas seguro?',
@@ -22,7 +15,7 @@ window.onload = function () {
             if (result.isConfirmed) {
 
 
-                Livewire.emitTo('personal', 'destroy', x);
+                Livewire.emitTo('categorias.categorias', 'destroy', productoId);
                 Swal.fire(
                     'Deleted!',
                     'Your file has been deleted.',
@@ -31,10 +24,9 @@ window.onload = function () {
 
             }
         })
-
+    
+    
 
     });
-
-
 
 };

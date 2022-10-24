@@ -51,7 +51,8 @@
                         {{ $categoria->descrip }}
                     </div>
                     <div class="grid grid-cols-2 p-1 gap-2 items-baseline "  >
-                        <div wire:click="delete({{ $categoria->id }})" class="border p-0 text-center rounded-md text-red-500 bg-red-200 border-red-300 hover:bg-red-500 hover:text-white  "><i class="bi bi-x-circle"></i></div>
+                        
+                        <div wire:click="$emit('borrar',{{ $categoria->id }})" class="border p-0 text-center rounded-md text-red-500 bg-red-200 border-red-300 hover:bg-red-500 hover:text-white  "><i class="bi bi-x-circle"></i></div>
                         <div wire:click="edit({{ $categoria->id }})" class="  border p-0 text-center rounded-md text-indigo-500 bg-indigo-200 border-indigo-300  hover:bg-indigo-500 hover:text-white"><i class="bi bi-pencil"></i></div>
                     </div>
 
@@ -67,16 +68,27 @@
         </div>
 
     </div>
-    <div wire:loading  wire:target="buscar,update,store"  class="fixed z-40 w-full h-full top-0 left-0 bg-gray-500 bg-opacity-25">
+    
+
+        {{-- loading --}}
+        <div wire:loading wire:target="buscar,update,store"
+        class="fixed z-40 w-full h-full top-0 left-0 bg-gray-500 bg-opacity-25">
         <div class="w-ful h-full ">
             <div class="flex justify-center h-full">
 
-                <div class="w-24 h-24 my-auto animate-spin ">
-                    <img class="w-full h-full" src="{{asset('images/load2.png')}}" alt="">
+                <div class="w-24 h-24 my-auto ">
+                    <div role="status">
+                        <svg class="animate-spin -ml-1 mr-3 h-18 w-18 text-blue-800" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                          </svg>
+                        <span class="sr-only">Loading...</span>
+                    </div>
                 </div>
 
             </div>
         </div>
     </div>
+
 </div>
 

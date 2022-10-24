@@ -12,7 +12,7 @@ class Categorias extends Component
     public $categorias = NULL, $id_atras = NULL, $categoria_seleccionada = array('home');
     public $updateMode = false;
     public $name, $id_padre_categoria, $descrip, $id_select;
-
+    protected $listeners = ['destroy'];
     protected $rules = [
         'name' => 'required',
         'descrip' => 'required',
@@ -71,8 +71,9 @@ class Categorias extends Component
         $this->resete();
 
         $this->buscar($this->id_padre_categoria, 3);
+        $this->emit('ok');
     }
-    public function delete(category $cat)
+    public function destroy(category $cat)
     {
         $xx = $cat->id_categoria;
         $cat->delete();
@@ -84,6 +85,7 @@ class Categorias extends Component
         $this->id_select = $cat->id;
         $this->name = $cat->name;
         $this->descrip = $cat->descrip;
+
     }
     public function update()
     {
@@ -95,6 +97,7 @@ class Categorias extends Component
         $cat->update();
         $this->updateMode = false;
         $this->resete();
+        $this->emit('ok');
         $this->buscar($xx, 3);
     }
     public function resete()
