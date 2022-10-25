@@ -118,7 +118,7 @@
                     <h2 class="text-xl text-gray-600">Presentaciones</h2>
                     <div>agregre las presentaciones </div>
                     <button wire:click="add" type="button" class="focus:outline-none text-white bg-blue-300 rounded-lg p-1 hover:bg-blue-500">
-                        Add
+                        {{ __('Add')}}
                     </button>
                 </div>
 
@@ -181,7 +181,7 @@
                     <div class="px-3 text-left block-inline">
                      @if (count($presentaciones) >1 )
                         <button wire:click="remove_pre({{$index}})" type="button" class=" mt-6 focus:outline-none text-white bg-red-300 rounded-lg p-1 hover:bg-red-500">
-                            delete
+                            {{ __('Remove')}}
                         </button>
                         @endif
                     </div >

@@ -23,9 +23,7 @@ function presentaciones(){
     return $this->hasMany('App\Models\presentacion','producto_id');
 
 }
-public function comandas(){
-    return $this->belongsToMany('App\Models\comanda');
-}
+
 
 
 }
