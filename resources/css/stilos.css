@@ -55,7 +55,7 @@ select,
 
 .div-form-container {
 
-    @apply w-full p-3 mt-4 rounded gap-1;
+    @apply w-full p-3 mt-2 rounded gap-1;
 
 }
 

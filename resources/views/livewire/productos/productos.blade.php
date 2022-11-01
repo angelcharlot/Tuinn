@@ -1,4 +1,4 @@
-<div class=" hoja_base ">
+<div class=" hoja_base div ">
 
 @if (count($allcategorias)==0)
 

@@ -93,6 +93,18 @@ window.onload = function () {
         })
 
     });
+    //efecto remove resentacion
+     Livewire.on('efecto_add', productoId => { 
+
+
+    const selector = document.querySelector('.div')
+  
+  selector.classList.add('magictime','vanishIn');
+
+     }); 
+
+
+
 
 };
 

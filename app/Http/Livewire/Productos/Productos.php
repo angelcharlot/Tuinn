@@ -63,6 +63,7 @@ class Productos extends Component
 
         $this->presentaciones[$index]->delete();
         $this->presentaciones->forget($index);
+        $this->emit('efecto_remove');
        
     }
     public function cancelar(){

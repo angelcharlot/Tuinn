@@ -123,7 +123,7 @@
                 </div>
 
                 @foreach ($presentaciones as $index => $presentacion )
-                <div class="grid md:grid-cols-7 grid-cols-2" >
+                <div class="grid md:grid-cols-7 grid-cols-2 efecto_in" >
                     <div class="px-3 text-left ">
                         <label class="text-xs text-gray-500 mx-1 " for="">presentacion</label>
                         <input type="test" step="0.01" autocomplete="true" value="0" placeholder="1.00"  
