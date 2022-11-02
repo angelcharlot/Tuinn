@@ -26,27 +26,24 @@
 
     <div class=" bg-whitem mb-10 h-min-96 my-10 container mx-auto rounded-md shadow-sm ">
         
-        <div class="w-full my-3 grid grid-cols-6 md:grid-cols-12 border-b-8 border-blue-500 gap-1">
+        <div class="w-full my-3 grid grid-cols-6 md:grid-cols-12 border-b border-blue-100 gap-1">
             {{--1  imagen del negocio --}}
             <div class="  col-span-2 md:col-span-1 mx-auto  flex items-center">
                     <img class="object-scale-down  h-20 rounded-full" src="{{ asset($negocio->img) }}" alt="">
             </div>
             {{--2  nombre del negocio --}}
             <div class=" col-span-4 md:col-span-9 mx-auto  " >
-                <div class="text-center font-Lobster   mt-3 text-4xl text-gray-700 font-bold">{{ $negocio->name }}</div>
+                <div class="text-center font-Lobster   mt-3 text-2xl md:text-4xl text-gray-700 font-bold">{{ $negocio->name }}</div>
                
             </div>
-            {{--3  datos del negocio --}}
-            <div class=" col-span-6 md:col-span-2 mx-auto  items-center">
-                <div class="w-full text-left text-md font-bold">{{ $negocio->direccion }}</div>
-                <div class="text-left mb-3 text-xs font-bold">{{ $negocio->nif }}</div>
-            </div>
+
            
 
            
         </div>
   
         <div class=" w-4/12  m-5">
+        {{--idioma--}}
         <label class="text-xs text-gray-500 mx-1 " for="">Idioma</label>
             <select wire:model='idioma' class=" rounded-lg " name="" id="">
                 <option value="es">español</option>
@@ -58,14 +55,14 @@
             </select>
         </div>
         <div
-            class=" border-gray-200 container w-11/12 mx-auto  border border-light shadow-card  py-1 px-2 sm:px-6 md:px-8 md:py-2 ">
+            class=" border-gray-200 container w-11/12 mx-auto  border-b border-light shadow-card  py-1 px-2 sm:px-6 md:px-8 md:py-2 ">
 
             <ul class="flex items-center">
                 {{-- miga home --}}
                 <li class="flex items-center">
                     <a wire:click="nav_categorias('principal')"
                         class="font-semibold text-2xl text-blue-800 hover:text-blue-500  cursor-pointer hover:text-primary">
-                        <i class="bi bi-house-door"></i> </a>
+                        <i class="bi bi-filter-circle"></i> </a>
                     @if (count($migas) > 0)
                         <span class="px-3">
                             <i class="bi bi-chevron-right"></i>
@@ -104,8 +101,9 @@
         <div class=" container w-11/12 h-10 mx-auto mt-2 grid grid-cols-4 gap-1 mb-5">
             @foreach ($categorias as $categoria)
                 <div wire:click="nav_categorias('{{ $categoria->id }}')"
-                    class=" cursor-pointer rounded-md hover:bg-blue-500 text-white  bg-blue-600 border-blue-800 border-b-4 text-center py-1">
-                    {{ $categoria->name }}
+                    class="flex items-center cursor-pointer rounded-md  hover:bg-blue-500 text-gray-100  bg-blue-500 font-medium border-blue-600 shadow-md border-b  ">
+                    <h1 class="w-full text-center">{{ $categoria->name }}</h1>
+                    
                 </div>
             @endforeach
         </div>
@@ -163,9 +161,28 @@
             @endforeach
         </div>
 
-
+ 
 
     </div>
+
+           {{--3  datos del negocio --}}
+            <div class="grid grid-cols-2 mx-auto border-t-2 border-indigo-300 bg-black fixed bottom-0 w-full p-2 text-white ">
+                <div>
+                        <div class="w-full text-left text-sm font-bold">Direccion: {{ $negocio->direccion }}</div>
+                        <div class="text-left text-xs font-bold">Nif: {{ $negocio->nif }}</div>
+                        
+                    
+                </div>
+                <div>
+                        <div class="text-left  text-xs font-bold">Tlf:{{ $negocio->telefono1 }}</div>
+                        <div class="text-left mb-3 text-xs font-bold">Tlf:{{ $negocio->telefono2 }}</div> 
+                </div>
+                <div class="col-span-2 mx-auto">
+                         designer by angelcm@gmail.com
+                </div>
+
+            </div>
+           
     {{-- modal de los productos --}}
     <x-jet-dialog-modal wire:model="open">
         <x-slot name="title">

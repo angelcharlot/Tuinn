@@ -45,14 +45,15 @@ class Local extends Component
 
 
         if ($this->photo) {
-            $imagen = 'storage/' . $this->photo->store('banner', 'public');
-        } else {
-            $imagen = 'images/olvera.jpg';
-        }
-        $url = str_replace('storage', 'public', $this->negocio->img);
-        Storage::disk('local')->delete($url);
+            $url = str_replace('storage', 'public', $this->negocio->img);
+            Storage::disk('local')->delete($url);
 
-        $this->negocio->img = $imagen;
+            $imagen = 'storage/' . $this->photo->store('banner', 'public');
+            $this->negocio->img = $imagen;
+        } 
+       
+
+        
         $this->negocio->name = $this->name;
         $this->negocio->direccion = $this->direccion;
         $this->negocio->telefono1 = $this->telefono1;
