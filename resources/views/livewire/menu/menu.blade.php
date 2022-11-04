@@ -22,7 +22,7 @@
         </div>
     </div>
     
-    <div class=" bg-whitem mb-10 h-min-96 my-10 container mx-auto rounded-md shadow-sm ">
+    <div class=" bg-whitem mb-14 my-10 container mx-auto rounded-md shadow-sm ">
         {{--DATOS DEL NEGOCIO --}}
         <div class="w-full my-3 grid grid-cols-6 md:grid-cols-12 border-b border-blue-100 gap-1">
             {{--1  imagen del negocio --}}
@@ -174,7 +174,7 @@
 
     </div>
            {{--3  datos del negocio --}}
-           <div class="  grid grid-cols-2 mx-auto border-t-2 border-indigo-300 bg-black fixed bottom-0 w-full p-2 text-white ">
+           <div class="  grid h-1/12 grid-cols-2 mx-auto border-t-2 border-indigo-300 bg-black fixed bottom-0 w-full p-2 text-white ">
                 <div>
                         <div class="w-full text-left text-sm font-bold">Direccion: {{ $negocio->direccion }}</div>
                         <div class="text-left text-xs font-bold">Nif: {{ $negocio->nif }}</div>
