@@ -5,6 +5,7 @@ namespace App\Http\Livewire\Menu;
 use App\Models\negocio;
 use App\Models\categorias;
 use App\Models\productos;
+use Illuminate\Http\Request;
 use Livewire\Component;
 use Stichoza\GoogleTranslate\GoogleTranslate;
 
@@ -24,18 +25,28 @@ class Menu extends Component
 
 
 
-    public function mount()
+    public function mount(Request $request)
     {
         $this->producto_selecionado = new productos();
         $this->migas=array();
         $this->negocio = negocio::find($this->id_negocio);
         $this->categorias = categorias::where('id_negocio', '=', $this->negocio->id)->whereNull('id_categoria')->get();
         $this->productos = productos::where('id_negocio', '=', $this->negocio->id)->get();
+       if(session('id_sessions')==null){
+
+            session(['id_sessions' => uniqid()]);
+       }
+        //dd($request->userAgent());
+       //dd($request->ip());
+       //echo session('id_sessions');
+      
     }
 
 
     public function render()
     {
+
+        
 
         $tr = new GoogleTranslate();
         for ($i = 0; $i < count($this->productos); $i++) {

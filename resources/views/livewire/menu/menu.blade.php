@@ -21,15 +21,15 @@
             </div>
         </div>
     </div>
-
-  
-
+    
     <div class=" bg-whitem mb-10 h-min-96 my-10 container mx-auto rounded-md shadow-sm ">
-        
+        {{--DATOS DEL NEGOCIO --}}
         <div class="w-full my-3 grid grid-cols-6 md:grid-cols-12 border-b border-blue-100 gap-1">
             {{--1  imagen del negocio --}}
             <div class="  col-span-2 md:col-span-1 mx-auto  flex items-center">
-                    <img class="object-scale-down  h-20 rounded-full" src="{{ asset($negocio->img) }}" alt="">
+
+                <img class="object-scale-down  h-20 rounded-full" src="{{ asset($negocio->img) }}" alt="">
+
             </div>
             {{--2  nombre del negocio --}}
             <div class=" col-span-4 md:col-span-9 mx-auto  " >
@@ -43,8 +43,8 @@
         </div>
   
         <div class=" w-4/12  m-5">
-        {{--idioma--}}
-        <label class="text-xs text-gray-500 mx-1 " for="">Idioma</label>
+            {{--idioma--}}
+            <label class="text-xs text-gray-500 mx-1 " for="">Idioma</label>
             <select wire:model='idioma' class=" rounded-lg " name="" id="">
                 <option value="es">español</option>
                 <option value="en">Inglés</option>
@@ -54,8 +54,7 @@
                 <option value="ca">catalan</option>
             </select>
         </div>
-        <div
-            class=" border-gray-200 container w-11/12 mx-auto  border-b border-light shadow-card  py-1 px-2 sm:px-6 md:px-8 md:py-2 ">
+        <div class=" border-gray-200 container w-11/12 mx-auto  border-b border-light shadow-card  py-1 px-2 sm:px-6 md:px-8 md:py-2 ">
 
             <ul class="flex items-center">
                 {{-- miga home --}}
@@ -119,7 +118,7 @@
                             alt="Sunset in the mountains">
                     </div>
                     <div>
-                        <table class="w-full ">
+                        <table class="w-full">
                             <tbody>
                                
                                 @if (isset($producto->presentaciones))
@@ -164,7 +163,6 @@
  
 
     </div>
-
            {{--3  datos del negocio --}}
             <div class="grid grid-cols-2 mx-auto border-t-2 border-indigo-300 bg-black fixed bottom-0 w-full p-2 text-white ">
                 <div>
@@ -182,7 +180,6 @@
                 </div>
 
             </div>
-           
     {{-- modal de los productos --}}
     <x-jet-dialog-modal wire:model="open">
         <x-slot name="title">
