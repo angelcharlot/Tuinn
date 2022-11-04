@@ -97,7 +97,14 @@ class Menu extends Component
             $like->producto_id=$id_producto;
             $like->session=session('id_sessions');
             $like->save();
-            $this->emit('ok');
+            if ($bn==1) {
+                $this->emit('votoguardado1');
+            }else{
+                $this->emit('votoguardado0');
+            }
+            
+        }else{
+            $this->emit('unsolovoto');
         }
         
     }

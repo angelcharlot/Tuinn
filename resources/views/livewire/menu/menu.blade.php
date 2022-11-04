@@ -174,7 +174,7 @@
 
     </div>
            {{--3  datos del negocio --}}
-  {{--           <div class=" hidden grid grid-cols-2 mx-auto border-t-2 border-indigo-300 bg-black fixed bottom-0 w-full p-2 text-white ">
+           <div class="  grid grid-cols-2 mx-auto border-t-2 border-indigo-300 bg-black fixed bottom-0 w-full p-2 text-white ">
                 <div>
                         <div class="w-full text-left text-sm font-bold">Direccion: {{ $negocio->direccion }}</div>
                         <div class="text-left text-xs font-bold">Nif: {{ $negocio->nif }}</div>
@@ -189,7 +189,7 @@
                          designer by angelcm@gmail.com
                 </div>
 
-            </div> --}}
+            </div> 
     {{-- modal de los productos --}}
     <x-jet-dialog-modal wire:model="open">
         <x-slot name="title">
