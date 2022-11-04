@@ -114,7 +114,7 @@
                 <div wire:click="producto('{{ $producto->id }}')"
                     class=" grid-cols-2 grid border border-gray-200 m-1 rounded-md shadow-xs p-1 hover:border-indigo-300 hover:shadow-2xl ">
                     <div class="col-span-2 text-center font-extrabold" >{{ $producto->name }} </div>
-                    <div><img class="h-full object-scale-down rounded-md" src="{{ asset($producto->img) }}"
+                    <div><img class=" h-24 object-fill rounded-md" src="{{ asset($producto->img) }}"
                             alt="Sunset in the mountains">
                     </div>
                     <div>
@@ -147,14 +147,24 @@
                     <div class="col-span-2 text-ellipsis overflow-hidden h-10  ">
                         {{ $producto->descrip }}
                     </div>
-                    <div class="col-span-2  flex items-center ">
-
+                    <div class="col-span-2 grid grid-cols-2">
+                        <div class="">
+                     
+                          {{$producto->likes->where('tipo',1)->count()}}  <i class="bi bi-heart-fill text-red-800 mx-auto"></i>
+                        </div>
+                        <div class="">
+                           {{$producto->likes->where('tipo',0)->count()}} <i class="bi bi-heartbreak-fill  mx-auto ">
+                        </i></div>
                     </div>
                     <div class="col-span-2">
-                        @foreach ($producto->categorias as $categoria)
+
+                    <div class="w-full">
+                    @foreach ($producto->categorias as $categoria)
                             <span style="font-size: 8px;line-height: 11px;letter-spacing: 0.027em;font-weight: 875;"
                                 class="inline-block bg-gray-200 rounded-full px-1 py-1  font-semibold text-gray-700 mr-2 mb-2">#{{ $categoria->name }}</span>
                         @endforeach
+                    </div>
+                        
                     </div>
                 </div>
             @endforeach
@@ -164,7 +174,7 @@
 
     </div>
            {{--3  datos del negocio --}}
-            <div class="grid grid-cols-2 mx-auto border-t-2 border-indigo-300 bg-black fixed bottom-0 w-full p-2 text-white ">
+  {{--           <div class=" hidden grid grid-cols-2 mx-auto border-t-2 border-indigo-300 bg-black fixed bottom-0 w-full p-2 text-white ">
                 <div>
                         <div class="w-full text-left text-sm font-bold">Direccion: {{ $negocio->direccion }}</div>
                         <div class="text-left text-xs font-bold">Nif: {{ $negocio->nif }}</div>
@@ -179,7 +189,7 @@
                          designer by angelcm@gmail.com
                 </div>
 
-            </div>
+            </div> --}}
     {{-- modal de los productos --}}
     <x-jet-dialog-modal wire:model="open">
         <x-slot name="title">
@@ -214,17 +224,31 @@
         </x-slot>
         <x-slot name="footer">
             <div class="flex items-center justify-between">
-            <div class="">
-                <x-jet-button wire:click="$set('open',false)">cerrar</x-jet-button>
-            </div>
-            <div>
-            @foreach ($producto_selecionado->categorias as $categoria)
-                    <span
-                        class="inline-block bg-gray-200 rounded-full px-1 py-1  font-semibold text-gray-700 mr-2 mb-2">#{{ $categoria->name }}</span>
-                @endforeach
-            </div>
+                <div class="">
+                    <x-jet-button wire:click="$set('open',false)">cerrar</x-jet-button>
+                </div>
+            
+                    <div class="w-3/4 flex justify-between p-2">
+
+                        <div wire:click="likes(0,'{{$producto_selecionado->id}}')" class="bg-red-200 rounded-md hover:bg-red-100">
+                          
+                         <i class="  p-3 bi bi-hand-thumbs-down mx-auto text-red-700 cursor-pointer text-lg"></i>
+                        </div>
+                        
+                        <div wire:click="likes(1,'{{$producto_selecionado->id}}')" class="bg-green-200 rounded-md hover:bg-green-100">
+                        
+                        <i class=" rounded-md p-3 bi bi-hand-thumbs-up mx-auto text-green-700 cursor-pointer text-lg">
+                        </i>
+                        </div>
+                    
+                    </div>
+                            {{--  @foreach ($producto_selecionado->categorias as $categoria)
+                                <span
+                                    class="inline-block bg-gray-200 rounded-full px-1 py-1  font-semibold text-gray-700 mr-2 mb-2">#{{ $categoria->name }}</span>
+                            @endforeach --}}
+            
                 
-            </div>
+            
         </x-slot>
 
     </x-jet-dialog-modal>

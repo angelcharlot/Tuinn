@@ -23,6 +23,12 @@ function presentaciones(){
     return $this->hasMany('App\Models\presentacion','producto_id');
 
 }
+function likes(){
+
+    return $this->hasMany('App\Models\like','producto_id');
+
+}
+
 
 
 

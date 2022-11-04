@@ -5,6 +5,7 @@ namespace App\Http\Livewire\Menu;
 use App\Models\negocio;
 use App\Models\categorias;
 use App\Models\productos;
+use App\Models\like;
 use Illuminate\Http\Request;
 use Livewire\Component;
 use Stichoza\GoogleTranslate\GoogleTranslate;
@@ -21,7 +22,8 @@ class Menu extends Component
     public $producto_selecionado;
     public $productos;
     public $migas;
-
+    public $ip;
+    public $agente;
 
 
 
@@ -36,9 +38,10 @@ class Menu extends Component
 
             session(['id_sessions' => uniqid()]);
        }
-        //dd($request->userAgent());
-       //dd($request->ip());
-       //echo session('id_sessions');
+        
+       $this->ip=$request->ip();
+       //$this->agente=$request->userAgentip();
+      
       
     }
 
@@ -83,6 +86,21 @@ class Menu extends Component
         }
     }
 
+    public function likes($bn,$id_producto){
+
+        $x=like::where('session','=',session('id_sessions'))->where('producto_id','=',$id_producto);
+        if($x->count()==0){
+            $like=new like();
+            $like->ip=$this->ip;
+            $like->agente="sadsas";
+            $like->tipo=$bn;
+            $like->producto_id=$id_producto;
+            $like->session=session('id_sessions');
+            $like->save();
+            $this->emit('ok');
+        }
+        
+    }
     public function producto(productos $producto)
     {
         $tr = new GoogleTranslate();
