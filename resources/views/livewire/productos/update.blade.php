@@ -13,7 +13,18 @@
                     <span class="text-red-500 text-xs italic">{{ $message }}</span>
                 @enderror
             </div>
-
+            <div class="px-3 text-left">
+               
+                <label class="text-xs text-gray-500 mx-1 " for="">alergenos</label>
+                <select wire:model="alargenos" id="alargenos" name="alargenos" multiple >
+                    @foreach($allalargenos as $alargeno)
+                        <option value='{{$alargeno->id}}'>{{ $alargeno->name }}</option>
+                    @endforeach
+                </select>
+                @error('alargenos')
+                    <span class="text-red-500 text-xs italic">{{ $message }}</span>
+                @enderror
+            </div>
 
 
             <div class="px-3">

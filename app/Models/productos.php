@@ -18,6 +18,11 @@ function categorias(){
     return $this->belongsToMany('App\Models\categorias');
 
 }
+function alargenos(){
+
+    return $this->belongsToMany('App\Models\alargeno');
+
+}
 function presentaciones(){
 
     return $this->hasMany('App\Models\presentacion','producto_id');

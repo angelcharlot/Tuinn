@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Menu;
 
+use App\Models\alargeno;
 use App\Models\negocio;
 use App\Models\categorias;
 use App\Models\productos;
@@ -24,6 +25,7 @@ class Menu extends Component
     public $migas;
     public $ip;
     public $agente;
+    public $alargenos;
 
 
 
@@ -42,6 +44,7 @@ class Menu extends Component
        $this->ip=$request->ip();
        //$this->agente=$request->userAgentip();
       
+       $this->alargenos=alargeno::all();
       
     }
 

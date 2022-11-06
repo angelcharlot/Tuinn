@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Productos;
 
+use App\Models\alargeno;
 use Livewire\WithFileUploads;
 use Livewire\Component;
 use App\Models\productos as producto;
@@ -23,8 +24,11 @@ class Productos extends Component
     public  $presentaciones;
     protected $listeners = ['destroy', 'select_update'];
     protected $messages = ['name.required' => 'campo obligatorio','descrip.required' => 'campo obligatorio','p_venta.required' => 'campo obligatorio','numeric' => 'tienen que ser numerico','required' => 'campo requerido',];
+    public $allalargenos;
+    public $alargenos=[];
     protected $rules = [ 
         'name' => 'required', 
+        'alargenos' => 'required', 
         'descrip' => 'Nullable', 
         'categorias' => 'required', 
         'presentaciones.*.name'=> 'required', 
@@ -37,6 +41,9 @@ class Productos extends Component
     public function mount(){
         $this->presentaciones=new Collection();
         $this->presentaciones->push(new presentacion());
+        $this->allalargenos=alargeno::all();
+      
+        //dd($this->alargenos);
         
     }
     public function render() {
@@ -111,6 +118,7 @@ class Productos extends Component
         $newproduct->descrip = $this->descrip;
         $newproduct->save();
         $ids = explode("-", $this->array_cat);
+        $newproduct->alargenos()->attach($this->alargenos);
         $newproduct->categorias()->attach($ids);
         $this->emit('ok');
         $this->emit('enable_copy');
@@ -159,6 +167,7 @@ class Productos extends Component
             $this->presentaciones->push(new presentacion());
             $ids = explode("-", $this->array_cat);
             $record->categorias()->sync($ids);
+            $record->alargenos()->sync($this->alargenos);
             $this->resetInput();
             $this->updateMode = false;
             $this->emit('alert_update');

@@ -22,7 +22,7 @@
         </div>
     </div>
     
-    <div class=" bg-whitem mb-14 my-10 container mx-auto rounded-md shadow-sm ">
+    <div class=" bg-whitem mb-18 my-10 container mx-auto rounded-md shadow-sm ">
         {{--DATOS DEL NEGOCIO --}}
         <div class="w-full my-3 grid grid-cols-6 md:grid-cols-12 border-b border-blue-100 gap-1">
             {{--1  imagen del negocio --}}
@@ -101,7 +101,7 @@
             @foreach ($categorias as $categoria)
                 <div wire:click="nav_categorias('{{ $categoria->id }}')"
                     class="flex items-center cursor-pointer rounded-md  hover:bg-blue-500 text-gray-100  bg-blue-500 font-medium border-blue-600 shadow-md border-b  ">
-                    <h1 class="w-full text-center">{{ $categoria->name }}</h1>
+                    <h1 class="w-full text-center capitalize ">{{ $categoria->name }}</h1>
                     
                 </div>
             @endforeach
@@ -174,7 +174,7 @@
 
     </div>
            {{--3  datos del negocio --}}
-           <div class="  grid h-1/12 grid-cols-2 mx-auto border-t-2 border-indigo-300 bg-black fixed bottom-0 w-full p-2 text-white ">
+           <div class="  grid h-2/12 grid-cols-2 mx-auto border-t-2 border-indigo-300 bg-black fixed bottom-0 w-full p-2 text-white ">
                 <div>
                         <div class="w-full text-left text-sm font-bold">Direccion: {{ $negocio->direccion }}</div>
                         <div class="text-left text-xs font-bold">Nif: {{ $negocio->nif }}</div>
@@ -221,31 +221,36 @@
             <div class="  w-full mx-auto h-40 p-5 overflow-auto text-base text-gray-700 text-justify">
                 {{ $producto_selecionado->descrip }}
             </div>
+            <div class="w-full text-left p-3 ml-5" >
+    @foreach ($producto_selecionado->alargenos as $alargeno)
+         <img class="inline h-10 w-auto"  src="{{ asset($alargeno->img) }}" alt="{{$alargeno->name}}">
+    @endforeach
+        
+         
+        </div>
         </x-slot>
         <x-slot name="footer">
+        
             <div class="flex items-center justify-between">
                 <div class="">
                     <x-jet-button wire:click="$set('open',false)">cerrar</x-jet-button>
                 </div>
             
-                    <div class="w-3/4 flex justify-between p-2">
+                <div class="w-3/4 flex justify-between p-2">
 
-                        <div wire:click="likes(0,'{{$producto_selecionado->id}}')" class="bg-red-200 rounded-md hover:bg-red-100">
-                          
-                         <i class="  p-3 bi bi-hand-thumbs-down mx-auto text-red-700 cursor-pointer text-lg"></i>
-                        </div>
+                    <div wire:click="likes(0,'{{$producto_selecionado->id}}')" class="bg-red-200 rounded-md hover:bg-red-100">
                         
-                        <div wire:click="likes(1,'{{$producto_selecionado->id}}')" class="bg-green-200 rounded-md hover:bg-green-100">
-                        
-                        <i class=" rounded-md p-3 bi bi-hand-thumbs-up mx-auto text-green-700 cursor-pointer text-lg">
-                        </i>
-                        </div>
-                    
+                        <i class="  p-3 bi bi-hand-thumbs-down mx-auto text-red-700 cursor-pointer text-lg"></i>
                     </div>
-                            {{--  @foreach ($producto_selecionado->categorias as $categoria)
-                                <span
-                                    class="inline-block bg-gray-200 rounded-full px-1 py-1  font-semibold text-gray-700 mr-2 mb-2">#{{ $categoria->name }}</span>
-                            @endforeach --}}
+                    
+                    <div wire:click="likes(1,'{{$producto_selecionado->id}}')" class="bg-green-200 rounded-md hover:bg-green-100">
+                    
+                    <i class=" rounded-md p-3 bi bi-hand-thumbs-up mx-auto text-green-700 cursor-pointer text-lg">
+                    </i>
+                    </div>
+                
+                </div>
+                           
             
                 
             
