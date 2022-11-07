@@ -182,6 +182,10 @@ class Productos extends Component
         $this->descrip = $change->descrip;
         $this->presentaciones=presentacion::where('producto_id','=',$change->id)->get();
         $this->categorias = $change->id_categoria;
+        $this->alargenos=[];
+        foreach ($change->alargenos as  $alargeno) {
+        $this->alargenos[]=$alargeno->id;
+        }
         $this->resetValidation();
         $this->emit('bolqueo_copy');
     }
@@ -195,6 +199,10 @@ class Productos extends Component
         $this->photo=$change->img;
         $this->categorias = $change->id_categoria;
         $this->presentaciones=presentacion::select('name','volumen','costo','precio_venta','peso','unidad_medida')->where('producto_id','=',$change->id)->get(); 
+        $this->alargenos=[];
+        foreach ($change->alargenos as  $alargeno) {
+        $this->alargenos[]=$alargeno->id;
+        }
         $this->emit('subir-scroll');
        
     }
@@ -213,6 +221,7 @@ class Productos extends Component
         $this->unidad_medida = null;
         $this->volumen = null;
         $this->categorias = null;
+        $this->alargenos=[];
         $this->emit('enable_copy');
         $this->resetValidation();
     }
