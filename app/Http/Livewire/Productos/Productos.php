@@ -29,7 +29,7 @@ class Productos extends Component
     protected $rules = [ 
         'name' => 'required', 
         'alargenos' => '', 
-        'descrip' => 'Nullable', 
+        'descrip' => 'required', 
         'categorias' => 'required', 
         'presentaciones.*.name'=> 'required', 
         'presentaciones.*.volumen'=> '', 

@@ -134,7 +134,7 @@
                 </div>
 
                 @foreach ($presentaciones as $index => $presentacion )
-                <div class="grid md:grid-cols-7 grid-cols-2 efecto_in" >
+                <div class="grid md:grid-cols-3 grid-cols-2 efecto_in" >
                     <div class="px-3 text-left ">
                         <label class="text-xs text-gray-500 mx-1 " for="">presentacion</label>
                         <input type="test" step="0.01" autocomplete="true" value="0" placeholder="1.00"  
@@ -143,14 +143,14 @@
                             <span class="text-red-500 text-xs italic">{{ $message }}</span>
                         @enderror
                     </div>
-                    <div class="px-3 text-left">
+{{--                     <div class="px-3 text-left">
                         <label class="text-xs text-gray-500 mx-1 " for="">precio de compra</label>
                         <input type="number" step="0.01" autocomplete="true" value="0" placeholder="1.00"  
                             wire:model.defer="presentaciones.{{ $index }}.costo" class=" focus:outline-none focus:shadow-md  focus:bg-gray-100 focus:border-gray-600">
                         @error('presentaciones.'.$index.'.costo')
                             <span class="text-red-500 text-xs italic">{{ $message }}</span>
                         @enderror
-                    </div>
+                    </div> --}}
                     <div class="px-3 text-left">
                         <label class="text-xs text-gray-500 mx-1 " for="">precio de venta</label>
                         <input type="number" step="0.01" autocomplete="true" placeholder="1.20"  
@@ -159,7 +159,7 @@
                             <span class="text-red-500 text-xs italic">{{ $message }}</span>
                         @enderror
                     </div>
-                    <div class="px-3 text-left ">
+{{--                     <div class="px-3 text-left ">
                         <label class="text-xs text-gray-500 mx-1 " for="">peso(gramos(g))</label>
                         <input type="number" step="0.01" autocomplete="true" placeholder="100"  
                             wire:model.defer="presentaciones.{{ $index }}.peso" class=" focus:outline-none focus:shadow-md  focus:bg-gray-100 focus:border-gray-600">
@@ -188,13 +188,13 @@
                         @error('presentaciones.'.$index.'.volumen')
                             <span class="text-red-500 text-xs italic">{{ $message }}</span>
                         @enderror
-                    </div>
+                    </div> --}}
                     <div class="px-3 text-left block-inline">
-                    @if (count($presentaciones) >1 )
-                          <button wire:click="remove_pre({{$index}})" type="button" class=" mt-6 focus:outline-none text-white bg-red-300 rounded-lg p-1 hover:bg-red-500">
-                            {{ __('Remove')}}
-                        </button>
-                    @endif
+                        @if (count($presentaciones) >1 )
+                            <button wire:click="remove_pre({{$index}})" type="button" class=" mt-6 focus:outline-none text-white bg-red-300 rounded-lg p-1 hover:bg-red-500">
+                                {{ __('Remove')}}
+                            </button>
+                        @endif
                       
                    
                         

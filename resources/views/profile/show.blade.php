@@ -44,10 +44,10 @@
             <div class="mt-10 sm:mt-0">
                 @livewire('local.local')
             </div>
-            <x-jet-section-border />
+{{--             <x-jet-section-border />
             <div class="mt-10 sm:mt-0">
                 @livewire('personal')
-            </div>
+            </div> --}}
 
         </div>
     </div>
