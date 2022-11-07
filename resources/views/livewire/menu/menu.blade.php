@@ -101,7 +101,7 @@
             @foreach ($categorias as $categoria)
                 <div wire:click="nav_categorias('{{ $categoria->id }}')"
                     class="flex items-center cursor-pointer rounded-md  hover:bg-blue-500 text-gray-100  bg-blue-500 font-medium border-blue-600 shadow-md border-b  ">
-                    <h1 class="w-full text-center capitalize ">{{ $categoria->name }}</h1>
+                    <h1 class="w-full text-center capitalize text-xs md:text-base ">{{ $categoria->name }}</h1>
                     
                 </div>
             @endforeach
