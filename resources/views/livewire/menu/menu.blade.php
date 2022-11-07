@@ -22,7 +22,7 @@
         </div>
     </div>
     
-    <div class=" bg-whitem mb-18 my-10 container mx-auto rounded-md shadow-sm ">
+    <div class=" bg-whitem pb-28 mt-5 container mx-auto rounded-md shadow-sm ">
         {{--DATOS DEL NEGOCIO --}}
         <div class="w-full my-3 grid grid-cols-6 md:grid-cols-12 border-b border-blue-100 gap-1">
             {{--1  imagen del negocio --}}
@@ -174,10 +174,10 @@
 
     </div>
            {{--3  datos del negocio --}}
-           <div class="  grid h-2/12 grid-cols-2 mx-auto border-t-2 border-indigo-300 bg-black fixed bottom-0 w-full p-2 text-white ">
+           <div class="  grid  grid-cols-2 mx-auto border-t-2 border-indigo-300 bg-black fixed bottom-0 w-full p-2 text-white ">
                 <div>
                         <div class="w-full text-left text-sm font-bold">Direccion: {{ $negocio->direccion }}</div>
-                        <div class="text-left text-xs font-bold">Nif: {{ $negocio->nif }}</div>
+                        
                         
                     
                 </div>
@@ -185,9 +185,9 @@
                         <div class="text-left  text-xs font-bold">Tlf:{{ $negocio->telefono1 }}</div>
                         <div class="text-left mb-3 text-xs font-bold">Tlf:{{ $negocio->telefono2 }}</div> 
                 </div>
-                <div class="col-span-2 mx-auto">
+                <div class="col-span-2 mx-auto text-xs">
                          designer by angelcm@gmail.com
-                </div>
+                </div> 
 
             </div> 
     {{-- modal de los productos --}}
@@ -222,9 +222,9 @@
                 {{ $producto_selecionado->descrip }}
             </div>
             <div class="w-full text-left p-3 ml-5" >
-    @foreach ($producto_selecionado->alargenos as $alargeno)
-         <img class="inline h-10 w-auto"  src="{{ asset($alargeno->img) }}" alt="{{$alargeno->name}}">
-    @endforeach
+            @foreach ($producto_selecionado->alargenos as $alargeno)
+                <img class="inline h-10 w-auto"  src="{{ asset($alargeno->img) }}" alt="{{$alargeno->name}}">
+            @endforeach
         
          
         </div>

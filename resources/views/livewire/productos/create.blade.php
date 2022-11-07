@@ -1,8 +1,7 @@
 <div>
-
     <h1 class="titulo_form">
         Registrar producto</h1>
-    {{print_r($alargenos)}}
+      {{-- formularios --}}
     <form wire:submit.prevent="store()">
         <div class="div-form-container grid grid-cols-1 md:grid-cols-3">
             <div class="px-3 text-left">
@@ -25,7 +24,6 @@
                     <span class="text-red-500 text-xs italic">{{ $message }}</span>
                 @enderror
             </div>
-
             <div class="px-3">
 
                 <label class="text-xs text-gray-500 mx-1  " for="">Categoria</label>

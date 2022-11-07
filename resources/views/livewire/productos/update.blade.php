@@ -4,7 +4,6 @@
     {{-- formularios --}}
     <form wire:submit.prevent="update()">
         <div class="div-form-container grid grid-cols-1 md:grid-cols-3">
-
             <div class="px-3 text-left">
                 <label class="text-xs text-gray-500 mx-1 " for="">nombre</label>
                 <input type="text" placeholder="cañan Cruz campo"   wire:model.defer="name"
@@ -25,8 +24,6 @@
                     <span class="text-red-500 text-xs italic">{{ $message }}</span>
                 @enderror
             </div>
-
-
             <div class="px-3">
 
                 <label class="text-xs text-gray-500 mx-1  " for="">Categoria</label>
@@ -124,18 +121,21 @@
                     <span class="text-red-500 text-xs italic">{{ $message }}</span>
                 @enderror
             </div>
-            <div class="col-span-4">
+
+            <div class="md:col-span-3">
                 <div class="flex items-center mt-2 justify-between mb-b border-b pb-4 mx-5">
-                    <h2 class="text-xl text-gray-600">Presentaciones</h2>
-                    <div>agregre las presentaciones </div>
-                    <button wire:click="add" type="button" class="focus:outline-none text-white bg-blue-300 rounded-lg p-1 hover:bg-blue-500">
-                        {{ __('Add')}}
-                    </button>
+                    @if (count($presentaciones)<3 )
+                        <h2 class="text-xl text-gray-600">Presentaciones</h2>
+                    
+                        <button wire:click="add" type="button" class="focus:outline-none text-white bg-blue-300 rounded-lg p-1 hover:bg-blue-500">
+                            {{__('Add')}}
+                        </button>
+                    @endif
                 </div>
 
                 @foreach ($presentaciones as $index => $presentacion )
-                <div class="grid grid-cols-7" >
-                    <div class="px-3 text-left">
+                <div class="grid md:grid-cols-7 grid-cols-2 efecto_in" >
+                    <div class="px-3 text-left ">
                         <label class="text-xs text-gray-500 mx-1 " for="">presentacion</label>
                         <input type="test" step="0.01" autocomplete="true" value="0" placeholder="1.00"  
                             wire:model.defer="presentaciones.{{ $index }}.name" class=" focus:outline-none focus:shadow-md  focus:bg-gray-100 focus:border-gray-600">
@@ -170,7 +170,7 @@
                     <div class="px-3 text-left">
                         <label class="text-xs text-gray-500 mx-1 " for="">unidad de medida (ml,L,etc)</label>
                         <select placeholder="200" value="Ml"   wire:model.defer="presentaciones.{{ $index }}.unidad_medida"
-                            class=" focus:outline-none focus:shadow-md  focus:bg-gray-100 focus:border-gray-600">
+                            class="focus:outline-none focus:shadow-md  focus:bg-gray-100 focus:border-gray-600">
                 
                             <option value="ml" selected>mililitro (ml)</option>
                             <option value="cl">centilitro (cl)</option>
@@ -190,11 +190,14 @@
                         @enderror
                     </div>
                     <div class="px-3 text-left block-inline">
-                     @if (count($presentaciones) >1 )
-                        <button wire:click="remove_pre({{$index}})" type="button" class=" mt-6 focus:outline-none text-white bg-red-300 rounded-lg p-1 hover:bg-red-500">
+                    @if (count($presentaciones) >1 )
+                          <button wire:click="remove_pre({{$index}})" type="button" class=" mt-6 focus:outline-none text-white bg-red-300 rounded-lg p-1 hover:bg-red-500">
                             {{ __('Remove')}}
                         </button>
-                        @endif
+                    @endif
+                      
+                   
+                        
                     </div >
                 
                 

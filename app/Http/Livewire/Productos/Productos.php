@@ -28,7 +28,7 @@ class Productos extends Component
     public $alargenos=[];
     protected $rules = [ 
         'name' => 'required', 
-        'alargenos' => 'required', 
+        'alargenos' => '', 
         'descrip' => 'Nullable', 
         'categorias' => 'required', 
         'presentaciones.*.name'=> 'required', 
