@@ -1,4 +1,4 @@
-<div class="  ">
+<div>
     {{-- loading --}}
     <div wire:loading wire:target="idioma" class="fixed z-40 w-full h-full top-0 left-0 bg-gray-800 bg-opacity-75">
         <div class="w-ful h-full ">
@@ -111,11 +111,12 @@
         <div class=" grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 gap-3 text-xs mx-auto">
             @foreach ($productos as $producto)
                 
-                <div wire:click="producto('{{ $producto->id }}')"
-                    class=" grid-cols-2 grid border border-gray-200 m-1 rounded-md shadow-xs p-1 hover:border-indigo-300 hover:shadow-2xl ">
-                    <div class="col-span-2 text-center font-extrabold" >{{ $producto->name }} </div>
-                    <div><img class=" h-24 object-fill rounded-md" src="{{ asset($producto->img) }}"
-                            alt="Sunset in the mountains">
+                <div wire:click="producto('{{ $producto->id }}')" class=" grid-cols-2 grid border border-gray-200 m-1 rounded-md shadow-xs p-1 hover:border-indigo-300 hover:shadow-2xl ">
+                    <div class="col-span-2 text-center font-extrabold" >
+                        {{ $producto->name }} 
+                    </div>
+                    <div>
+                        <img class=" h-24 object-fill rounded-md" src="{{ asset($producto->img) }}" alt="Sunset in the mountains">
                     </div>
                     <div>
                         <table class="w-full">
@@ -176,14 +177,18 @@
            {{--3  datos del negocio --}}
            <div class="  grid  grid-cols-2 mx-auto border-t-2 border-indigo-300 bg-black fixed bottom-0 w-full p-2 text-white ">
                 <div>
-                        <div class="w-full text-left text-sm font-bold">Direccion: {{ $negocio->direccion }}</div>
-                        
-                        
+                    <div class="w-full text-left text-sm font-bold">
                     
+                        Direccion: {{ $negocio->direccion }}
+                    </div>
                 </div>
                 <div>
-                        <div class="text-left  text-xs font-bold">Tlf:{{ $negocio->telefono1 }}</div>
-                        <div class="text-left mb-3 text-xs font-bold">Tlf:{{ $negocio->telefono2 }}</div> 
+                        <div class="text-left  text-xs font-bold">
+                            Tlf:{{ $negocio->telefono1 }}
+                        </div>
+                        <div class="text-left mb-3 text-xs font-bold">
+                            Tlf:{{ $negocio->telefono2 }}
+                        </div> 
                 </div>
                 <div class="col-span-2 mx-auto text-xs">
                          designer by angelcm@gmail.com
@@ -255,7 +260,6 @@
                 
             
         </x-slot>
-
     </x-jet-dialog-modal>
 
 </div>

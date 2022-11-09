@@ -181,13 +181,24 @@ class Productos extends Component
         $this->name = $change->name;
         $this->descrip = $change->descrip;
         $this->presentaciones=presentacion::where('producto_id','=',$change->id)->get();
-        $this->categorias = $change->id_categoria;
+       
+        $this->array_cat="";
+        foreach ($change->categorias as $key => $categoria) {
+            if ($key==0) {
+                $this->array_cat.=$categoria->id;
+            }else{
+               $this->array_cat.="-".$categoria->id; 
+            }
+            
+        }
+         $this->categorias = $change->categorias->max();
         $this->alargenos=[];
         foreach ($change->alargenos as  $alargeno) {
         $this->alargenos[]=$alargeno->id;
         }
         $this->resetValidation();
         $this->emit('bolqueo_copy');
+
     }
     public function copiar($id){
         $this->resetValidation();
@@ -197,7 +208,16 @@ class Productos extends Component
         $this->name = $change->name;
         $this->descrip = $change->descrip;
         $this->photo=$change->img;
-        $this->categorias = $change->id_categoria;
+        $this->array_cat="";
+        foreach ($change->categorias as $key => $categoria) {
+            if ($key==0) {
+                $this->array_cat.=$categoria->id;
+            }else{
+               $this->array_cat.="-".$categoria->id; 
+            }
+            
+        }
+         $this->categorias = $change->categorias->max();
         $this->presentaciones=presentacion::select('name','volumen','costo','precio_venta','peso','unidad_medida')->where('producto_id','=',$change->id)->get(); 
         $this->alargenos=[];
         foreach ($change->alargenos as  $alargeno) {
