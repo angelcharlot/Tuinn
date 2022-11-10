@@ -17,25 +17,23 @@
                     </div>
 
                     @if (Auth::user()->hasRole('admin'))
-{{--                     <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                        {{--<div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                         <x-jet-nav-link href="{{ route('negocio.index') }}" :active="request()->routeIs('negocio.index')">
                              {{ __('Gestion de personal') }}
                         </x-jet-nav-link>
-                    </div> --}}
-                    <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                        <x-jet-nav-link href="{{ route('productos.index') }}" :active="request()->routeIs('productos.index')">
-                            {{ __('Productos') }}
-                        </x-jet-nav-link>
-                    </div>
-                    <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                        <x-jet-nav-link href="{{ route('categorias.index') }}" :active="request()->routeIs('categorias.index')">
-                            {{ __('Categorias') }}
-                        </x-jet-nav-link>
-                    </div>
-
+                        </div> --}}
+                        <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                            <x-jet-nav-link href="{{ route('productos.index') }}" :active="request()->routeIs('productos.index')">
+                                {{ __('Productos') }}
+                            </x-jet-nav-link>
+                        </div>
+                        <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                            <x-jet-nav-link href="{{ route('categorias.index') }}" :active="request()->routeIs('categorias.index')">
+                                {{ __('Categorias') }}
+                            </x-jet-nav-link>
+                        </div>
                     @endif
                 @else
-
                 @endauth
             </div>
 
@@ -102,18 +100,18 @@
                     </x-jet-dropdown>
                 </div>
             @else
-            @if (Route::has('login'))
-            <div class="flex items-center space-x-3 ">
-                 @auth
-
-                @else
-                <a href="{{ route('login') }}" class="py-2 px-2 font-medium text-gray-500 rounded hover:bg-green-500 hover:text-white transition duration-300">login</a>
-                @if (Route::has('register'))
-               {{--  <a href="{{ route('register') }}" class="py-2 px-2 font-medium text-white bg-green-500 rounded hover:bg-green-400 transition duration-300">Registro</a> --}}
-                 @endif
-                 @endauth
-            </div>
-            @endif
+                @if (Route::has('login'))
+                    <div class="flex items-center space-x-3 ">
+                        @auth
+                        @else
+                            <a href="{{ route('login') }}"
+                                class="py-2 px-2 font-medium text-gray-500 rounded hover:bg-green-500 hover:text-white transition duration-300">login</a>
+                            @if (Route::has('register'))
+                                {{--  <a href="{{ route('register') }}" class="py-2 px-2 font-medium text-white bg-green-500 rounded hover:bg-green-400 transition duration-300">Registro</a> --}}
+                            @endif
+                        @endauth
+                    </div>
+                @endif
 
 
             @endauth
@@ -142,21 +140,19 @@
                 {{ __('Dashboard') }}
             </x-jet-responsive-nav-link>
             @auth
-                            @if (Auth::user()->hasRole('admin'))
+                @if (Auth::user()->hasRole('admin'))
+                    {{-- <x-jet-responsive-nav-link href="{{ route('negocio.index') }}" :active="request()->routeIs('negocio.index')">
+                        {{ __('Gestion de personal') }}
+                    </x-jet-responsive-nav-link> --}}
 
-                <x-jet-responsive-nav-link href="{{ route('negocio.index') }}" :active="request()->routeIs('negocio.index')">
-                     {{ __('Gestion de personal') }}
-                </x-jet-responsive-nav-link>
+                    <x-jet-responsive-nav-link href="{{ route('productos.index') }}" :active="request()->routeIs('productos.index')">
+                        {{ __('Productos') }}
+                    </x-jet-responsive-nav-link>
 
-                <x-jet-responsive-nav-link href="{{ route('productos.index') }}" :active="request()->routeIs('productos.index')">
-                    {{ __('Productos') }}
-                </x-jet-responsive-nav-link>
-
-                <x-jet-responsive-nav-link href="{{ route('categorias.index') }}" :active="request()->routeIs('categorias.index')">
-                    {{ __('Categorias') }}
-                </x-jet-responsive-nav-link>
-
-        @endif
+                    <x-jet-responsive-nav-link href="{{ route('categorias.index') }}" :active="request()->routeIs('categorias.index')">
+                        {{ __('Categorias') }}
+                    </x-jet-responsive-nav-link>
+                @endif
             @endauth
 
         </div>

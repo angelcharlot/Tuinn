@@ -121,6 +121,16 @@
                     <span class="text-red-500 text-xs italic">{{ $message }}</span>
                 @enderror
             </div>
+            <div class="px-3 text-left md:col-span-3">
+                <label class="text-xs text-gray-500 mx-1 " for="">Maridaje</label>
+                <textarea wire:model.defer="descrip2"
+                    placeholder=""
+                    class=" focus:outline-none focus:shadow-md  w-full border border-gray-200  focus:bg-gray-100 focus:border-gray-600">
+                </textarea>
+                @error('descrip2')
+                    <span class="text-red-500 text-xs italic">{{ $message }}</span>
+                @enderror
+            </div>
 
             <div class="md:col-span-3">
                 <div class="flex items-center mt-2 justify-between mb-b border-b pb-4 mx-5">

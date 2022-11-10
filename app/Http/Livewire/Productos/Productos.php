@@ -20,6 +20,7 @@ class Productos extends Component
     public $updateMode = false;
     public $nombre_categoria;
     public $array_cat;
+    public $descrip2;
     public $photo=NULL, $name, $descrip;
     public  $presentaciones;
     protected $listeners = ['destroy', 'select_update'];
@@ -30,6 +31,7 @@ class Productos extends Component
         'name' => 'required', 
         'alargenos' => '', 
         'descrip' => 'required', 
+        'descrip' => '', 
         'categorias' => 'required', 
         'presentaciones.*.name'=> 'required', 
         'presentaciones.*.volumen'=> '', 
@@ -116,6 +118,7 @@ class Productos extends Component
         $newproduct->id_negocio = $this->negocio->id;
         $newproduct->name = $this->name;
         $newproduct->descrip = $this->descrip;
+        $newproduct->descrip2 = $this->descrip2;
         $newproduct->save();
         $ids = explode("-", $this->array_cat);
         $newproduct->alargenos()->attach($this->alargenos);
@@ -157,6 +160,7 @@ class Productos extends Component
 
             $record->name = $this->name;
             $record->descrip = $this->descrip;
+            $record->descrip2 = $this->descrip2;
 
             $record->update();
             foreach ($this->presentaciones as  $presentacion) {
@@ -180,6 +184,7 @@ class Productos extends Component
         $this->updateMode = true;
         $this->name = $change->name;
         $this->descrip = $change->descrip;
+        $this->descrip2 = $change->descrip2;
         $this->presentaciones=presentacion::where('producto_id','=',$change->id)->get();
        
         $this->array_cat="";
@@ -207,6 +212,7 @@ class Productos extends Component
 
         $this->name = $change->name;
         $this->descrip = $change->descrip;
+        $this->descrip2 = $change->descrip2;
         $this->photo=$change->img;
         $this->array_cat="";
         foreach ($change->categorias as $key => $categoria) {
@@ -242,6 +248,7 @@ class Productos extends Component
         $this->volumen = null;
         $this->categorias = null;
         $this->alargenos=[];
+        $this->descrip2="";
         $this->emit('enable_copy');
         $this->resetValidation();
     }
