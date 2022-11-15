@@ -20,7 +20,20 @@ window.onload = function () {
 
     });
 
+    Livewire.on('apartado', function (e) {
 
+        let otherText = document.querySelector("#input_a");
+        let select = document.querySelector("#select_a");
+
+          
+            if(select.value == "Otro..."){
+            otherText.style.zIndex = 0 + "";
+            }else{
+            otherText.style.zIndex = -1 + "";
+            otherText.value="";
+            };
+
+    });
 
     //bloquear boton de copiar cuando se este editando
     Livewire.on('bolqueo_copy', etc2 => {

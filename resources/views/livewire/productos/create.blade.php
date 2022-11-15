@@ -1,23 +1,23 @@
 <div>
     <h1 class="titulo_form">
         Registrar producto</h1>
-      {{-- formularios --}}
+    {{-- formularios --}}
     <form wire:submit.prevent="store()">
         <div class="div-form-container grid grid-cols-1 md:grid-cols-3">
             <div class="px-3 text-left">
                 <label class="text-xs text-gray-500 mx-1 " for="">nombre</label>
-                <input type="text" placeholder="cañan Cruz campo"   wire:model.defer="name"
+                <input type="text" placeholder="cañan Cruz campo" wire:model.defer="name"
                     class="focus:outline-none focus:shadow-md    focus:bg-gray-100 focus:border-gray-600">
                 @error('name')
                     <span class="text-red-500 text-xs italic">{{ $message }}</span>
                 @enderror
             </div>
             <div class="px-3 text-left">
-               
+
                 <label class="text-xs text-gray-500 mx-1 " for="">alergenos</label>
-                <select wire:model="alargenos" id="alargenos" name="alargenos" multiple >
-                    @foreach($allalargenos as $alargeno)
-                        <option value='{{$alargeno->id}}'>{{ $alargeno->name }}</option>
+                <select wire:model.defer="alargenos" id="alargenos" name="alargenos" multiple>
+                    @foreach ($allalargenos as $alargeno)
+                        <option value='{{ $alargeno->id }}'>{{ $alargeno->name }}</option>
                     @endforeach
                 </select>
                 @error('alargenos')
@@ -29,7 +29,7 @@
                 <label class="text-xs text-gray-500 mx-1  " for="">Categoria</label>
 
                 <div class=" relative z-30 inline-block text-left dropdown w-full my-1 ">
-                    <span " wire:click="$emit('btn')" class="rounded-md shadow-sm"><button
+                    <span wire:click="$emit('btn')" class="rounded-md shadow-sm"><button
                             class="inline-flex justify-center w-full px-4 py-2 text-sm font-medium leading-5 text-gray-700 transition duration-150 ease-in-out bg-white border border-gray-300 rounded-md hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-50 active:text-gray-800"
                             type="button" aria-haspopup="true" aria-expanded="true"
                             aria-controls="headlessui-menu-items-117">
@@ -85,7 +85,8 @@
                         @if ($photo)
                             <img src="{{ asset($this->photo) }}" class="rounded-full h-10 w-10 object-cover">
                         @else
-                        <img src="{{ asset('images/icons8-cubiertos-100.png') }}" class="rounded-full h-10 w-10 object-cover">
+                            <img src="{{ asset('images/icons8-cubiertos-100.png') }}"
+                                class="rounded-full h-10 w-10 object-cover">
                         @endif
 
 
@@ -110,7 +111,30 @@
                 </div>
 
             </div>
-            
+            <div class="px-3 mb-5">
+                <label class="text-xs text-gray-500 mx-1  " for="">Apartados</label>
+
+                <div class="relative">
+                    <select id="select_a" class="absolute" wire:model.defer='select_apartado'
+                        wire:click="$emit('apartado')">
+                        <option >seleccione</option>
+                        @foreach ($apartados as $apartado)
+                            <option value="{{ $apartado->descrip3 }}">{{ $apartado->descrip3 }}</option>
+                        @endforeach
+                        <option value="Otro...">Otro...</option>
+                    </select>
+                    <input wire:ignore wire:model='input_apartado' class=" absolute" type="text"
+                        placeholder="Otro..." id="input_a">
+
+                </div>
+                
+                    @error('select_apartado')
+                        <span class="text-red-500 relative top-7 text-xs italic">{{ $message }}</span>
+                    @enderror
+                     @error('input_apartado')
+                        <span class="text-red-500 relative top-7 text-xs italic">{{ $message }}</span>
+                    @enderror
+            </div>
             <div class="px-3 text-left md:col-span-3">
                 <label class="text-xs text-gray-500 mx-1 " for="">Descripcion</label>
                 <textarea wire:model.defer="descrip"
@@ -123,57 +147,58 @@
             </div>
             <div class="px-3 text-left md:col-span-3">
                 <label class="text-xs text-gray-500 mx-1 " for="">Maridaje</label>
-                <textarea wire:model.defer="descrip2"
-                    placeholder=""
+                <textarea wire:model.defer="descrip2" placeholder=""
                     class=" focus:outline-none focus:shadow-md  w-full border border-gray-200  focus:bg-gray-100 focus:border-gray-600">
                 </textarea>
                 @error('descrip2')
                     <span class="text-red-500 text-xs italic">{{ $message }}</span>
                 @enderror
             </div>
-
             <div class="md:col-span-3">
                 <div class="flex items-center mt-2 justify-between mb-b border-b pb-4 mx-5">
-                    @if (count($presentaciones)<3 )
+                    @if (count($presentaciones) < 3)
                         <h2 class="text-xl text-gray-600">Presentaciones</h2>
-                    
-                        <button wire:click="add" type="button" class="focus:outline-none text-white bg-blue-300 rounded-lg p-1 hover:bg-blue-500">
-                            {{__('Add')}}
+
+                        <button wire:click="add" type="button"
+                            class="focus:outline-none text-white bg-blue-300 rounded-lg p-1 hover:bg-blue-500">
+                            {{ __('Add') }}
                         </button>
                     @endif
                 </div>
 
-                @foreach ($presentaciones as $index => $presentacion )
-                <div class="grid md:grid-cols-3 grid-cols-2 efecto_in" >
-                    <div class="px-3 text-left ">
-                        <label class="text-xs text-gray-500 mx-1 " for="">presentacion</label>
-                        <input type="test" step="0.01" autocomplete="true" value="0" placeholder="1.00"  
-                            wire:model.defer="presentaciones.{{ $index }}.name" class=" focus:outline-none focus:shadow-md  focus:bg-gray-100 focus:border-gray-600">
-                        @error('presentaciones.'.$index.'.name')
-                            <span class="text-red-500 text-xs italic">{{ $message }}</span>
-                        @enderror
-                    </div>
-{{--                     <div class="px-3 text-left">
+                @foreach ($presentaciones as $index => $presentacion)
+                    <div class="grid md:grid-cols-3 grid-cols-2 efecto_in">
+                        <div class="px-3 text-left ">
+                            <label class="text-xs text-gray-500 mx-1 " for="">presentacion</label>
+                            <input type="test" step="0.01" autocomplete="true" value="0"
+                                placeholder="1.00" wire:model.defer="presentaciones.{{ $index }}.name"
+                                class=" focus:outline-none focus:shadow-md  focus:bg-gray-100 focus:border-gray-600">
+                            @error('presentaciones.' . $index . '.name')
+                                <span class="text-red-500 text-xs italic">{{ $message }}</span>
+                            @enderror
+                        </div>
+                        {{-- <div class="px-3 text-left">
                         <label class="text-xs text-gray-500 mx-1 " for="">precio de compra</label>
                         <input type="number" step="0.01" autocomplete="true" value="0" placeholder="1.00"  
                             wire:model.defer="presentaciones.{{ $index }}.costo" class=" focus:outline-none focus:shadow-md  focus:bg-gray-100 focus:border-gray-600">
-                        @error('presentaciones.'.$index.'.costo')
+                        @error('presentaciones.' . $index . '.costo')
                             <span class="text-red-500 text-xs italic">{{ $message }}</span>
                         @enderror
                     </div> --}}
-                    <div class="px-3 text-left">
-                        <label class="text-xs text-gray-500 mx-1 " for="">precio de venta</label>
-                        <input type="number" step="0.01" autocomplete="true" placeholder="1.20"  
-                            wire:model.defer="presentaciones.{{ $index }}.precio_venta" class=" focus:outline-none focus:shadow-md   focus:bg-gray-100 focus:border-gray-600">
-                        @error('presentaciones.'.$index.'.precio_venta')
-                            <span class="text-red-500 text-xs italic">{{ $message }}</span>
-                        @enderror
-                    </div>
-{{--                     <div class="px-3 text-left ">
+                        <div class="px-3 text-left">
+                            <label class="text-xs text-gray-500 mx-1 " for="">precio de venta</label>
+                            <input type="number" step="0.01" autocomplete="true" placeholder="1.20"
+                                wire:model.defer="presentaciones.{{ $index }}.precio_venta"
+                                class=" focus:outline-none focus:shadow-md   focus:bg-gray-100 focus:border-gray-600">
+                            @error('presentaciones.' . $index . '.precio_venta')
+                                <span class="text-red-500 text-xs italic">{{ $message }}</span>
+                            @enderror
+                        </div>
+                        {{--                     <div class="px-3 text-left ">
                         <label class="text-xs text-gray-500 mx-1 " for="">peso(gramos(g))</label>
                         <input type="number" step="0.01" autocomplete="true" placeholder="100"  
                             wire:model.defer="presentaciones.{{ $index }}.peso" class=" focus:outline-none focus:shadow-md  focus:bg-gray-100 focus:border-gray-600">
-                        @error('presentaciones.'.$index.'.peso')
+                        @error('presentaciones.' . $index . '.peso')
                             <span class="text-red-500 text-xs italic">{{ $message }}</span>
                         @enderror
                     </div>
@@ -187,7 +212,7 @@
                             <option value="dl">decilitro (dl)</option>
                 
                         </select>
-                        @error('presentaciones.'.$index.'.unidad_medida')
+                        @error('presentaciones.' . $index . '.unidad_medida')
                             <span class="text-red-500 text-xs italic">{{ $message }}</span>
                         @enderror
                     </div>
@@ -195,30 +220,30 @@
                         <label class="text-xs text-gray-500 mx-1 " for="">volumen</label>
                         <input type="number" step="0.01" autocomplete="true" placeholder="1"  
                             wire:model.defer="presentaciones.{{ $index }}.volumen" class=" focus:outline-none focus:shadow-md  focus:bg-gray-100 focus:border-gray-600">
-                        @error('presentaciones.'.$index.'.volumen')
+                        @error('presentaciones.' . $index . '.volumen')
                             <span class="text-red-500 text-xs italic">{{ $message }}</span>
                         @enderror
                     </div> --}}
-                    <div class="px-3 text-left block-inline">
-                        @if (count($presentaciones) >1 )
-                            <button wire:click="remove_pre({{$index}})" type="button" class=" mt-6 focus:outline-none text-white bg-red-300 rounded-lg p-1 hover:bg-red-500">
-                                {{ __('Remove')}}
-                            </button>
-                        @endif
-                      
-                   
-                        
-                    </div >
-                
-                
-                </div>
-                @endforeach
-                  
-               
+                        <div class="px-3 text-left block-inline">
+                            @if (count($presentaciones) > 1)
+                                <button wire:click="remove_pre({{ $index }})" type="button"
+                                    class=" mt-6 focus:outline-none text-white bg-red-300 rounded-lg p-1 hover:bg-red-500">
+                                    {{ __('Remove') }}
+                                </button>
+                            @endif
 
-                
+
+
+                        </div>
+
+
+                    </div>
+                @endforeach
+
+
+
+
             </div>
-            
             <div class="px-3 text-center  ">
                 <div class="w-auto pl-3 text-center align-middle">
                     <div class="pt-5">
@@ -229,12 +254,7 @@
                     </div>
                 </div>
 
-            </div> 
-
-
+            </div>
         </div>
     </form>
-
-
-
 </div>

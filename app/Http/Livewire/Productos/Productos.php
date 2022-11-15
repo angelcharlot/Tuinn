@@ -21,17 +21,25 @@ class Productos extends Component
     public $nombre_categoria;
     public $array_cat;
     public $descrip2;
+    public $select_apartado;
+    public $input_apartado;
+    public $apartados;
+    Public $search="";
     public $photo=NULL, $name, $descrip;
     public  $presentaciones;
     protected $listeners = ['destroy', 'select_update'];
-    protected $messages = ['name.required' => 'campo obligatorio','descrip.required' => 'campo obligatorio','p_venta.required' => 'campo obligatorio','numeric' => 'tienen que ser numerico','required' => 'campo requerido',];
+    protected $messages = ['name.required' => 'campo obligatorio',
+    'input_apartado.required_if' => 'campo obligatorio',
+    'descrip.required' => 'campo obligatorio','p_venta.required' => 'campo obligatorio','numeric' => 'tienen que ser numerico','required' => 'campo requerido',];
     public $allalargenos;
     public $alargenos=[];
     protected $rules = [ 
         'name' => 'required', 
         'alargenos' => '', 
         'descrip' => 'required', 
-        'descrip' => '', 
+        'descrip2' => '', 
+        'select_apartado' => 'required', 
+        'input_apartado'=>'required_if:select_apartado,Otro...',
         'categorias' => 'required', 
         'presentaciones.*.name'=> 'required', 
         'presentaciones.*.volumen'=> '', 
@@ -41,6 +49,8 @@ class Productos extends Component
         'presentaciones.*.unidad_medida'=> '',]; 
 
     public function mount(){
+        
+       $this->apartados=producto::where('id_negocio','=',auth()->user()->negocio->id)->get()->unique('descrip3');
         $this->presentaciones=new Collection();
         $this->presentaciones->push(new presentacion());
         $this->allalargenos=alargeno::all();
@@ -56,7 +66,7 @@ class Productos extends Component
        // dd($negocioid);
         $this->negocio=negocio::find($negocioid->id);
        // dd($negocio->productos);
-        $this->productos=$this->negocio->productos;
+        $this->productos=producto::where('name','like','%'.$this->search.'%')->where('id_negocio','=',$this->negocio->id)->get();
         $this->allcategorias = categorias::where("id_negocio","=",auth()->user()->negocio->id,"and")->whereNull('id_categoria')->get();
         for ($i=0; $i < count($this->allcategorias) ; $i++) {
             $this->allcategorias[$i]->ids=$this->allcategorias[$i]->id;
@@ -96,6 +106,8 @@ class Productos extends Component
     }
     public function store(){
 
+        
+
         $this->validate();
 
 
@@ -119,6 +131,14 @@ class Productos extends Component
         $newproduct->name = $this->name;
         $newproduct->descrip = $this->descrip;
         $newproduct->descrip2 = $this->descrip2;
+        
+        if ($this->select_apartado==="Otro...") {
+           $newproduct->descrip3 = $this->input_apartado; 
+        }else{
+            $newproduct->descrip3 = $this->select_apartado; 
+        }
+        
+
         $newproduct->save();
         $ids = explode("-", $this->array_cat);
         $newproduct->alargenos()->attach($this->alargenos);
@@ -143,12 +163,8 @@ class Productos extends Component
     public function update(){
         $this->validate();
 
-
         if ($this->selected_id) {
             $record = producto::find($this->selected_id);
-
-
-
 
             if ( is_object($this->photo)) {
                 $url = str_replace('storage', 'public', $record->img);
@@ -157,10 +173,15 @@ class Productos extends Component
                 $record->img = 'storage/' . $this->photo->store('productos', 'public');
             }
 
-
             $record->name = $this->name;
             $record->descrip = $this->descrip;
             $record->descrip2 = $this->descrip2;
+
+            if ($this->select_apartado==="Otro...") {
+                $record->descrip3 = $this->input_apartado; 
+             }else{
+                 $record->descrip3 = $this->select_apartado; 
+             }
 
             $record->update();
             foreach ($this->presentaciones as  $presentacion) {
@@ -178,6 +199,7 @@ class Productos extends Component
         }
     }
     public function edit($id){
+        
         $change = producto::findOrFail($id);
         $this->selected_id = $id;
         $this->photo = $change->img;
@@ -186,8 +208,8 @@ class Productos extends Component
         $this->descrip = $change->descrip;
         $this->descrip2 = $change->descrip2;
         $this->presentaciones=presentacion::where('producto_id','=',$change->id)->get();
-       
         $this->array_cat="";
+        //cargar las categorias ya pertenecioentes
         foreach ($change->categorias as $key => $categoria) {
             if ($key==0) {
                 $this->array_cat.=$categoria->id;
@@ -197,10 +219,13 @@ class Productos extends Component
             
         }
          $this->categorias = $change->categorias->max();
+         //cargando alargenos 
         $this->alargenos=[];
         foreach ($change->alargenos as  $alargeno) {
         $this->alargenos[]=$alargeno->id;
         }
+        $this->select_apartado=$change->descrip3;
+
         $this->resetValidation();
         $this->emit('bolqueo_copy');
 
@@ -229,6 +254,7 @@ class Productos extends Component
         foreach ($change->alargenos as  $alargeno) {
         $this->alargenos[]=$alargeno->id;
         }
+        $this->select_apartado=$change->descrip3;
         $this->emit('subir-scroll');
        
     }
@@ -251,5 +277,23 @@ class Productos extends Component
         $this->descrip2="";
         $this->emit('enable_copy');
         $this->resetValidation();
+        $this->apartados=producto::where('id_negocio','=',auth()->user()->negocio->id)->get()->unique('descrip3');
+        $this->input_apartado="";
+        $this->select_apartado="";
+        $this->emit('apartado');
     }
+    public function pausar(producto $producto){
+
+            $producto->activo=0;
+            $producto->save();
+
+    }
+    public function reanudar(producto $producto){
+
+        $producto->activo=1;
+        $producto->save();
+
+}
+
+    
 }

@@ -1,6 +1,6 @@
 <div>
     {{-- loading --}}
-    <div wire:loading wire:target="idioma" class="fixed z-40 w-full h-full top-0 left-0 bg-gray-800 bg-opacity-75">
+    <div wire:loading wire:target="idioma,producto" class="fixed z-40 w-full h-full top-0 left-0 bg-gray-800 bg-opacity-75">
         <div class="w-ful h-full ">
             <div class="flex justify-center h-full">
 
@@ -36,6 +36,7 @@
                 </div>
             </div>
         </div>
+
         <div class=" w-4/12  m-5">
             {{-- idioma --}}
             <label class="text-xs text-gray-500 mx-1 " for="">Idioma</label>
@@ -45,7 +46,7 @@
                 <option value="fr">Francés</option>
                 <option value="it">Italiano</option>
                 <option value="de">Alemán</option>
-                <option value="ca">catalan</option>
+
             </select>
         </div>
         <div
@@ -104,68 +105,83 @@
 
         {{-- cartas de los productos --}}
         <div class=" grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 gap-3 text-xs mx-auto">
-            @foreach ($productos as $producto)
-                <div wire:click="producto('{{ $producto->id }}')"
-                    class=" grid-cols-2 grid border border-gray-200 m-1 rounded-md shadow-xs p-1 hover:border-indigo-300 hover:shadow-2xl ">
-                    <div class="col-span-2 text-center font-extrabold">
-                        {{ $producto->name }}
-                    </div>
-                    <div>
-                        <img class=" h-24 object-fill rounded-md" src="{{ asset($producto->img) }}"
-                            alt="Sunset in the mountains">
-                    </div>
-                    <div>
-                        <table class="w-full">
-                            <tbody>
+            @foreach ($apartados as $apartado)
+            
+                @if ($productos->where('descrip3', '=', $apartado->descrip3)->where('activo','=',1)->count() > 0)
+                    <div class="ml-5 text-blue-800 col-span-2 sm:col-span-4 md:col-span-6 text-left font-Lobster text-xl">
+                   
+                    {{ $apartado->descrip3 }}
+                </div>
+                @endif
 
-                                @if (isset($producto->presentaciones))
-                                    @foreach ($producto->presentaciones as $presentacion)
+           
+
+                @foreach ($productos->where('descrip3', '=', $apartado->descrip3)->where('activo','=',1) as $producto)
+                    {{-- cartita --}}
+                    <div wire:click="producto('{{ $producto->id }}')"
+                        class=" grid-cols-2 grid border border-gray-200 m-1 rounded-md shadow-xs p-1 hover:border-indigo-300 hover:shadow-2xl ">
+                        <div class="col-span-2 text-center font-extrabold">
+                            {{ $producto->name }}
+                        </div>
+                        <div>
+                            <img class=" h-24 object-fill rounded-md" src="{{ asset($producto->img) }}"
+                                alt="Sunset in the mountains">
+                        </div>
+                        <div>
+                            <table class="w-full">
+                                <tbody>
+
+                                    @if (isset($producto->presentaciones))
+                                        @foreach ($producto->presentaciones as $presentacion)
+                                            <tr>
+                                                <td class="pl-2 text-green-900 text-xs font-medium ">
+                                                    {{ $presentacion->name }}: &euro;{{ $presentacion->precio_venta }}
+                                                </td>
+
+                                            </tr>
+                                        @endforeach
+                                    @else
                                         <tr>
-                                            <td class="pl-2 text-green-900 text-xs font-medium ">
-                                                {{ $presentacion->name }}: &euro;{{ $presentacion->precio_venta }}
+                                            <td class="pl-2 text-green-900 text-2xl font-medium ">
+                                                &euro;{{ $producto->precio_venta }}
                                             </td>
 
                                         </tr>
-                                    @endforeach
-                                @else
-                                    <tr>
-                                        <td class="pl-2 text-green-900 text-2xl font-medium ">
-                                            &euro;{{ $producto->precio_venta }}
-                                        </td>
-
-                                    </tr>
-                                @endif
+                                    @endif
 
 
-                            </tbody>
-                        </table>
+                                </tbody>
+                            </table>
 
-                    </div>
-                    <div class="col-span-2 text-ellipsis overflow-hidden h-10  ">
-                        {{ $producto->descrip }}
-                    </div>
-                    <div class="col-span-2 grid grid-cols-2">
-                        <div>
-                            {{ $producto->likes->where('tipo', 1)->count() }}
-                            <i class="bi bi-heart-fill text-red-800 mx-auto"></i>
                         </div>
-                        <div>
-                            {{ $producto->likes->where('tipo', 0)->count() }}
-                            <i class="bi bi-heartbreak-fill  mx-auto "></i>
+                        <div class="col-span-2 text-ellipsis overflow-hidden h-10  ">
+                            {{ $producto->descrip }}
+                        </div>
+                        <div class="col-span-2 grid grid-cols-2">
+                            <div>
+                                {{ $producto->likes->where('tipo', 1)->count() }}
+                                <i class="bi bi-heart-fill text-red-800 mx-auto"></i>
+                            </div>
+                            <div>
+                                {{ $producto->likes->where('tipo', 0)->count() }}
+                                <i class="bi bi-heartbreak-fill  mx-auto "></i>
+                            </div>
+                        </div>
+                        <div class="col-span-2">
+
+                            <div class="w-full">
+                                @foreach ($producto->categorias as $categoria)
+                                    <span
+                                        style="font-size: 8px;line-height: 11px;letter-spacing: 0.027em;font-weight: 875;"
+                                        class="inline-block bg-gray-200 rounded-full px-1 py-1  font-semibold text-gray-700 mr-2 mb-2">#{{ $categoria->name }}</span>
+                                @endforeach
+                            </div>
+
                         </div>
                     </div>
-                    <div class="col-span-2">
-
-                        <div class="w-full">
-                            @foreach ($producto->categorias as $categoria)
-                                <span style="font-size: 8px;line-height: 11px;letter-spacing: 0.027em;font-weight: 875;"
-                                    class="inline-block bg-gray-200 rounded-full px-1 py-1  font-semibold text-gray-700 mr-2 mb-2">#{{ $categoria->name }}</span>
-                            @endforeach
-                        </div>
-
-                    </div>
-                </div>
+                @endforeach
             @endforeach
+
         </div>
 
 
@@ -196,10 +212,12 @@
     <x-jet-dialog-modal wire:model="open">
         <x-slot name="title">
             <div class="grid grid-cols-6">
-                <div class=" col-span-5 " style="font-size: 22px;line-height: 25px;letter-spacing: 0.042em;font-weight: 697;">
+                <div class=" col-span-5 "
+                    style="font-size: 22px;line-height: 25px;letter-spacing: 0.042em;font-weight: 697;">
                     {{ $producto_selecionado->name }}
                 </div>
-                <div wire:click="$set('open',false)" class=" col-span-1 text-right text-red-800 font-bold cursor-pointer ">
+                <div wire:click="$set('open',false)"
+                    class=" col-span-1 text-right text-red-800 font-bold cursor-pointer ">
                     <i class="bi bi-x-lg"></i>
                 </div>
             </div>
@@ -221,12 +239,12 @@
                 {{ $producto_selecionado->descrip }}
             </div>
             @if ($producto_selecionado->descrip2)
-               <div class=" mt-1 w-full mx-auto text-xs font-bold">Maridaje:</div>
+                <div class=" mt-1 w-full mx-auto text-xs font-bold">Maridaje:</div>
                 <div class="w-full mx-auto  overflow-auto text-xs text-gray-700 text-justify">
                     {{ $producto_selecionado->descrip2 }}
-                </div> 
+                </div>
             @endif
-            
+
             <div class="w-full text-left p-3 ml-5">
                 @foreach ($producto_selecionado->alargenos as $alargeno)
                     <img class="inline h-10 w-auto" src="{{ asset($alargeno->img) }}" alt="{{ $alargeno->name }}">

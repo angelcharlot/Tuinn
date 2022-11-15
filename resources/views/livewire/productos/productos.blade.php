@@ -1,15 +1,13 @@
 <div class=" hoja_base div ">
 
-@if (count($allcategorias)==0)
+    @if (count($allcategorias)==0)
 
-<h1 class="w-full h-16 rounded-md border border-red-700 p-4 bg-gray-50 text-lg text-center text-red-400">
-    tiene que registrar las <a class="link underline decoration-solid hover:text-red-700" href="{{route('categorias.index')}}">categorias</a>
+        <h1 class="w-full h-16 rounded-md border border-red-700 p-4 bg-gray-50 text-lg text-center text-red-400">
+            tiene que registrar las <a class="link underline decoration-solid hover:text-red-700" href="{{route('categorias.index')}}">categorias</a>
 
-</h1>
+        </h1>
 
-@else
-
-
+    @else
 
     {{-- loading --}}
     <div wire:loading wire:target="photo,changeEvent"
@@ -42,6 +40,15 @@
 
     <div class="shadow-sm overflow-hidden my-8">
         <h1 class="titulo_form">Productos</h1>
+
+        <div class="flex flex-row w-full my-3"> 
+            
+            <div class=" text-right p-2"><i class="bi bi-search"></i></div>
+            <div class="w-2/6"><input wire:model="search" type="text" class="focus:outline-none focus:shadow-md   focus:bg-gray-100 focus:border-gray-600" ></div>
+            
+            
+        </div>
+        
         <table class=" tabla md:text-base ">
             <thead>
                 <tr class="">
@@ -76,58 +83,92 @@
                         <td class=" ">
                             {{ $producto->id }}
                         </td>
-                        <td class=" hidden md:table-cell ">
+                        
+                        @if ($producto->activo==0)
+                          <td class=" hidden md:table-cell" style="color:red">  
+                           {{ $producto->name }}
+                          </td>
+                        @else
+                         <td class=" hidden md:table-cell ">  
                             {{ $producto->name }}
-                        </td>
+                        
+                          </td>
+                        @endif
+                           
+                        
                         <td class="  ">
-
                             @foreach ($producto->categorias as $categoria )
                                 {{$categoria->name}}
                             @endforeach
-
-
-
-
                         </td>
                      
                         <td class=" hidden md:table-cell ">
-                            <button wire:click="edit({{ $producto->id }})"
-                                class="px-2  bg-indigo-200 text-indigo-500 hover:bg-indigo-500 hover:text-white rounded">Editar</button>
+                            <button wire:click="edit({{$producto->id }})"
+                                class="px-2  bg-indigo-200 text-indigo-500 hover:bg-indigo-500 hover:text-white rounded"><i class="bi bi-pencil"></i></button>
                             <button wire:click="copiar({{ $producto->id }})"
-                                class="px-2 copiar disabled:bg-blue-800 bg-green-200 text-green-500 hover:bg-green-500 hover:text-white rounded">copiar</button>
-
+                                class="px-2 copiar disabled:bg-blue-800 bg-green-200 text-green-500 hover:bg-green-500 hover:text-white rounded"><i class="bi bi-clipboard-plus"></i></button>
                             <button wire:click="$emit('borrar',{{ $producto->id }})"
-                                class="px-2   bg-red-200 text-red-500 hover:bg-red-500 hover:text-white rounded">Borrar</button>
+                                class="px-2   bg-red-200 text-red-500 hover:bg-red-500 hover:text-white rounded"><i class="bi bi-trash"></i></button>
+                            @if ($producto->activo==1)
+                            <button wire:click="pausar({{ $producto->id }})"
+                                class="px-2  bg-indigo-200 text-indigo-500 hover:bg-indigo-500 hover:text-white rounded"><i class="bi bi-pause-circle"></i></button>
+                            @else
+                            <button wire:click="reanudar({{ $producto->id }})"
+                                class="px-2  bg-indigo-200 text-indigo-500 hover:bg-indigo-500 hover:text-white rounded"><i class="bi bi-play"></i></button>
+                            @endif
                         </td>
                     </tr>
                     <tr>
                         <td class="hidden md:table-cell p-2 md:p-4 text-gray-700 " colspan="8">
                             <span class="font-bold text-sm text-black"> Descripcion: </span>{{ $producto->descrip }}
+                            </br>
+                            <span class="font-bold text-sm text-black"> Apartado: </span>{{ $producto->descrip3 }}
+
                         </td>
                     </tr>
 
 
                     <tr class="visible md:hidden ">
-                        <td class=" border-slate-100  p-2 md:p-4 text-gray-500" colspan="5">Nombre:
-                            {{ $producto->name }}</td>
+                       
+
+                        @if ($producto->activo==0)
+                          <td class=" border-slate-100  p-2 md:p-4 text-gray-500" style="color:red">  
+                           {{ $producto->name }}
+                          </td>
+                        @else
+                         <td class=" border-slate-100  p-2 md:p-4 text-gray-500">  
+                            {{ $producto->name }}
+                        
+                          </td>
+                        @endif
+
+                        
                     </tr>
 
                     
                     <tr class="visible md:hidden ">
                         <td class=" p-2 md:p-4 text-gray-700 " colspan="8">
                             <span class="font-bold text-sm text-black"> Descripcion: </span>{{ $producto->descrip }}
+                            </br>
+                            <span class="font-bold text-sm text-black"> Apartado: </span>{{ $producto->descrip3 }}
                         </td>
                     </tr>
                     <tr class="visible md:hidden ">
                         <td class=" border-slate-100  p-2 md:p-4 text-gray-500" colspan="5">
                             <button wire:click="edit({{ $producto->id }})"
-                                class="px-2  bg-indigo-200 text-indigo-500 hover:bg-indigo-500 hover:text-white rounded">Editar</button>
+                                class="px-2  bg-indigo-200 text-indigo-500 hover:bg-indigo-500 hover:text-white rounded"><i class="bi bi-pencil"></i></button>
                             <button wire:click="copiar({{ $producto->id }})"
-                                class="px-2 copiar disabled:bg-blue-800 bg-green-200 text-green-500 hover:bg-green-500 hover:text-white rounded">copiar</button>
+                                class="px-2 copiar disabled:bg-blue-800 bg-green-200 text-green-500 hover:bg-green-500 hover:text-white rounded"><i class="bi bi-clipboard-plus"></i></button>
 
                             <button wire:click="$emit('borrar',{{ $producto->id }})"
-                                class="px-2   bg-red-200 text-red-500 hover:bg-red-500 hover:text-white rounded">Borrar</button>
-
+                                class="px-2   bg-red-200 text-red-500 hover:bg-red-500 hover:text-white rounded"><i class="bi bi-trash"></i></button>
+                             @if ($producto->activo==1)
+                            <button wire:click="pausar({{ $producto->id }})"
+                                class="px-2  bg-indigo-200 text-indigo-500 hover:bg-indigo-500 hover:text-white rounded"><i class="bi bi-pause-circle"></i></button>
+                            @else
+                            <button wire:click="reanudar({{ $producto->id }})"
+                                class="px-2  bg-indigo-200 text-indigo-500 hover:bg-indigo-500 hover:text-white rounded"><i class="bi bi-play"></i></button>
+                            @endif
                         </td>
                     </tr>
                 </tbody>
@@ -135,6 +176,5 @@
 
         </table>
     </div>
-
 @endif
 </div>

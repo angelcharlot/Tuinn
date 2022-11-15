@@ -9,6 +9,7 @@ use App\Models\productos;
 use App\Models\like;
 use Illuminate\Http\Request;
 use Livewire\Component;
+use Illuminate\Support\Facades\DB;
 use Stichoza\GoogleTranslate\GoogleTranslate;
 
 class Menu extends Component
@@ -26,7 +27,7 @@ class Menu extends Component
     public $ip;
     public $agente;
     public $alargenos;
-
+    public $apartados;
 
 
     public function mount(Request $request)
@@ -35,8 +36,10 @@ class Menu extends Component
         $this->migas=array();
         $this->negocio = negocio::find($this->id_negocio);
         $this->categorias = categorias::where('id_negocio', '=', $this->negocio->id)->whereNull('id_categoria')->get();
-        $this->productos = productos::where('id_negocio', '=', $this->negocio->id)->get();
-       if(session('id_sessions')==null){
+        $this->productos = productos::where('id_negocio', '=', $this->negocio->id)->where('activo', '=',1)->get();
+        $this->apartados=$this->productos->unique('descrip3');
+       
+        if(session('id_sessions')==null){
 
             session(['id_sessions' => uniqid()]);
        }
@@ -53,16 +56,18 @@ class Menu extends Component
     {
 
         
-
+/* 
         $tr = new GoogleTranslate();
         for ($i = 0; $i < count($this->productos); $i++) {
             $this->productos[$i]->descrip = $tr->setSource('es')->setTarget($this->idioma)->translate($this->productos[$i]->descrip);
+
+           
         }
         for ($i = 0; $i < count($this->categorias); $i++) {
             $this->categorias[$i]->name = $tr->setSource('es')->setTarget($this->idioma)->translate($this->categorias[$i]->name);
         }
-        $productos = $this->productos;
-        return view('livewire.menu.menu', compact('productos'));
+        $productos = $this->productos; */
+        return view('livewire.menu.menu');
     }
     public function nav_categorias($id)
     {
@@ -117,5 +122,18 @@ class Menu extends Component
         $this->producto_selecionado = $producto;
         $this->producto_selecionado->descrip = $tr->setSource('es')->setTarget($this->idioma)->translate($this->producto_selecionado->descrip);
         $this->open = true;
+    }
+    public function idioma(){
+        $tr = new GoogleTranslate();
+        for ($i = 0; $i < count($this->productos); $i++) {
+            $this->productos[$i]->descrip = $tr->setSource('es')->setTarget($this->idioma)->translate($this->productos[$i]->descrip);
+
+           
+        }
+        for ($i = 0; $i < count($this->categorias); $i++) {
+            $this->categorias[$i]->name = $tr->setSource('es')->setTarget($this->idioma)->translate($this->categorias[$i]->name);
+        }
+
+
     }
 }
