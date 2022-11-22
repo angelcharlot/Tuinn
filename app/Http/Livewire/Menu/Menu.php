@@ -54,19 +54,8 @@ class Menu extends Component
 
     public function render()
     {
-
-        
-/* 
-        $tr = new GoogleTranslate();
-        for ($i = 0; $i < count($this->productos); $i++) {
-            $this->productos[$i]->descrip = $tr->setSource('es')->setTarget($this->idioma)->translate($this->productos[$i]->descrip);
-
-           
-        }
-        for ($i = 0; $i < count($this->categorias); $i++) {
-            $this->categorias[$i]->name = $tr->setSource('es')->setTarget($this->idioma)->translate($this->categorias[$i]->name);
-        }
-        $productos = $this->productos; */
+       
+       
         return view('livewire.menu.menu');
     }
     public function nav_categorias($id)
@@ -80,7 +69,7 @@ class Menu extends Component
         } else {
             $offset=NULL;
             $categoria = categorias::find($id);
-            $this->categorias = categorias::where('id_categoria', '=', $id)->get();
+            $this->categorias = $this->categorias->where('id_categoria', '=', $id);
             for ($i=0; $i < count($this->migas) ; $i++) {
                 if ($this->migas[$i]['name']==$categoria->name) {
                     $offset=$i;
@@ -116,24 +105,18 @@ class Menu extends Component
         }
         
     }
-    public function producto(productos $producto)
+    public function producto($id)
     {
-        $tr = new GoogleTranslate();
-        $this->producto_selecionado = $producto;
-        $this->producto_selecionado->descrip = $tr->setSource('es')->setTarget($this->idioma)->translate($this->producto_selecionado->descrip);
+        
+        $this->producto_selecionado = $this->productos->find($id);
+       
         $this->open = true;
     }
     public function idioma(){
-        $tr = new GoogleTranslate();
-        for ($i = 0; $i < count($this->productos); $i++) {
-            $this->productos[$i]->descrip = $tr->setSource('es')->setTarget($this->idioma)->translate($this->productos[$i]->descrip);
 
-           
-        }
-        for ($i = 0; $i < count($this->categorias); $i++) {
-            $this->categorias[$i]->name = $tr->setSource('es')->setTarget($this->idioma)->translate($this->categorias[$i]->name);
-        }
-
+        
+        
 
     }
+
 }

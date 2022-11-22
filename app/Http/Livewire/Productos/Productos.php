@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Productos;
 
 use App\Models\alargeno;
+use App\Models\idioma;
 use Livewire\WithFileUploads;
 use Livewire\Component;
 use App\Models\productos as producto;
@@ -11,6 +12,7 @@ use App\Models\negocio;
 use App\Models\presentacion;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Storage;
+use Stichoza\GoogleTranslate\GoogleTranslate;
 
 class Productos extends Component
 {
@@ -143,6 +145,46 @@ class Productos extends Component
         $ids = explode("-", $this->array_cat);
         $newproduct->alargenos()->attach($this->alargenos);
         $newproduct->categorias()->attach($ids);
+
+        $tr = new GoogleTranslate();
+        $idioma=new idioma();
+        $idioma->producto_id=$newproduct->id;
+        $idioma->idioma='it';
+        $idioma->descrip=$tr->setSource('es')->setTarget('it')->translate($newproduct->descrip);
+        if ($newproduct->descrip2) {
+        $idioma->descrip2=$tr->setSource('es')->setTarget('it')->translate($newproduct->descrip2);
+        }
+        
+        $idioma->save();
+        $idioma=new idioma();
+        $idioma->producto_id=$newproduct->id;
+        $idioma->idioma='en';
+        $idioma->descrip=$tr->setSource('es')->setTarget('en')->translate($newproduct->descrip);
+        if ($newproduct->descrip2) {
+        $idioma->descrip2=$tr->setSource('es')->setTarget('en')->translate($newproduct->descrip2);
+        }
+        
+        $idioma->save();
+        $idioma=new idioma();
+        $idioma->producto_id=$newproduct->id;
+        $idioma->idioma='fr';
+        $idioma->descrip=$tr->setSource('es')->setTarget('fr')->translate($newproduct->descrip);
+        if ($newproduct->descrip2) {
+        $idioma->descrip2=$tr->setSource('es')->setTarget('fr')->translate($newproduct->descrip2);
+        }
+        
+        $idioma->save();
+        $idioma=new idioma();
+        $idioma->producto_id=$newproduct->id;
+        $idioma->idioma='de';
+        $idioma->descrip=$tr->setSource('es')->setTarget('de')->translate($newproduct->descrip);
+        if ($newproduct->descrip2) {
+        $idioma->descrip2=$tr->setSource('es')->setTarget('de')->translate($newproduct->descrip2);
+        }
+        
+        $idioma->save();
+
+
         $this->emit('ok');
         $this->emit('enable_copy');
         
@@ -193,6 +235,18 @@ class Productos extends Component
             $ids = explode("-", $this->array_cat);
             $record->categorias()->sync($ids);
             $record->alargenos()->sync($this->alargenos);
+            $tr = new GoogleTranslate();
+            foreach ($record->idiomas as $key => $idioma) {
+               
+                $idioma->descrip=$tr->setSource('es')->setTarget($idioma->idioma)->translate($record->descrip);
+                if ($record->descrip2) {
+                $idioma->descrip2=$tr->setSource('es')->setTarget($idioma->idioma)->translate($record->descrip2);
+                }
+                
+                $idioma->save();
+            }
+
+
             $this->resetInput();
             $this->updateMode = false;
             $this->emit('alert_update');

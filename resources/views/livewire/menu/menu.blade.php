@@ -22,9 +22,9 @@
         </div>
     </div>
 
-    <div id="todo" wire:ignore.self class=" pb-28 mt-2 container mx-auto rounded-md shadow-sm ">
+    <div id="todo" wire:ignore.self class=" bg-local pb-28 mt-2 container mx-auto rounded-md shadow-sm ">
         {{-- DATOS DEL NEGOCIO --}}
-        <div class=" bg-white w-full  grid grid-cols-6 md:grid-cols-12 border-b border-blue-100 gap-1">
+        <div class=" bg-white w-full my-3 grid grid-cols-6 md:grid-cols-12 border-b border-blue-100 gap-1">
             {{-- 1  imagen del negocio --}}
             <div class="  col-span-2 md:col-span-1 mx-auto  flex items-center">
                 <img id="imagen_logo" class="object-scale-down  h-20 rounded-full" src="{{ asset($negocio->img) }}" alt="">
@@ -36,19 +36,18 @@
                 </div>
             </div>
         </div>
-        <div class=" bg-white w-full">
-            <div class=" w-4/12 m-5">
-                {{-- idioma --}}
-                <label class="text-xs text-gray-500 mx-1 " for="">Idioma</label>
-                <select wire:model='idioma' class=" rounded-lg " name="" id="">
-                    <option value="es">español</option>
-                    <option value="en">Inglés</option>
-                    <option value="fr">Francés</option>
-                    <option value="it">Italiano</option>
-                    <option value="de">Alemán</option>
 
-                </select>
-            </div>
+        <div class=" w-4/12  m-5">
+            {{-- idioma --}}
+            <label class="text-xs text-gray-500 mx-1 " for="">Idioma</label>
+            <select wire:model="idioma"   class=" rounded-lg " name="" id="">
+                <option value="es">español</option>
+                <option value="en">Inglés</option>
+                <option value="fr">Francés</option>
+                <option value="it">Italiano</option>
+                <option value="de">Alemán</option>
+
+            </select>
         </div>
         <div
             class=" border-gray-200 container w-11/12 mx-auto  border-b border-light shadow-card  py-1 px-2 sm:px-6 md:px-8 md:py-2 ">
@@ -107,20 +106,20 @@
         {{-- cartas de los productos --}}
         <div class=" grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 gap-3 text-xs mx-auto">
             @foreach ($apartados as $apartado)
-            
+            {{--condiciono a que los apartados esten en el filtro--}}
                 @if ($productos->where('descrip3', '=', $apartado->descrip3)->where('activo','=',1)->count() > 0)
-                    <div class="mx-auto w-9/12 bg-black text-white col-span-2 sm:col-span-4 md:col-span-6 text-left font-Lobster text-xl">
+                    <div class="ml-5 text-blue-800 col-span-2 sm:col-span-4 md:col-span-6 text-left font-Lobster text-xl">
                    
                     {{ $apartado->descrip3 }}
                 </div>
                 @endif
 
            
-
+                {{-- cartita --}}
                 @foreach ($productos->where('descrip3', '=', $apartado->descrip3)->where('activo','=',1) as $producto)
-                    {{-- cartita --}}
+                    
                     <div wire:click="producto('{{ $producto->id }}')"
-                        class=" bg-blue-200 grid-cols-2 grid border border-gray-200 m-1 rounded-md shadow-xs p-1 hover:border-indigo-300 hover:shadow-2xl ">
+                        class=" bg-white grid-cols-2 grid border border-gray-200 m-1 rounded-md shadow-xs p-1 hover:border-indigo-300 hover:shadow-2xl ">
                         <div class="col-span-2 text-center font-extrabold">
                             {{ $producto->name }}
                         </div>
@@ -156,7 +155,14 @@
 
                         </div>
                         <div class="col-span-2 text-ellipsis overflow-hidden h-10  ">
+                            @if ($idioma!="es")
+                            @foreach ($producto->idiomas->where('idioma','=',$idioma) as $idioma_select)
+                                {{$idioma_select->descrip}}
+                            @endforeach
+                            @else   
                             {{ $producto->descrip }}
+                            @endif
+                            
                         </div>
                         <div class="col-span-2 grid grid-cols-2">
                             <div>
@@ -237,12 +243,32 @@
 
             <div class=" mt-1 w-full mx-auto text-base font-bold">descripcion:</div>
             <div class="w-full mx-auto max-h-40 p-2 overflow-auto text-base text-gray-700 text-justify">
+
+                @if ($idioma!="es")
+                @foreach ($producto_selecionado->idiomas->where('idioma','=',$idioma) as $idioma_select)
+                    {{$idioma_select->descrip}}
+                @endforeach
+                @else   
                 {{ $producto_selecionado->descrip }}
+                @endif
+
+
+               
             </div>
             @if ($producto_selecionado->descrip2)
                 <div class=" mt-1 w-full mx-auto text-xs font-bold">Maridaje:</div>
                 <div class="w-full mx-auto  overflow-auto text-xs text-gray-700 text-justify">
+                    @if ($idioma!="es")
+                    @foreach ($producto_selecionado->idiomas->where('idioma','=',$idioma) as $idioma_select)
+                        {{$idioma_select->descrip2}}
+                    @endforeach
+                    @else   
                     {{ $producto_selecionado->descrip2 }}
+                    @endif
+
+
+
+                   
                 </div>
             @endif
 

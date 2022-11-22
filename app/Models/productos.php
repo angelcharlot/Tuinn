@@ -33,6 +33,11 @@ function likes(){
     return $this->hasMany('App\Models\like','producto_id');
 
 }
+function idiomas(){
+
+    return $this->hasMany('App\Models\idioma','producto_id');
+
+}
 
 
 

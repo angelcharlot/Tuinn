@@ -4,7 +4,8 @@ use SimpleSoftwareIO\QrCode\Facades\QrCode ;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Storage;
 use Stichoza\GoogleTranslate\GoogleTranslate;
-
+use App\Models\productos;
+use App\Models\idioma;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -19,9 +20,50 @@ use Stichoza\GoogleTranslate\GoogleTranslate;
 
 Route::get('prueba/', function () {
 
-    $tr = new GoogleTranslate();
-    echo $tr->setSource('es')->setTarget('en')->translate('hola amor');
-    QrCode::size(200)->style('round')->format('svg')->generate('https://www.tuinn.es/menu/'.auth()->user()->negocio->id, Storage::path('qr/'.auth()->user()->negocio->id.'.svg'));
+    $productos=productos::all();
+
+    foreach ($productos as $key => $producto) {
+        
+        $tr = new GoogleTranslate();
+        $idioma=new idioma();
+        $idioma->producto_id=$producto->id;
+        $idioma->idioma='it';
+        $idioma->descrip=$tr->setSource('es')->setTarget('it')->translate($producto->descrip);
+        if ($producto->descrip2) {
+    $idioma->descrip2=$tr->setSource('es')->setTarget('it')->translate($producto->descrip2);
+        }
+        
+        $idioma->save();
+        $idioma=new idioma();
+        $idioma->producto_id=$producto->id;
+        $idioma->idioma='en';
+        $idioma->descrip=$tr->setSource('es')->setTarget('en')->translate($producto->descrip);
+        if ($producto->descrip2) {
+    $idioma->descrip2=$tr->setSource('es')->setTarget('en')->translate($producto->descrip2);
+        }
+        
+        $idioma->save();
+        $idioma=new idioma();
+        $idioma->producto_id=$producto->id;
+        $idioma->idioma='fr';
+        $idioma->descrip=$tr->setSource('es')->setTarget('fr')->translate($producto->descrip);
+        if ($producto->descrip2) {
+    $idioma->descrip2=$tr->setSource('es')->setTarget('fr')->translate($producto->descrip2);
+        }
+        
+        $idioma->save();
+        $idioma=new idioma();
+        $idioma->producto_id=$producto->id;
+        $idioma->idioma='de';
+        $idioma->descrip=$tr->setSource('es')->setTarget('de')->translate($producto->descrip);
+        if ($producto->descrip2) {
+    $idioma->descrip2=$tr->setSource('es')->setTarget('de')->translate($producto->descrip2);
+        }
+        
+        $idioma->save();
+
+    }
+
 
 
 });
