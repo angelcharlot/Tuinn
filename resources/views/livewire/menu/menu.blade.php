@@ -22,7 +22,7 @@
         </div>
     </div>
 
-    <div id="todo" wire:ignore.self class=" bg-local pb-28 mt-2 container mx-auto rounded-md shadow-sm ">
+    <div  wire:ignore.self class=" bg-local pb-28 mt-2 container mx-auto rounded-md shadow-sm ">
         {{-- DATOS DEL NEGOCIO --}}
         <div class=" bg-white w-full my-3 grid grid-cols-6 md:grid-cols-12 border-b border-blue-100 gap-1">
             {{-- 1  imagen del negocio --}}
@@ -40,7 +40,7 @@
         <div class=" w-4/12  m-5">
             {{-- idioma --}}
             <label class="text-xs text-gray-500 mx-1 " for="">Idioma</label>
-            <select wire:model="idioma"   class=" rounded-lg " name="" id="">
+            <select wire:model.debounce="idioma"   class=" rounded-lg " name="" id="">
                 <option value="es">español</option>
                 <option value="en">Inglés</option>
                 <option value="fr">Francés</option>
@@ -104,7 +104,7 @@
         </div>
 
         {{-- cartas de los productos --}}
-        <div class=" grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 gap-3 text-xs mx-auto">
+        <div wire:change wire:target="idioma" class="  grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 gap-3 text-xs mx-auto">
             @foreach ($apartados as $apartado)
             {{--condiciono a que los apartados esten en el filtro--}}
                 @if ($productos->where('descrip3', '=', $apartado->descrip3)->where('activo','=',1)->count() > 0)
@@ -118,7 +118,7 @@
                 {{-- cartita --}}
                 @foreach ($productos->where('descrip3', '=', $apartado->descrip3)->where('activo','=',1) as $producto)
                     
-                    <div wire:click="producto('{{ $producto->id }}')"
+                    <div wire:click.prefetch="producto('{{ $producto->id }}')"
                         class=" bg-white grid-cols-2 grid border border-gray-200 m-1 rounded-md shadow-xs p-1 hover:border-indigo-300 hover:shadow-2xl ">
                         <div class="col-span-2 text-center font-extrabold">
                             {{ $producto->name }}
@@ -216,7 +216,7 @@
 
     </div>
     {{-- modal de los productos --}}
-    <x-jet-dialog-modal wire:model="open">
+    <x-jet-dialog-modal wire:model.debounce="open">
         <x-slot name="title">
             <div class="grid grid-cols-6">
                 <div class=" col-span-5 "
