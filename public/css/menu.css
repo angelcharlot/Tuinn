@@ -1,3 +1,8 @@
+.absolute.sombrero {
+	right: -16px;
+	top: -30px;
+	width: 42px;
+}
 
 @-moz-keyframes nieve{	
 	from{top:-40px;}

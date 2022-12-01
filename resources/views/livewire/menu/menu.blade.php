@@ -24,7 +24,7 @@
 
     <div  wire:ignore.self class=" bg-local pb-28 mt-2 container mx-auto rounded-md shadow-sm ">
         {{-- DATOS DEL NEGOCIO --}}
-        <div class="  w-full my-3 grid grid-cols-6 md:grid-cols-12 border-b border-blue-100 gap-1">
+        <div class="  w-full my-3 grid grid-cols-6 md:grid-cols-12 gap-1">
             {{-- 1  imagen del negocio --}}
             <div class="  col-span-2 md:col-span-1 mx-auto  flex items-center">
                 <img id="imagen_logo" class="object-scale-down  h-20 rounded-full" src="{{ asset($negocio->img) }}" alt="">
@@ -40,7 +40,7 @@
         <div class=" w-4/12  m-5">
             {{-- idioma --}}
             <label class="text-xs text-gray-500 mx-1 " for="">Idioma</label>
-            <select wire:model.debounce="idioma"   class=" rounded-lg " name="" id="">
+            <select wire:model.debounce="idioma"   class=" rounded-lg " >
                 <option value="es">español</option>
                 <option value="en">Inglés</option>
                 <option value="fr">Francés</option>
@@ -108,9 +108,8 @@
             @foreach ($apartados as $apartado)
             {{--condiciono a que los apartados esten en el filtro--}}
                 @if ($productos->where('descrip3', '=', $apartado->descrip3)->where('activo','=',1)->count() > 0)
-                    <div class="ml-5 text-blue-800 col-span-2 sm:col-span-4 md:col-span-6 text-left font-Lobster text-xl">
-                   
-                    {{ $apartado->descrip3 }}
+                    <div class="ml-5 text-blue-800 col-span-2 sm:col-span-4 md:col-span-6 text-left font-Lobster text-4xl">
+                        <i class="bi bi-snow2"></i>  {{ $apartado->descrip3 }}
                 </div>
                 @endif
 
@@ -119,7 +118,10 @@
                 @foreach ($productos->where('descrip3', '=', $apartado->descrip3)->where('activo','=',1) as $producto)
                     
                     <div wire:click.prefetch="producto('{{ $producto->id }}')"
-                        class=" bg-white grid-cols-2 grid border border-gray-200 m-1 rounded-md shadow-xs p-1 hover:border-indigo-300 hover:shadow-2xl ">
+                        class=" bg-white relative grid-cols-2 grid border border-gray-200 m-1 rounded-md shadow-xs p-1 hover:border-indigo-300 hover:shadow-2xl ">
+                        <div class=" absolute sombrero">
+                            <img src="{{asset('storage/banner/sc100.png')}}" alt="">
+                        </div>
                         <div class="col-span-2 text-center font-extrabold">
                             {{ $producto->name }}
                         </div>
