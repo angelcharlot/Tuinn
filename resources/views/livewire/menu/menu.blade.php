@@ -24,7 +24,7 @@
 
     <div  wire:ignore.self class=" bg-local pb-28 mt-2 container mx-auto rounded-md shadow-sm ">
         {{-- DATOS DEL NEGOCIO --}}
-        <div class=" bg-white w-full my-3 grid grid-cols-6 md:grid-cols-12 border-b border-blue-100 gap-1">
+        <div class="  w-full my-3 grid grid-cols-6 md:grid-cols-12 border-b border-blue-100 gap-1">
             {{-- 1  imagen del negocio --}}
             <div class="  col-span-2 md:col-span-1 mx-auto  flex items-center">
                 <img id="imagen_logo" class="object-scale-down  h-20 rounded-full" src="{{ asset($negocio->img) }}" alt="">
