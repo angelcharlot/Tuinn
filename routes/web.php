@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Storage;
 use Stichoza\GoogleTranslate\GoogleTranslate;
 use App\Models\productos;
 use App\Models\idioma;
+use App\Models\negocio;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -20,50 +21,32 @@ use App\Models\idioma;
 
 Route::get('prueba/', function () {
 
-    $productos=productos::all();
+    
+   $negocio=negocio::find(auth()->user()->negocio->id);
+    $negocio->interface='//localhost/TM-T88V';
+   //$negocio->interface='prueba';
+    $negocio->tipo_imp='epson';
+   $negocio->productos;
+   $negocio->usuario=$negocio->usuarios->first();
+    
+  
+   $encodedData=$negocio->toJson();
 
-    foreach ($productos as $key => $producto) {
-        
-        $tr = new GoogleTranslate();
-        $idioma=new idioma();
-        $idioma->producto_id=$producto->id;
-        $idioma->idioma='it';
-        $idioma->descrip=$tr->setSource('es')->setTarget('it')->translate($producto->descrip);
-        if ($producto->descrip2) {
-    $idioma->descrip2=$tr->setSource('es')->setTarget('it')->translate($producto->descrip2);
-        }
-        
-        $idioma->save();
-        $idioma=new idioma();
-        $idioma->producto_id=$producto->id;
-        $idioma->idioma='en';
-        $idioma->descrip=$tr->setSource('es')->setTarget('en')->translate($producto->descrip);
-        if ($producto->descrip2) {
-    $idioma->descrip2=$tr->setSource('es')->setTarget('en')->translate($producto->descrip2);
-        }
-        
-        $idioma->save();
-        $idioma=new idioma();
-        $idioma->producto_id=$producto->id;
-        $idioma->idioma='fr';
-        $idioma->descrip=$tr->setSource('es')->setTarget('fr')->translate($producto->descrip);
-        if ($producto->descrip2) {
-    $idioma->descrip2=$tr->setSource('es')->setTarget('fr')->translate($producto->descrip2);
-        }
-        
-        $idioma->save();
-        $idioma=new idioma();
-        $idioma->producto_id=$producto->id;
-        $idioma->idioma='de';
-        $idioma->descrip=$tr->setSource('es')->setTarget('de')->translate($producto->descrip);
-        if ($producto->descrip2) {
-    $idioma->descrip2=$tr->setSource('es')->setTarget('de')->translate($producto->descrip2);
-        }
-        
-        $idioma->save();
+    //dd($encodedData);
 
-    }
-
+    $cliente = curl_init();
+	curl_setopt($cliente, CURLOPT_URL, "http://185.141.222.250:8080/");
+	curl_setopt($cliente, CURLOPT_HEADER, 0);
+    curl_setopt($cliente, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($cliente, CURLOPT_CUSTOMREQUEST, "POST");
+    curl_setopt($cliente, CURLOPT_HTTPHEADER, array(
+    'Content-Type:application/json'
+    ));
+    curl_setopt($cliente, CURLOPT_POST, true);
+    curl_setopt($cliente, CURLOPT_POSTFIELDS, $encodedData);
+	$respuesta=curl_exec($cliente);
+   // print_r($respuesta);
+	curl_close($cliente);
 
 
 });
@@ -109,6 +92,13 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function(){
     Route::get('/productos/index', function () {
     return view('productos/index');
     })->middleware('aut_negocio')->name('productos.index');
+
+    Route::get('/ventas', function () {
+        return view('ventas/index');
+        })->middleware('aut_negocio')->name('ventas.index');
+
+
+
 
 });
 

@@ -23,7 +23,7 @@ class categorias extends Model
         return $this->hasMany('App\Models\categorias','id_categoria')->with('cat_hijos');
     }
     public function productos(){
-        return $this->belongsToMany('App\Models\productos');
+        return $this->belongsToMany('App\Models\productos','categorias_productos','categorias_id','productos_id');
     }
 
 

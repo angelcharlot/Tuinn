@@ -17,7 +17,7 @@
 
 </head>
 
-<body class="bg-blue-200">
+<body class="">
     <header>
     </header>
     <div class="containner mx-auto">

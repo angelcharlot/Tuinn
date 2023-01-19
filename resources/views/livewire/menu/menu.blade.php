@@ -109,7 +109,7 @@
             {{--condiciono a que los apartados esten en el filtro--}}
                 @if ($productos->where('descrip3', '=', $apartado->descrip3)->where('activo','=',1)->count() > 0)
                     <div class="ml-5 text-blue-800 col-span-2 sm:col-span-4 md:col-span-6 text-left font-Lobster text-4xl">
-                        <i class="bi bi-snow2"></i>  {{ $apartado->descrip3 }}
+                         {{ $apartado->descrip3 }}
                 </div>
                 @endif
 
@@ -119,9 +119,9 @@
                     
                     <div wire:click.prefetch="producto('{{ $producto->id }}')"
                         class=" bg-white relative grid-cols-2 grid border border-gray-200 m-1 rounded-md shadow-xs p-1 hover:border-indigo-300 hover:shadow-2xl ">
-                        <div class=" absolute sombrero">
-                            <img src="{{asset('storage/banner/sc100.png')}}" alt="">
-                        </div>
+                        {{-- <div class=" absolute sombrero">
+                            <img src="{{asset('storage/banner/rg50.png')}}" alt="">
+                        </div> --}}
                         <div class="col-span-2 text-center font-extrabold">
                             {{ $producto->name }}
                         </div>

@@ -14,6 +14,17 @@ class negocio extends Model
       {
           return $this->hasMany('App\Models\productos','id_negocio');
       }
+      public function categorias()
+      {
+          return $this->hasMany('App\Models\categorias','id_negocio');
+      }
+      public function usuarios()
+      {
+          return $this->hasMany('App\Models\user','id_negocio');
+      }
+      public function areas(){
+        return $this->hasMany('App\Models\area');
+    }
 
 
 }

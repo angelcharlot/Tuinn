@@ -28,6 +28,11 @@
                             </x-jet-nav-link>
                         </div>
                         <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                            <x-jet-nav-link href="{{ route('ventas.index') }}" :active="request()->routeIs('ventas')">
+                                {{ __('Ventas') }}
+                            </x-jet-nav-link>
+                        </div>
+                        <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                             <x-jet-nav-link href="{{ route('categorias.index') }}" :active="request()->routeIs('categorias.index')">
                                 {{ __('Categorias') }}
                             </x-jet-nav-link>

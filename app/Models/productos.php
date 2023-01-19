@@ -11,6 +11,7 @@ class productos extends Model
     use HasFactory;
     protected $fillable = ['img'];
 
+    public $cantidad=0;
 
 
 function categorias(){
@@ -36,6 +37,11 @@ function likes(){
 function idiomas(){
 
     return $this->hasMany('App\Models\idioma','producto_id');
+
+}
+function detalles(){
+
+    return $this->hasMany('App\Models\detalle','producto_id');
 
 }
 
