@@ -1,8 +1,8 @@
 
 @extends('layouts/menu')
-{{-- @section('css')
+ @section('css')
 <link rel="stylesheet" href="{{ asset('css/menu.css') }}">
-@endsection --}}
+@endsection 
 @section('body')
 {{-- <div class="tpl-snow w-full">
     <div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>

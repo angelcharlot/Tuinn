@@ -95,7 +95,7 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function(){
 
     Route::get('/ventas', function () {
         return view('ventas/index');
-        })->middleware('aut_negocio')->name('ventas.index');
+        })->name('ventas.index');
 
 
 

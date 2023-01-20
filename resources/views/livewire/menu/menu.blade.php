@@ -1,4 +1,4 @@
-<div>
+<div class=" bg-teal-300">
     {{-- loading --}}
     <div wire:loading wire:target="idioma,producto" class="fixed z-40 w-full h-full top-0 left-0 bg-gray-800 bg-opacity-75">
         <div class="w-ful h-full ">
@@ -115,13 +115,20 @@
 
            
                 {{-- cartita --}}
-                @foreach ($productos->where('descrip3', '=', $apartado->descrip3)->where('activo','=',1) as $producto)
+                @foreach ($productos->where('descrip3', '=', $apartado->descrip3)->where('activo','=',1) as $key => $producto)
                     
                     <div wire:click.prefetch="producto('{{ $producto->id }}')"
                         class=" bg-white relative grid-cols-2 grid border border-gray-200 m-1 rounded-md shadow-xs p-1 hover:border-indigo-300 hover:shadow-2xl ">
-                        {{-- <div class=" absolute sombrero">
-                            <img src="{{asset('storage/banner/rg50.png')}}" alt="">
-                        </div> --}}
+                        
+                        <div class=" absolute sombrero">
+                           @if (($key  % 2) == 0)
+                               <img src="{{asset('storage/banner/carnaval.png')}}" alt="">
+                            @else
+                            <img src="{{asset('storage/banner/carnaval2.png')}}" alt="">
+                           @endif
+                            
+                        </div>
+                        
                         <div class="col-span-2 text-center font-extrabold">
                             {{ $producto->name }}
                         </div>

@@ -17,11 +17,13 @@ class CreateDocumentosTable extends Migration
             $table->id();
             $table->text('nro_documento');
             $table->unsignedBigInteger('mesa_id');
+            $table->unsignedBigInteger('negocio_id');
             $table->text('tipo');
             $table->text('estado');
             $table->text('sub_total');
             $table->text('total');
             $table->foreign('mesa_id')->references('id')->on('mesas')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('negocio_id')->references('id')->on('negocios')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
 

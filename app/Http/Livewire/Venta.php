@@ -14,15 +14,22 @@ use Illuminate\Support\Facades\DB;
 
 class Venta extends Component
 {
+    //vistas
+    public $vista_principal=1;
+    public $presentaciones_view=0;
+    public $mesas_view=1;
+    //documentos
+    public $all_documentos;
+    //variables
     public $productos;
     public $area;
     public $comanda;
     public $array_comanda=[];
     public $documento;
-    public $vista_principal=1;
+   
     public $area_seleccionada;
     public $mesa_seleccionada;
-    public $presentaciones_view=0;
+
     public $presentaciones;
     
 
@@ -30,7 +37,7 @@ class Venta extends Component
         $this->productos=productos::where('id_negocio','=',auth()->user()->negocio->id)->get();
         $this->comanda=new Collection();
         $this->areas=area::where("negocio_id","=",auth()->user()->negocio->id)->get();
-    
+        $this->all_documentos=documento::where("negocio_id","=",auth()->user()->negocio->id)->where('estado','=','activa')->get();
         $this->presentacion=new presentacion();
 
         //dd($this->documento->productos[0]->pivot->cantidad);
@@ -57,7 +64,9 @@ class Venta extends Component
             }
             if($bn==0){
                 $this->array_comanda[]=[
-
+                    'usu'=>auth()->user()->id,
+                    'area'=>$this->mesa_seleccionada->area->name,
+                    'mesa'=>$this->mesa_seleccionada->nro,
                     'cantidad'=>1,
                     'name'=>$producto->name."(".$presentacion->name.")"
                 ];
@@ -74,6 +83,7 @@ class Venta extends Component
         $new_detalle->documento_id=$this->documento->id;
         $new_detalle->save();
         $this->array_comanda[]=[
+            'usu'=>auth()->user()->id,
             'area'=>$this->mesa_seleccionada->area->name,
             'mesa'=>$this->mesa_seleccionada->nro,
             'cantidad'=>1,
@@ -134,11 +144,11 @@ class Venta extends Component
         curl_close($cliente); 
 
         $this->array_comanda=[];
-
+        $this->mesas_view=1;
         $this->vista_principal=1;
         $this->mesa_seleccionada="";
         $this->area="";
-
+        $this->all_documentos=documento::where("negocio_id","=",auth()->user()->negocio->id)->where('estado','=','activa')->get();
 
     }
     public function selecionar_area(area $area){
@@ -154,22 +164,68 @@ class Venta extends Component
         $this->mesa_seleccionada=$mesa;
         
         if (!$this->mesa_seleccionada->documento->where('estado', '=', 'activa')->first()) {
+
             $this->documento=new documento();
             $this->documento->estado='activa';
+            $this->documento->negocio_id=auth()->user()->negocio->id;
             $this->documento->nro_documento=1000;
             $this->documento->mesa_id=$mesa->id;
             $this->documento->tipo="comanda";
             $this->documento->sub_total=0;
             $this->documento->total=0;
             $this->documento->save();
-
+            $this->mesa_seleccionada->refresh();
         }
         else{
             $this->documento=$this->mesa_seleccionada->documento->where('estado', '=', 'activa')->first();
         }
         $this->vista_principal=3;
-
+        $this->mesas_view=2;
         
+    }
+    public function disminuir(detalle $detalle){
+
+
+    if ($detalle->cantidad==1) {
+       
+                $detalle->delete();
+            }else{
+                $detalle->cantidad-=1;
+            $detalle->save();
+            }
+      
+        
+        
+        $bn=0;
+
+            for ($i=0; $i < count($this->array_comanda) ; $i++) { 
+            if($detalle->producto->name."(".$detalle->tipo_presentacion.")"==$this->array_comanda[$i]['name']){
+                $this->array_comanda[$i]['cantidad']-=1;
+                if ($this->array_comanda[$i]['cantidad']==0) {
+                    unset($this->array_comanda[$i]);
+                }
+                $bn=1;
+            }
+            }
+            if($bn==0){
+                $this->array_comanda[]=[
+                    'usu'=>auth()->user()->id,
+                    'area'=>$this->mesa_seleccionada->area->name,
+                    'mesa'=>$this->mesa_seleccionada->nro,
+                    'cantidad'=>-1,
+                    'name'=>$detalle->producto->name."(".$detalle->tipo_presentacion.")"
+                ];
+            }
+            
+            $this->documento->total-=$detalle->precio_venta;
+            //dd($detalle->documento->total,$detalle->precio_venta);
+            $base=($this->documento->total) / (1.10);
+            $this->documento->sub_total=$base;
+            $this->documento->save();
+           
+
+
+        $this->mesa_seleccionada=mesa::find($detalle->documento->mesa_id);
     }
     public function cobrar(){
 

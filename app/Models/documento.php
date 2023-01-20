@@ -14,4 +14,8 @@ class documento extends Model
         return $this->hasMany('App\Models\detalle','documento_id');
     
     }
+    public function mesa()
+    {
+        return $this->belongsTo('App\Models\mesa','mesa_id');
+    }
 }
