@@ -2,7 +2,7 @@
 
 @section('body')
 
- @livewire('venta');
+ @livewire('venta')
 @endsection
 
 

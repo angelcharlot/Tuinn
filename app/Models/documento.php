@@ -18,4 +18,8 @@ class documento extends Model
     {
         return $this->belongsTo('App\Models\mesa','mesa_id');
     }
+    public function negocio()
+    {
+        return $this->belongsTo('App\Models\negocio');
+    }
 }

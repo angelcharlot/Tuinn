@@ -19,6 +19,11 @@ function categorias(){
     return $this->belongsToMany('App\Models\categorias');
 
 }
+function impresora(){
+
+    return $this->belongsTo('App\Models\impresora');
+
+}
 function alargenos(){
 
     return $this->belongsToMany('App\Models\alargeno');

@@ -25,6 +25,14 @@ class negocio extends Model
       public function areas(){
         return $this->hasMany('App\Models\area');
     }
+    public function impresoras()
+    {
+        return $this->hasMany('App\Models\impresora');
+    }
+    public function documentos()
+    {
+        return $this->hasMany('App\Models\documento');
+    }
 
 
 }

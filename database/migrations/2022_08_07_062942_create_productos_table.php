@@ -16,6 +16,7 @@ class CreateProductosTable extends Migration
         Schema::create('productos', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('id_negocio');
+            $table->unsignedBigInteger('impresora_id')->nullable();
             $table->string('img',500)->nullable()->default("images/icons8-cubiertos-100.png");
             $table->boolean('activo')->nullable()->default('1');
             $table->string('name', 100);
@@ -28,6 +29,7 @@ class CreateProductosTable extends Migration
             $table->decimal('precio_compra', 8, 2)->nullable();
             $table->decimal('precio_venta', 8, 2)->nullable();;
             $table->foreign('id_negocio')->references('id')->on('negocios')->onDelete('CASCADE')->onUpdate('CASCADE');
+            $table->foreign('impresora_id')->references('id')->on('impresoras');
             $table->timestamps();
         });
     }

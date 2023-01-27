@@ -7,6 +7,7 @@ use Stichoza\GoogleTranslate\GoogleTranslate;
 use App\Models\productos;
 use App\Models\idioma;
 use App\Models\negocio;
+use Illuminate\Http\Request;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -19,34 +20,9 @@ use App\Models\negocio;
 */
 //prueba
 
-Route::get('prueba/', function () {
+Route::post('prueba/', function (Request $request) {
 
-    
-   $negocio=negocio::find(auth()->user()->negocio->id);
-    $negocio->interface='//localhost/TM-T88V';
-   //$negocio->interface='prueba';
-    $negocio->tipo_imp='epson';
-   $negocio->productos;
-   $negocio->usuario=$negocio->usuarios->first();
-    
-  
-   $encodedData=$negocio->toJson();
-
-    //dd($encodedData);
-
-    $cliente = curl_init();
-	curl_setopt($cliente, CURLOPT_URL, "http://185.141.222.250:8080/");
-	curl_setopt($cliente, CURLOPT_HEADER, 0);
-    curl_setopt($cliente, CURLOPT_RETURNTRANSFER, true);
-    curl_setopt($cliente, CURLOPT_CUSTOMREQUEST, "POST");
-    curl_setopt($cliente, CURLOPT_HTTPHEADER, array(
-    'Content-Type:application/json'
-    ));
-    curl_setopt($cliente, CURLOPT_POST, true);
-    curl_setopt($cliente, CURLOPT_POSTFIELDS, $encodedData);
-	$respuesta=curl_exec($cliente);
-   // print_r($respuesta);
-	curl_close($cliente);
+echo "hola";
 
 
 });
