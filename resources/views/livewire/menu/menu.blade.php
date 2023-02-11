@@ -1,4 +1,4 @@
-<div class="bg-teal-300 ">
+<div>
     {{-- loading --}}
     <div wire:loading wire:target="idioma,producto" class="fixed top-0 left-0 z-40 w-full h-full bg-gray-800 bg-opacity-75">
         <div class="h-full w-ful ">
@@ -118,7 +118,7 @@
                 @foreach ($productos->where('descrip3', '=', $apartado->descrip3)->where('activo','=',1) as $key => $producto)
                     
                     <div wire:click.prefetch="producto('{{ $producto->id }}')"
-                        class="relative grid grid-cols-2 p-1 m-1 bg-white border border-gray-200 rounded-md shadow-xs hover:border-indigo-300 hover:shadow-2xl">
+                        class="relative grid grid-cols-2 p-1 m-1 bg-gray-100 border border-gray-200 rounded-md shadow-xs hover:border-indigo-300 hover:shadow-2xl">
                         
                         <div class="absolute sombrero">
                            @if (($key  % 2) == 0)
@@ -318,5 +318,5 @@
             </div>
         </x-slot>
     </x-jet-dialog-modal>
-
+    
 </div>
