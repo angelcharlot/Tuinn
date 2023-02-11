@@ -20,9 +20,9 @@ use Illuminate\Http\Request;
 */
 //prueba
 
-Route::post('prueba/', function (Request $request) {
+Route::get('prueba/', function (Request $request) {
 
-echo "hola";
+    QrCode::size(400)->style('round')->format('png')->generate('https://www.tuinn.es/menu/'.$request->id, Storage::path('qr/'.$request->id.'.png'));
 
 
 });
