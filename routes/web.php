@@ -70,9 +70,21 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function(){
     })->middleware('aut_negocio')->name('productos.index');
 
     Route::get('/ventas', function () {
-        return view('ventas/index');
-        })->name('ventas.index');
+    return view('ventas/index');
+    })->name('ventas.index');
 
+    Route::get('/show2', function () {
+    return view('profile.show2');
+    })->name('profile.show2');
+
+    Route::get('/mesas', function () {
+    return view('areaymesa.index');
+    })->name('areaymesa.index');
+
+    Route::get('/impresoras', function () {
+    return view('impresoras.index');
+    })->name('impresoras.index');
+    
 
 
 

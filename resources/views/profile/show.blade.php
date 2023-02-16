@@ -40,16 +40,7 @@
             <div class="mt-10 sm:mt-0">
                 @livewire('profile.delete-user-form')
             </div>
-            @can('config.negocio')
-            <div class="mt-10 sm:mt-0">
-                @livewire('local.local')
-            </div>
-            <x-jet-section-border />
-            <div class="mt-10 sm:mt-0">
-                @livewire('config')
-            </div>
 
-            @endcan
             <x-jet-section-border />
             
             {{--             <x-jet-section-border />
