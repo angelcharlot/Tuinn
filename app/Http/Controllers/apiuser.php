@@ -20,10 +20,9 @@ class apiuser extends Controller
      * @return \Illuminate\Http\Response
      */
 
+    public $negocio;
 
-
-    public function index(request $request)
-    {
+    public function index(request $request){
         $respuesta=[];
 
         $pass=json_decode($request->pass);
@@ -40,12 +39,15 @@ class apiuser extends Controller
                     $mesa->doc_activo=1;
                     $mesa->id_doc_activo=$mesa->documento->where("estado","=","activa")->first()->id;
                     $mesa->total_doc=$mesa->documento->where("estado","=","activa")->first()->total;
-
+                    unset($mesa->documento);
                 }else{
                     $mesa->doc_activo=0;
+                    unset($mesa->documento);
                 }
+               
                   
             }
+
            
         }
 
@@ -57,14 +59,18 @@ class apiuser extends Controller
             $value->presentaciones;
         }
         
-  
+        $documento_venta_barra=$negocio->documentos->where("tipo","=","venta_barra");
+        unset($negocio->documentos);
+        
         if ($usuario) {
             if(Hash::check($pass,$usuario->password)){
                 
+                
+                $respuesta["areas"]=$areas;
                 $respuesta['usuario']=$usuario;
                 $respuesta["negocio"]=$negocio;
                 $respuesta["productos"]=$productos;
-                $respuesta["areas"]=$areas;
+                $respuesta["doc_venta_barra"]=$documento_venta_barra;
                 return json_encode($respuesta);
             }
             
@@ -148,7 +154,10 @@ class apiuser extends Controller
         $mesa=mesa::find($request->id_mesa);
         $documento=$mesa->documento->where('estado', '=', 'activa')->first();
         $documento->detalles;
-        $documento->mesa;
+        foreach ($documento->detalles as $key => $detalle) {
+            $detalle->name=substr($detalle->name,0,18);
+        }
+        $documento->mesa->area;
         
 
         return $documento->toJson();
@@ -161,12 +170,13 @@ class apiuser extends Controller
         //recuperer datos 
         $area=area::find($request->id_area);
         $negocio=negocio::find($area->negocio_id);
+        $this->negocio=$negocio;
         $mesa=mesa::find($request->id_mesa);
         $user=User::find($request->user_id);
         
         $coment=urlencode($request->comentario);
         $array=$request->json()->all();
-
+        
         if (!$mesa->documento->where('estado', '=', 'activa')->first()) {
                     
             $documento=new documento();
@@ -184,9 +194,17 @@ class apiuser extends Controller
                 }else{
                     $documento=$mesa->documento->where('estado', '=', 'activa')->first();
                 }
-
+           
             for ($i=0; $i <count($array) ; $i++) { 
                 
+                if ($documento->detalles->where("producto_id","=",$array[$i]["producto_id"])->where("tipo_presentacion","=",$array[$i]["tipo"])->first()) {
+                   $detalle_update=$documento->detalles->where("producto_id","=",$array[$i]["producto_id"])->where("tipo_presentacion","=",$array[$i]["tipo"])->first();
+                    $detalle_update->cantidad+=$array[$i]["cantidad"];
+                    $documento->total+=($array[$i]["cantidad"]*$array[$i]["precio"]);
+                    $documento->save();
+                    $detalle_update->save();
+                }else{
+
                 $new_detalle=new detalle();
                 $new_detalle->producto_id=$array[$i]["producto_id"];
                 $new_detalle->cantidad=$array[$i]["cantidad"];
@@ -197,10 +215,10 @@ class apiuser extends Controller
                 $documento->total+=($array[$i]["cantidad"]*$array[$i]["precio"]);
                 $documento->save();
                 $new_detalle->save();
-
+                }
             }
 
-
+          
         //datos del json recibido
        
         //declaracion de array para divivir comanda en las impresoras correspondientes
@@ -235,7 +253,6 @@ class apiuser extends Controller
   
  
     }
-   
     public function envio_a_empre_comanda($data,$interface,$mesa,$usu,$area,$coment,$nr_comensales){
 
 
@@ -246,7 +263,7 @@ class apiuser extends Controller
         
       
            $cliente = curl_init();
-          curl_setopt($cliente, CURLOPT_URL, "http://185.141.222.250:8080/comanda/?interface=".$interface."&mesa=".$mesa."&usu=".$usu."&area=".$area."&coment=".$coment."&nro_comensales=".$nr_comensales);
+          curl_setopt($cliente, CURLOPT_URL, $this->negocio->config->host_server_printer.":".$this->negocio->config->port_server_printer."/comanda/?interface=".$interface."&mesa=".$mesa."&usu=".$usu."&area=".$area."&coment=".$coment."&nro_comensales=".$nr_comensales);
           curl_setopt($cliente, CURLOPT_HEADER, 0);
           curl_setopt($cliente, CURLOPT_RETURNTRANSFER, true);
           curl_setopt($cliente, CURLOPT_CUSTOMREQUEST, "POST");
@@ -265,7 +282,103 @@ class apiuser extends Controller
 
 
     }
- 
-    public function prueba(request $request){
+    public function imprimir_tiket(request $request){
+        
+        
+        $usuario=user::find($request->user_id);
+       
+
+        $negocio=$usuario->negocio;
+        $this->negocio=$negocio;
+        $usu=$usuario->id;
+       
+        $mesa=mesa::find($request->id_mesa);
+        
+
+        $area=$mesa->area->name;
+        $documento=$mesa->documento->where('estado', '=', 'activa')->first();
+
+
+        if ($documento->tipo!="factura") {
+            $numero_de_doc=$documento->created_at->format('Y')."-".str_pad(($negocio->documentos->where('tipo','=','factura')->count())+1, 4, "0", STR_PAD_LEFT);
+            $documento->nro_documento=$numero_de_doc;
+            $documento->tipo="factura";
+        
+        }
+        
+      
+        
+        
+        $documento->save();
+        $negocio->documentos->fresh();
+        $array_detalle=[];
+       
+        foreach ($documento->detalles as $key => $detalle) {
+            $retVal = ($detalle->cantidad>1) ? $detalle->precio_venta : "" ;
+           //dd($retVal);
+            $array_detalle[]=[
+                'cantidad'=>$detalle->cantidad,
+                'name'=> (substr($detalle->name,0,15)."-".substr(($detalle->tipo_presentacion),0,10)." ".$retVal),
+                'precio'=>$detalle->precio_venta,
+                'total'=>($detalle->precio_venta*$detalle->cantidad)
+              
+            ];
+
+
+        }
+       //dd($array_detalle);
+        $name_n=urlencode($negocio->name);
+     
+        $direccion=urlencode($negocio->direccion);
+        $nif=$negocio->nif;
+       
+        $this->envio_a_empre_tiket($array_detalle,$negocio->impresoras->first()->interface,$mesa->id,$usu,$area,$name_n,$direccion,$nif,$documento->nro_documento,$documento->cam1);
+
+        
+
+
     }
+    public function envio_a_empre_tiket($data,$interface,$mesa,$usu,$area,$name_n,$direccion,$nif,$serie,$comensales){
+
+
+       
+        
+        $encodedData= json_encode($data);
+        
+        $url=$this->negocio->config->host_server_printer.":".$this->negocio->config->port_server_printer."/?interface=".$interface."&mesa=".$mesa."&usu=".$usu."&area=".$area."&name_n=".$name_n."&direc=".$direccion."&nif=".$nif."&serie=".$serie."&comensales=".$comensales;
+       // dd($url);
+        $cliente = curl_init();
+          curl_setopt($cliente, CURLOPT_URL,$url);
+          
+          curl_setopt($cliente, CURLOPT_HEADER, 0);
+          curl_setopt($cliente, CURLOPT_RETURNTRANSFER, true);
+          curl_setopt($cliente, CURLOPT_CUSTOMREQUEST, "POST");
+          curl_setopt($cliente, CURLOPT_HTTPHEADER, array(
+          'Content-Type:application/json'
+          ));
+          curl_setopt($cliente, CURLOPT_POST, true);
+          curl_setopt($cliente, CURLOPT_POSTFIELDS, $encodedData);
+        $respuesta=curl_exec($cliente);
+          //dd($respuesta);
+          curl_close($cliente); 
+  
+         
+
+
+    }
+    public function cobrar(request $request){
+
+        $mesa=mesa::find($request->id_mesa);
+        $documento=$mesa->documento->where('estado', '=', 'activa')->first();
+
+        $documento->estado="procesada";
+
+        $documento->cam2=$request->tipo_pago;
+
+        $documento->save();
+
+
+    }
+ 
+   
 }

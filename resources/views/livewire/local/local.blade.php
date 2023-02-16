@@ -27,12 +27,12 @@
 
                 <!-- Current Profile Photo -->
                 <div class="mt-2" x-show="! photoPreview">
-                    <img src="{{asset( $this->negocio->img )}}"  class="rounded-full h-20 w-20 object-cover">
+                    <img src="{{asset( $this->negocio->img )}}"  class="object-cover w-20 h-20 rounded-full">
                 </div>
 
             <!-- New Profile Photo Preview -->
             <div class="mt-2" x-show="photoPreview">
-                <span class="block rounded-full w-20 h-20"
+                <span class="block w-20 h-20 rounded-full"
                     x-bind:style="'background-size: cover; background-repeat: no-repeat; background-position: center center; background-image: url(\'' +
                     photoPreview + '\');'">
                 </span>
@@ -47,43 +47,43 @@
 
         <div class="col-span-6 sm:col-span-4">
             <x-jet-label for="name" value="nombre del local" />
-            <x-jet-input id="name" type="text" class="mt-1 block w-full"  wire:model.defer="name"
+            <x-jet-input id="name" type="text" class="block w-full mt-1"  wire:model.defer="name"
                 autocomplete="name" />
             <x-jet-input-error for="name" class="mt-2" />
         </div>
         <div class="col-span-6 sm:col-span-4">
             <x-jet-label for="name" value="direccion" />
-            <x-jet-input id="direccion" type="text" class="mt-1 block w-full" wire:model.defer="direccion"
+            <x-jet-input id="direccion" type="text" class="block w-full mt-1" wire:model.defer="direccion"
                 autocomplete="direccion" />
             <x-jet-input-error for="direccion" class="mt-2" />
         </div>
         <div class="col-span-6 sm:col-span-4">
             <x-jet-label for="name" value="denominacion social" />
-            <x-jet-input id="den_social" type="text" class="mt-1 block w-full" wire:model.defer="den_social"
+            <x-jet-input id="den_social" type="text" class="block w-full mt-1" wire:model.defer="den_social"
                 autocomplete="den_social" />
             <x-jet-input-error for="den_social" class="mt-2" />
         </div>
         <div class="col-span-6 sm:col-span-4">
             <x-jet-label for="telefono1" value="telefono 1" />
-            <x-jet-input id="telefono1" type="text" class="mt-1 block w-full" wire:model.defer="telefono1"
+            <x-jet-input id="telefono1" type="text" class="block w-full mt-1" wire:model.defer="telefono1"
                 autocomplete="telefono1" />
             <x-jet-input-error for="telefono1" class="mt-2" />
         </div>
         <div class="col-span-6 sm:col-span-4">
             <x-jet-label for="name" value="telefono 2" />
-            <x-jet-input id="telefono2" type="text" class="mt-1 block w-full" wire:model.defer="telefono2"
+            <x-jet-input id="telefono2" type="text" class="block w-full mt-1" wire:model.defer="telefono2"
                 autocomplete="telefono2" />
             <x-jet-input-error for="telefono2" class="mt-2" />
         </div>
         <div class="col-span-6 sm:col-span-4">
             <x-jet-label for="nif" value="nif" />
-            <x-jet-input id="nif" type="text" class="mt-1 block w-full" wire:model.defer="nif"
+            <x-jet-input id="nif" type="text" class="block w-full mt-1" wire:model.defer="nif"
                 autocomplete="nif" />
             <x-jet-input-error for="nif" class="mt-2" />
         </div>
         <div class="col-span-6 sm:col-span-4">
             <x-jet-label for="iva" value="iva" />
-            <x-jet-input id="iva" type="text" class="mt-1 block w-full" wire:model.defer="iva"
+            <x-jet-input id="iva" type="text" class="block w-full mt-1" wire:model.defer="iva"
                 autocomplete="iva" />
             <x-jet-input-error for="iva" class="mt-2" />
         </div>
@@ -105,7 +105,7 @@
             {{ __('Saved.') }}
         </x-jet-action-message>
 
-        <x-jet-button wire:loading.attr="disabled" wire:target="photo">
+        <x-jet-button wire:loading.attr="disabled" wire:target="update">
             {{ __('Save') }}
         </x-jet-button>
     </x-slot>

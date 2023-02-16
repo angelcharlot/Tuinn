@@ -29,6 +29,9 @@ class CreateNewUser implements CreatesNewUsers
 
         $negocio= new negocio();
         $negocio->save();
+        $confi=new config();
+        $confi->negocio_id=$negocio->id;
+        $confi->save();
         QrCode::size(200)->style('round')->format('svg')->generate('https://www.tuinn.es/menu/'.$negocio->id, Storage::path('qr/'.$negocio->id.'.svg'));
         QrCode::size(200)->style('round')->format('png')->generate('https://www.tuinn.es/menu/'.$negocio->id, Storage::path('qr/'.$negocio->id.'.png'));
         return User::create([

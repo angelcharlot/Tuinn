@@ -29,7 +29,7 @@ class Venta extends Component
    
     public $area_seleccionada;
     public $mesa_seleccionada;
-
+    public $negocio;
     public $presentaciones;
     
 
@@ -139,7 +139,7 @@ class Venta extends Component
 
       //dd($aray_comanda_impre);
      
-      
+      $this->negocio=$this->documento->negocio;
 
       foreach ($this->documento->negocio->impresoras as $key_im => $impresora) {
         
@@ -243,6 +243,7 @@ class Venta extends Component
        
 
         $negocio=$documento->negocio;
+        $this->negocio=$negocio;
         // dd($negocio->documentos->where('tipo','=','factura'));
         $usu=auth()->user()->id;
         $mesa=$documento->mesa->nro;
@@ -295,7 +296,7 @@ class Venta extends Component
         
       
            $cliente = curl_init();
-          curl_setopt($cliente, CURLOPT_URL, "http://185.141.222.250:8080/comanda/?interface=".$interface."&mesa=".$mesa."&usu=".$usu."&area=".$area);
+          curl_setopt($cliente, CURLOPT_URL,$this->negocio->config->host_server_printer.":".$this->negocio->config->port_server_printer."/comanda/?interface=".$interface."&mesa=".$mesa."&usu=".$usu."&area=".$area);
           curl_setopt($cliente, CURLOPT_HEADER, 0);
           curl_setopt($cliente, CURLOPT_RETURNTRANSFER, true);
           curl_setopt($cliente, CURLOPT_CUSTOMREQUEST, "POST");
@@ -321,10 +322,10 @@ class Venta extends Component
         
         $encodedData= json_encode($data);
         
-        
-
+        $url=$this->negocio->config->host_server_printer.":".$this->negocio->config->port_server_printer."/?interface=".$interface."&mesa=".$mesa."&usu=".$usu."&area=".$area."&name_n=".$name_n."&direc=".$direccion."&nif=".$nif."&serie=".$serie;
+     
         $cliente = curl_init();
-          curl_setopt($cliente, CURLOPT_URL, "http://185.141.222.250:8080/?interface=".$interface."&mesa=".$mesa."&usu=".$usu."&area=".$area."&name_n=".$name_n."&direc=".$direccion."&nif=".$nif."&serie=".$serie);
+          curl_setopt($cliente, CURLOPT_URL,$this->negocio->config->host_server_printer.":".$this->negocio->config->port_server_printer."/?interface=".$interface."&mesa=".$mesa."&usu=".$usu."&area=".$area."&name_n=".$name_n."&direc=".$direccion."&nif=".$nif."&serie=".$serie);
           
           curl_setopt($cliente, CURLOPT_HEADER, 0);
           curl_setopt($cliente, CURLOPT_RETURNTRANSFER, true);

@@ -16,9 +16,13 @@ class DatabaseSeeder extends Seeder
     {
         // \App\Models\User::factory(10)->create();
 
-        Role::create(['name' => 'admin']);
+        $role1=Role::create(['name' => 'admin']);
         Role::create(['name' => 'camarero']);
         Role::create(['name' => 'cocinero']);
+
+        //asignar permisos a admin
+        $Permission1 = Permission::create(['name' => 'config.negocio'])->assignRole($role1);//linl de panel o dasboart
+
 
         //1
         $alargenico=new alargeno();

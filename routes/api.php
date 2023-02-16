@@ -10,4 +10,8 @@ Route::post('/areas', 'App\\Http\\Controllers\\apiuser@areas');
 Route::post('/prueba', 'App\\Http\\Controllers\\apiuser@prueba');
 Route::post('/comandar', 'App\\Http\\Controllers\\apiuser@comandar');
 Route::post('/detalle', 'App\\Http\\Controllers\\apiuser@detalle');
+Route::post('/imprimir_tiket', 'App\\Http\\Controllers\\apiuser@imprimir_tiket');
+Route::post('/cobrar', 'App\\Http\\Controllers\\apiuser@cobrar');
+
+
 

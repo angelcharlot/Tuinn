@@ -17,7 +17,7 @@ class CreateDocumentosTable extends Migration
             $table->id();
             $table->text('nro_documento')->nullable();
             $table->text('nro_documento_afecta')->nullable();
-            $table->unsignedBigInteger('mesa_id');
+            $table->unsignedBigInteger('mesa_id')->nullable();;
             $table->unsignedBigInteger('negocio_id');
             $table->text('tipo');
             $table->text('estado');
