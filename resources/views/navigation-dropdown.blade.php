@@ -27,11 +27,11 @@
                                 {{ __('Productos') }}
                             </x-jet-nav-link>
                         </div>
-                        <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+{{--                         <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                             <x-jet-nav-link href="{{ route('ventas.index') }}" :active="request()->routeIs('ventas')">
                                 {{ __('Ventas') }}
                             </x-jet-nav-link>
-                        </div>
+                        </div> --}}
                         <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                             <x-jet-nav-link href="{{ route('categorias.index') }}" :active="request()->routeIs('categorias.index')">
                                 {{ __('Categorias') }}
@@ -158,11 +158,13 @@
     <!-- Responsive Navigation Menu -->
     <div :class="{ 'block': open, 'hidden': !open }" class="hidden sm:hidden">
         <div class="pt-2 pb-3 space-y-1">
-            <x-jet-responsive-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
-                {{ __('Dashboard') }}
-            </x-jet-responsive-nav-link>
+            
             @auth
                 @if (Auth::user()->hasRole('admin'))
+                    <x-jet-responsive-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
+                        {{ __('Dashboard') }}
+                    </x-jet-responsive-nav-link>
+
                     {{-- <x-jet-responsive-nav-link href="{{ route('negocio.index') }}" :active="request()->routeIs('negocio.index')">
                         {{ __('Gestion de personal') }}
                     </x-jet-responsive-nav-link> --}}
@@ -197,8 +199,23 @@
                 <div class="mt-3 space-y-1">
                     <!-- Account Management -->
                     <x-jet-responsive-nav-link href="{{ route('profile.show') }}" :active="request()->routeIs('profile.show')">
-                        {{ __('Profile') }}
+                        <i class="bi bi-person"></i>  {{ __('Profile') }}
                     </x-jet-responsive-nav-link>
+                    @can('config.negocio')
+                    <x-jet-dropdown-link href="{{ route('profile.show2') }}">
+                        <i class="bi bi-gear"></i>  {{ __('Configuracion') }}
+                    </x-jet-dropdown-link>
+                    <x-jet-dropdown-link href="{{ route('areaymesa.index') }}">
+                        <i class="bi bi-layers"></i>  {{ __('Gestion de mesas') }}
+                    </x-jet-dropdown-link>
+                    <x-jet-dropdown-link href="{{ route('impresoras.index') }}">
+                        <i class="bi bi-printer"></i>  {{ __('Impresoras') }}
+                    </x-jet-dropdown-link>
+
+
+                    @endcan
+
+
 
                     @if (Laravel\Jetstream\Jetstream::hasApiFeatures())
                         <x-jet-responsive-nav-link href="{{ route('api-tokens.index') }}" :active="request()->routeIs('api-tokens.index')">

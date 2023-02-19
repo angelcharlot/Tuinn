@@ -24,16 +24,13 @@ class apiuser extends Controller
 
     public function index(request $request){
         $respuesta=[];
-
         $pass=json_decode($request->pass);
-    
         $usuario=User::where('email','=',$request->email)->first();
         $negocio=negocio::find($usuario->id_negocio);
         $negocio->img=asset($negocio->img);
         $negocio->img_qr=asset("storage/qr/")."/".$negocio->id.".png";
         $areas=area::where("negocio_id","=",$negocio->id)->get();
         foreach ($areas as  $area) {
-            
             foreach ($area->mesas as  $mesa) {
                 if ($mesa->documento->where("estado","=","activa")->first()) {
                     $mesa->doc_activo=1;
@@ -44,24 +41,31 @@ class apiuser extends Controller
                     $mesa->doc_activo=0;
                     unset($mesa->documento);
                 }
-               
-                  
-            }
-
-           
+            } 
         }
 
-      
+        $categorias=$negocio->categorias;
+        unset($negocio->categorias);
+        foreach ($categorias as $key => $categoria) {
+           $categoria->productos;
+           
+           foreach ($categoria->productos as $key => $value) {
+               $value->presentaciones;
+           }
+        }
+
 
 
         $productos=productos::where("id_negocio","=",$negocio->id)->get() ;
         foreach ($productos as $key => $value) {
             $value->presentaciones;
         }
+     
         
-        $documento_venta_barra=$negocio->documentos->where("tipo","=","venta_barra");
+        
         unset($negocio->documentos);
-        
+   
+
         if ($usuario) {
             if(Hash::check($pass,$usuario->password)){
                 
@@ -70,7 +74,7 @@ class apiuser extends Controller
                 $respuesta['usuario']=$usuario;
                 $respuesta["negocio"]=$negocio;
                 $respuesta["productos"]=$productos;
-                $respuesta["doc_venta_barra"]=$documento_venta_barra;
+                $respuesta["categorias"]=$categorias;
                 return json_encode($respuesta);
             }
             

@@ -2,6 +2,6 @@
 @section('body')
 
 
-mostar crud para areas y mesas
+@livewire('gestionmesas')
 
 @endsection
