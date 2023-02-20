@@ -218,3 +218,20 @@
 }
 
 /*FIN NIEVE */
+
+.mascara-carnaval {
+
+  animation: rotar-mascara 2s ease-in-out infinite;
+}
+
+@keyframes rotar-mascara {
+  0% {
+    transform: rotate(0deg);
+  }
+  50% {
+    transform: rotate(30deg);
+  }
+  100% {
+    transform: rotate(-30deg);
+  }
+}

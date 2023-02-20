@@ -1,6 +1,7 @@
 <div>
     {{-- loading --}}
-    <div wire:loading wire:target="idioma,producto" class="fixed top-0 left-0 z-40 w-full h-full bg-gray-800 bg-opacity-75">
+    <div wire:loading wire:target="idioma,producto"
+        class="fixed top-0 left-0 z-40 w-full h-full bg-gray-800 bg-opacity-75">
         <div class="h-full w-ful ">
             <div class="flex justify-center h-full">
 
@@ -22,33 +23,34 @@
         </div>
     </div>
 
-    <div  wire:ignore.self class="container mx-auto mt-2 bg-local rounded-md shadow-sm pb-28">
-        {{-- DATOS DEL NEGOCIO --}}
-        <div class="grid w-full grid-cols-6 gap-1 my-3 md:grid-cols-12">
-            {{-- 1  imagen del negocio --}}
-            <div class="flex items-center col-span-2 mx-auto md:col-span-1">
-                <img id="imagen_logo" class="object-scale-down h-20 rounded-full" src="{{ asset($negocio->img) }}" alt="">
+    <div wire:ignore.self class="container mx-auto mt-2 bg-local rounded-md shadow-sm pb-28">
+        <div class="grid grid-cols-6 gap-4 p-4 items-center justify-center">
+            <div class="col-span-2 md:col-span-1">
+                <img id="imagen_logo" class="object-cover h-24 w-24 rounded-full shadow-md border-4 border-white" src="{{ asset($negocio->img) }}" alt="">
             </div>
-            {{-- 2  nombre del negocio --}}
-            <div class="col-span-4 mx-auto md:col-span-9">
-                <div class="mt-3 text-2xl font-bold text-center text-gray-700 font-Lobster md:text-4xl">
-                    {{ $negocio->name }}
+            <div class="col-span-4 md:col-span-5">
+                <h2 class=" capitalize text-2xl font-bold text-gray-700 font-Lobster mb-2 text-center md:text-left">{{ $negocio->name }}</h2>
+            </div>
+        </div>
+
+        <div class="w-1/2 m-5">
+            <label for="idioma" class="block text-sm font-medium text-gray-700">Idioma</label>
+            <div class="relative mt-1">
+                <select wire:model.debounce="idioma" id="idioma" name="idioma" class="appearance-none block w-full pl-3 pr-10  text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md">
+                    <option value="es" class="text-gray-900 font-bold">Español</option>
+                    <option value="en" class="text-gray-900 font-bold">Inglés</option>
+                    <option value="fr" class="text-gray-900 font-bold">Francés</option>
+                    <option value="it" class="text-gray-900 font-bold">Italiano</option>
+                    <option value="de" class="text-gray-900 font-bold">Alemán</option>
+                </select>
+                <div class="absolute inset-y-0 right-0 flex items-center px-2 pointer-events-none">
+                    <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                    </svg>
                 </div>
             </div>
         </div>
-
-        <div class="w-4/12 m-5 ">
-            {{-- idioma --}}
-            <label class="mx-1 text-xs text-gray-500 " for="">Idioma</label>
-            <select wire:model.debounce="idioma"   class="rounded-lg " >
-                <option value="es">español</option>
-                <option value="en">Inglés</option>
-                <option value="fr">Francés</option>
-                <option value="it">Italiano</option>
-                <option value="de">Alemán</option>
-
-            </select>
-        </div>
+        
         <div
             class="container w-11/12 px-2 py-1 mx-auto border-b border-gray-200 border-light shadow-card sm:px-6 md:px-8 md:py-2">
             <ul class="flex items-center">
@@ -65,134 +67,105 @@
                     @endif
                 </li>
                 {{-- migas --}}
-                @foreach ($migas as $index => $miga)
-                    @if ($index != count($migas) - 1)
-                        <li class="flex items-center">
-
-                            <a wire:click="nav_categorias('{{ $miga['id'] }}')"
-                                class="text-base font-semibold text-black cursor-pointer hover:text-blue-800 hover:text-primary">
-                                {{ $miga['name'] }}
-                            </a>
-
-                            <span class="px-3">
-                                <i class="bi bi-chevron-right"></i>
-                            </span>
-
-                        </li>
-                    @else
-                        <li class="flex items-center">
-
-                            <a wire:click="nav_categorias('{{ $miga['id'] }}')"
-                                class="text-base font-semibold text-blue-800 border-b-4 border-blue-800 hover:text-primary">
-                                {{ $miga['name'] }}
-                            </a>
-                        </li>
-                    @endif
-                @endforeach
+                <ul class="flex flex-wrap gap-2 text-gray-600 text-sm">
+                    @foreach ($migas as $index => $miga)
+                      <li>
+                        <a wire:click="nav_categorias('{{ $miga['id'] }}')"
+                           class="transition-colors duration-200 hover:text-gray-900 focus:text-gray-900 {{ $index === 0 ? '' : 'flex items-center' }}"
+                        >
+                          {{ $miga['name'] }}
+                        </a>
+                        @if ($index < count($migas) - 1)
+                          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mx-2 text-gray-400" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M6.707 7.293a1 1 0 0 1 0 1.414L3.414 12l3.293 3.293a1 1 0 1 1-1.414 1.414L2 13.414a1 1 0 0 1 0-1.414L5.293 8.707a1 1 0 0 1 1.414 0z" clip-rule="evenodd" />
+                          </svg>
+                        @endif
+                      </li>
+                    @endforeach
+                  </ul>
             </ul>
         </div>
         {{-- selector de categorias --}}
 
-        <div class="container grid w-11/12 h-10 grid-cols-4 gap-1 mx-auto mt-2 mb-5 ">
+        <div class="container grid w-11/12 max-w-screen-xl grid-cols-4 gap-1 mx-auto mt-2 mb-5">
             @foreach ($categorias as $categoria)
-                <div wire:click="nav_categorias('{{ $categoria->id }}')"
-                    class="flex items-center font-medium text-gray-100 bg-blue-500 border-b border-blue-600 rounded-md shadow-md cursor-pointer hover:bg-blue-500 ">
-                    <h1 class="w-full text-xs text-center capitalize md:text-base ">{{ $categoria->name }}</h1>
 
-                </div>
+              <button wire:click="nav_categorias('{{ $categoria->id }}')" class="flex items-center justify-center gap-2 text-xs font-medium text-white bg-blue-500 border border-blue-600 rounded-md shadow-md cursor-pointer hover:bg-indigo-500 hover:border-indigo-600 hover:text-white p-2">
+                <i class="bi bi-filter"></i>
+                <span class=" md:inline-block">{{ $categoria->name }}</span>
+              </button>
+                            
+              
             @endforeach
-        </div>
+          </div>
+          
 
         {{-- cartas de los productos --}}
-        <div wire:change wire:target="idioma" class="grid grid-cols-2 gap-3 mx-auto text-xs sm:grid-cols-4 md:grid-cols-6">
+        <div wire:change wire:target="idioma"
+            class="grid grid-cols-1 gap-3 mx-auto text-xs sm:grid-cols-1 md:grid-cols-1">
             @foreach ($apartados as $apartado)
-            {{--condiciono a que los apartados esten en el filtro--}}
-                @if ($productos->where('descrip3', '=', $apartado->descrip3)->where('activo','=',1)->count() > 0)
-                    <div class="col-span-2 ml-5 text-4xl text-left text-blue-800 sm:col-span-4 md:col-span-6 font-Lobster">
-                         {{ $apartado->descrip3 }}
-                </div>
+                {{-- condiciono a que los apartados esten en el filtro --}}
+                @if ($productos->where('descrip3', '=', $apartado->descrip3)->where('activo', '=', 1)->count() > 0)
+                    <div
+                        class="col-span-1 ml-5 text-4xl text-left text-blue-800 sm:col-span-1 md:col-span-1 font-Lobster">
+                        {{ $apartado->descrip3 }}
+                    </div>
                 @endif
 
-           
-                {{-- cartita --}}
-                @foreach ($productos->where('descrip3', '=', $apartado->descrip3)->where('activo','=',1) as $key => $producto)
-                    
-                    <div wire:click.prefetch="producto('{{ $producto->id }}')"
-                        class="relative grid grid-cols-2 p-1 m-1 bg-gray-100 border border-gray-200 rounded-md shadow-xs hover:border-indigo-300 hover:shadow-2xl">
-                        
-                        <div class="absolute sombrero">
-                           @if (($key  % 2) == 0)
-                               <img src="{{asset('storage/banner/carnaval.png')}}" alt="">
-                            @else
-                            <img src="{{asset('storage/banner/carnaval2.png')}}" alt="">
-                           @endif
-                            
-                        </div>
-                        
-                        <div class="col-span-2 font-extrabold text-center">
-                            {{ $producto->name }}
-                        </div>
-                        <div>
-                            <img class="object-fill h-24 rounded-md " src="{{ asset($producto->img) }}"
-                                alt="Sunset in the mountains">
-                        </div>
-                        <div>
-                            <table class="w-full">
-                                <tbody>
 
+                {{-- cartita --}}
+                @foreach ($productos->where('descrip3', '=', $apartado->descrip3)->where('activo', '=', 1) as $key => $producto)
+                    <div wire:click.prefetch="producto('{{ $producto->id }}')"
+                        class="relative p-2 m-2 bg-gray-50 rounded-md shadow-md hover:shadow-lg hover:bg-gray-100">
+                        <div class="relative h-52 rounded-md overflow-hidden">
+                            <img class="object-cover object-center w-full h-full" src="{{ asset($producto->img) }}"
+                                alt="{{ $producto->name }}">
+                            <div
+                                class="absolute top-0 left-0 z-10 flex bottom-0 justify-center w-full h-full bg-gray-900 opacity-50">
+                                <img class="mascara-carnaval absolute top-2 right-2"
+                                    src="{{ asset('storage/banner/carnaval2.png') }}" height="45" width="45"
+                                    alt="Máscara de carnaval">
+                                <div class="text-center absolute bottom-0 text-white font-bold text-xl">{{ $producto->name }}</div>
+                            </div>
+                        </div>
+                        <div class="px-2 py-3">
+                            <div class="flex justify-between items-center">
+                                <div class="text-lg font-bold text-green-500">
                                     @if (isset($producto->presentaciones))
                                         @foreach ($producto->presentaciones as $presentacion)
-                                            <tr>
-                                                <td class="pl-2 text-xs font-medium text-green-900 ">
-                                                    {{ $presentacion->name }}: &euro;{{ $presentacion->precio_venta }}
-                                                </td>
-
-                                            </tr>
+                                            <div class="mb-1">{{ $presentacion->name }}:
+                                                &euro;{{ $presentacion->precio_venta }}</div>
                                         @endforeach
                                     @else
-                                        <tr>
-                                            <td class="pl-2 text-2xl font-medium text-green-900 ">
-                                                &euro;{{ $producto->precio_venta }}
-                                            </td>
-
-                                        </tr>
+                                        &euro;{{ $producto->precio_venta }}
                                     @endif
-
-
-                                </tbody>
-                            </table>
-
-                        </div>
-                        <div class="h-10 col-span-2 overflow-hidden text-ellipsis ">
-                            @if ($idioma!="es")
-                            @foreach ($producto->idiomas->where('idioma','=',$idioma) as $idioma_select)
-                                {{$idioma_select->descrip}}
-                            @endforeach
-                            @else   
-                            {{ $producto->descrip }}
-                            @endif
-                            
-                        </div>
-                        <div class="grid grid-cols-2 col-span-2">
-                            <div>
-                                {{ $producto->likes->where('tipo', 1)->count() }}
-                                <i class="mx-auto text-red-800 bi bi-heart-fill"></i>
+                                </div>
+                                <div class="flex items-center">
+                                    <div class="mr-2 text-gray-600">
+                                        {{ $producto->likes->where('tipo', 1)->count() }}
+                                        <i class="bi bi-heart-fill"></i>
+                                    </div>
+                                    <div class="text-gray-600">
+                                        {{ $producto->likes->where('tipo', 0)->count() }}
+                                        <i class="bi bi-heartbreak-fill"></i>
+                                    </div>
+                                </div>
                             </div>
-                            <div>
-                                {{ $producto->likes->where('tipo', 0)->count() }}
-                                <i class="mx-auto bi bi-heartbreak-fill "></i>
+                            <div class="mt-2 text-sm text-gray-600">
+                                @if ($idioma != 'es')
+                                    @foreach ($producto->idiomas->where('idioma', '=', $idioma) as $idioma_select)
+                                        {{ $idioma_select->descrip }}
+                                    @endforeach
+                                @else
+                                    {{ $producto->descrip }}
+                                @endif
                             </div>
-                        </div>
-                        <div class="col-span-2">
-
-                            <div class="w-full">
+                            <div class="mt-2">
                                 @foreach ($producto->categorias as $categoria)
                                     <span
-                                        style="font-size: 8px;line-height: 11px;letter-spacing: 0.027em;font-weight: 875;"
-                                        class="inline-block px-1 py-1 mb-2 mr-2 font-semibold text-gray-700 bg-gray-200 rounded-full">#{{ $categoria->name }}</span>
+                                        class="inline-block px-2 py-1 mr-2 text-xs font-semibold text-gray-700 bg-gray-200 rounded-full">#{{ $categoria->name }}</span>
                                 @endforeach
                             </div>
-
                         </div>
                     </div>
                 @endforeach
@@ -205,9 +178,9 @@
     </div>
     {{-- 3  datos del negocio --}}
     <div
-        class="fixed bottom-0 grid w-full grid-cols-3 p-2 mx-auto text-sm text-white bg-black border-t-2 border-indigo-300 ">
+        class="fixed text-xs bottom-0 grid w-full grid-cols-3 p-2 mx-auto  text-white bg-black border-t-2 border-indigo-300">
         <div>
-            <div class="w-full text-sm text-left">
+            <div class="w-full  text-left">
                 Direccion: {{ $negocio->direccion }}
             </div>
         </div>
@@ -219,14 +192,17 @@
                 Tlf:{{ $negocio->telefono2 }}
             </div>
         </div>
-        <div>
-          <a href="whatsapp://send?text=https://tuinn.es/menu/1">Compartir <i class="bi bi-whatsapp"></i></a>  
+        <div class="flex flex-col justify-center items-end px-4">
+            <a href="whatsapp://send?text=https://tuinn.es/menu/1"
+                class="flex items-center justify-center px-4 py-2 font-semibold text-white bg-green-500 rounded-lg focus:outline-none focus:shadow-outline-green hover:bg-green-600">
+                <span class=" text-xl text-white bi bi-whatsapp"></span>
+        </a>
         </div>
         <div class="col-span-3 mx-auto text-xs">
             designer by ING. Angel Charlot, olvera cadiz
         </div>
-
     </div>
+
     {{-- modal de los productos --}}
     <x-jet-dialog-modal wire:model.debounce="open">
         <x-slot name="title">
@@ -256,31 +232,31 @@
             <div class="w-full mx-auto mt-1 text-base font-bold ">descripcion:</div>
             <div class="w-full p-2 mx-auto overflow-auto text-base text-justify text-gray-700 max-h-40">
 
-                @if ($idioma!="es")
-                @foreach ($producto_selecionado->idiomas->where('idioma','=',$idioma) as $idioma_select)
-                    {{$idioma_select->descrip}}
-                @endforeach
-                @else   
-                {{ $producto_selecionado->descrip }}
+                @if ($idioma != 'es')
+                    @foreach ($producto_selecionado->idiomas->where('idioma', '=', $idioma) as $idioma_select)
+                        {{ $idioma_select->descrip }}
+                    @endforeach
+                @else
+                    {{ $producto_selecionado->descrip }}
                 @endif
 
 
-               
+
             </div>
             @if ($producto_selecionado->descrip2)
                 <div class="w-full mx-auto mt-1 text-xs font-bold ">Maridaje:</div>
                 <div class="w-full mx-auto overflow-auto text-xs text-justify text-gray-700">
-                    @if ($idioma!="es")
-                    @foreach ($producto_selecionado->idiomas->where('idioma','=',$idioma) as $idioma_select)
-                        {{$idioma_select->descrip2}}
-                    @endforeach
-                    @else   
-                    {{ $producto_selecionado->descrip2 }}
+                    @if ($idioma != 'es')
+                        @foreach ($producto_selecionado->idiomas->where('idioma', '=', $idioma) as $idioma_select)
+                            {{ $idioma_select->descrip2 }}
+                        @endforeach
+                    @else
+                        {{ $producto_selecionado->descrip2 }}
                     @endif
 
 
 
-                   
+
                 </div>
             @endif
 
@@ -318,5 +294,5 @@
             </div>
         </x-slot>
     </x-jet-dialog-modal>
-    
+
 </div>
