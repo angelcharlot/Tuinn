@@ -8,60 +8,57 @@
     @endif
 
     <div class=" shadow-sm overflow-hidden my-8 ">
-        <div class="w-full my-4">
-
-            <div class="rounded-t-lg overflow-hidden border  border-gray-400 p-4">
-
-                @if ($categoria_seleccionada)
-
-                    <ul class="flex">
-
-                        @foreach ($categoria_seleccionada as $index => $migas)
-                            <li class="mr-6">
-                                @if($index != count($categoria_seleccionada) - 1)
-                                   <a class="text-grey-500 hover:text-blue-800" href="#"> {{ $migas }} <i
-                                        class="bi bi-chevron-right"></i></a>
-                                @else
-                                <a class="text-blue-800 hover:text-blue-800" href="#"> {{ $migas }} <i
-                                    class="bi bi-chevron-right"></i></a>
-
-                                @endif
-
-                            </li>
-                        @endforeach
-                    </ul>
-
-                @endif
-            </div>
-
-
+        <div class="bg-white mb-5 rounded-lg shadow-md">
+            <div class="border-t border-gray-400">
+                <div class="py-3 px-4 flex items-center justify-between bg-white">
+                  <div class="flex items-center space-x-2">
+                    @if ($categoria_seleccionada)
+                      @foreach ($categoria_seleccionada as $index => $migas)
+                        <div class="text-gray-400 text-sm">
+                          @if ($index != count($categoria_seleccionada) - 1)
+                            <a href="#" class="hover:text-gray-700">{{ $migas }}</a>
+                          @else
+                            <span>{{ $migas }}</span>
+                          @endif
+                        </div>
+                        <div class="text-gray-400 text-xs">
+                          @if ($index != count($categoria_seleccionada) - 1)
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 inline-block">
+                              <path d="M3.707 3.293a1 1 0 0 0-1.414 0L.293 5.586A1 1 0 0 0 1.707 7l2-2a1 1 0 0 0 0-1.414z"/>
+                            </svg>
+                          @endif
+                        </div>
+                      @endforeach
+                    @endif
+                  </div>
+                </div>
+              </div>
+              
         </div>
 
         <div class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-1 text-gray-600">
 
             @forelse ($categorias as $categoria)
-                <div
-                    class="border-2 grid border-gray-200 h-32 w-full rounded-sm shadow-md bg-white hover:bg-gray-100  divide-y divide-solid ">
-                    <div class=" text-center text-sm">
-
-                        <div   class=" font-semibold">{{ $categoria->name }}</div>
-
-                    </div>
-                    <div wire:click="buscar({{ $categoria->id }},0)" class="p-3 text-xs ">
-                        {{ $categoria->descrip }}
-                    </div>
-                    <div class="grid grid-cols-2 p-1 gap-2 items-baseline "  >
-                        
-                        <div wire:click="$emit('borrar',{{ $categoria->id }})" class="border p-0 text-center rounded-md text-red-500 bg-red-200 border-red-300 hover:bg-red-500 hover:text-white  "><i class="bi bi-x-circle"></i></div>
-                        <div wire:click="edit({{ $categoria->id }})" class="  border p-0 text-center rounded-md text-indigo-500 bg-indigo-200 border-indigo-300  hover:bg-indigo-500 hover:text-white"><i class="bi bi-pencil"></i></div>
-                    </div>
-
+            <div class="bg-white rounded-lg shadow-md hover:shadow-lg hover:bg-gray-50 overflow-hidden">
+                <div class="p-4">
+                    <div class="font-semibold text-xl">{{ $categoria->name }}</div>
+                    <div class="h-20 overflow-hidden text-sm text-gray-500">{{ $categoria->descrip }}</div>
                 </div>
-
+                <div class="flex justify-between items-center px-4 py-2 bg-gray-100">
+                    <div wire:click="$emit('borrar',{{ $categoria->id }})" class="text-red-500 hover:text-white hover:bg-red-500 rounded-md p-2">
+                        <i class="bi bi-x-circle"></i>
+                    </div>
+                    <div wire:click="edit({{ $categoria->id }})" class="text-indigo-500 hover:text-white hover:bg-indigo-500 rounded-md p-2">
+                        <i class="bi bi-pencil"></i>
+                    </div>
+                </div>
+            </div>
             @empty
-                <div>no hay registros</div>
+            <div>no hay registros</div>
             @endforelse
+        
         </div>
+        
         <div class="mt-5">
             <button wire:click="buscar({{ $id_atras }},1)"
                 class="py-2 px-4 bg-blue-500 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75">volver</button>

@@ -34,9 +34,8 @@
 }
 
 .titulo_form {
-    @apply inline-block text-lg text-gray-800 font-black;
-
-}
+    @apply text-4xl font-bold text-gray-800 text-center py-8;
+  }
 
 /* elefonos */
 input,
@@ -73,9 +72,7 @@ select,
     }
 
     .div-form-container {
-
-        @apply border border-gray-200 gap-3;
-
+        @apply border border-gray-200 p-4 rounded-md shadow-md;
     }
 
 

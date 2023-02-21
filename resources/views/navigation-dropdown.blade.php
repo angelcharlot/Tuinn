@@ -6,7 +6,9 @@
             <div class="flex">
                 <!-- Logo -->
                 <div class="flex items-center flex-shrink-0">
-                    <p>Tuinn</p>
+                    
+                    <img class="h-8 w-auto" src="{{ asset('images/logo.png') }}" alt="Logo de tu empresa">
+                    Tuinn.es
                 </div>
                 @auth
                     <!-- Navigation Links -->
