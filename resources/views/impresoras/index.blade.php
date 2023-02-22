@@ -2,6 +2,6 @@
 @section('body')
 
 
-mostar crud para impresoras
+@livewire('impresoras')
 
 @endsection

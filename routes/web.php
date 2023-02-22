@@ -8,6 +8,7 @@ use App\Models\productos;
 use App\Models\idioma;
 use App\Models\negocio;
 use Illuminate\Http\Request;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -45,16 +46,17 @@ Route::get('/', function () {
 Route::get('/menu/{id?}', function ($id=1) {
     return view('menu/index')->with('id_negocio',$id);
 });
-
+Route::get('/configuraciones', 'App\Http\Controllers\ConfiguracionesIncompletasController@index')->name('configuraciones');
 /*rutas protegidas por auth
+
 /////////////////////////////////////////////////////////////////////////////////*/
 Route::middleware(['auth:sanctum', 'verified'])->group(function(){
 
-
-
+  
+   
     Route::get('/dashboard', function () {
     return view('dashboard');
-    })->name('dashboard');
+    })->middleware('aut_negocio','check-incomplete-configurations')->name('dashboard');
 
     Route::get('categorias/index', function () {
     return view('productos/categorias');
@@ -71,7 +73,7 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function(){
 
     Route::get('/ventas', function () {
     return view('ventas/index');
-    })->name('ventas.index');
+    })->middleware('check-incomplete-configurations')->name('ventas.index');
 
     Route::get('/show2', function () {
     return view('profile.show2');
@@ -81,9 +83,11 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function(){
     return view('areaymesa.index');
     })->name('areaymesa.index');
 
-    Route::get('/impresoras', function () {
+     Route::get('/impresoras', function () {
     return view('impresoras.index');
     })->name('impresoras.index');
+ 
+    
     
 
 

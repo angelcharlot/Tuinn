@@ -6,7 +6,7 @@
             <div class="flex">
                 <!-- Logo -->
                 <div class="flex items-center flex-shrink-0">
-                    
+
                     <img class="h-8 w-auto" src="{{ asset('images/logo.png') }}" alt="Logo de tu empresa">
                     Tuinn.es
                 </div>
@@ -19,7 +19,7 @@
                     </div>
 
                     @if (Auth::user()->hasRole('admin'))
-                        {{--<div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                        {{-- <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                         <x-jet-nav-link href="{{ route('negocio.index') }}" :active="request()->routeIs('negocio.index')">
                              {{ __('Gestion de personal') }}
                         </x-jet-nav-link>
@@ -29,11 +29,11 @@
                                 {{ __('Productos') }}
                             </x-jet-nav-link>
                         </div>
-{{--                         <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                        <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                             <x-jet-nav-link href="{{ route('ventas.index') }}" :active="request()->routeIs('ventas')">
                                 {{ __('Ventas') }}
                             </x-jet-nav-link>
-                        </div> --}}
+                        </div> 
                         <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                             <x-jet-nav-link href="{{ route('categorias.index') }}" :active="request()->routeIs('categorias.index')">
                                 {{ __('Categorias') }}
@@ -84,22 +84,17 @@
                                 <i class="bi bi-person"></i> {{ __('Profile') }}
                             </x-jet-dropdown-link>
                             @can('config.negocio')
-                            <x-jet-dropdown-link href="{{ route('profile.show2') }}">
-                                <i class="bi bi-gear"></i>  {{ __('Configuracion') }}
-                            </x-jet-dropdown-link>
-                            <x-jet-dropdown-link href="{{ route('areaymesa.index') }}">
-                                <i class="bi bi-layers"></i>  {{ __('Gestion de mesas') }}
-                            </x-jet-dropdown-link>
-                            <x-jet-dropdown-link href="{{ route('impresoras.index') }}">
-                                <i class="bi bi-printer"></i>  {{ __('Impresoras') }}
-                            </x-jet-dropdown-link>
-
-
-
-
-
+                                <x-jet-dropdown-link href="{{ route('profile.show2') }}">
+                                    <i class="bi bi-gear"></i> {{ __('Configuracion') }}
+                                </x-jet-dropdown-link>
+                                <x-jet-dropdown-link href="{{ route('areaymesa.index') }}">
+                                    <i class="bi bi-layers"></i> {{ __('Gestion de mesas') }}
+                                </x-jet-dropdown-link>
+                                <x-jet-dropdown-link href="{{ route('impresoras.index') }}">
+                                    <i class="bi bi-printer"></i> {{ __('Impresoras') }}
+                                </x-jet-dropdown-link>
                             @endcan
-                            
+
 
                             @if (Laravel\Jetstream\Jetstream::hasApiFeatures())
                                 <x-jet-dropdown-link href="{{ route('api-tokens.index') }}">
@@ -123,6 +118,18 @@
                         </x-slot>
                     </x-jet-dropdown>
                 </div>
+                <div class="flex items-center -mr-2 sm:hidden">
+                    <button @click="open = ! open"
+                        class="inline-flex items-center justify-center p-2 text-gray-400 transition duration-150 ease-in-out rounded-md hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500">
+                        <svg class="w-6 h-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
+                            <path :class="{ 'hidden': open, 'inline-flex': !open }" class="inline-flex"
+                                stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M4 6h16M4 12h16M4 18h16" />
+                            <path :class="{ 'hidden': !open, 'inline-flex': open }" class="hidden" stroke-linecap="round"
+                                stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
+                </div>
             @else
                 @if (Route::has('login'))
                     <div class="flex items-center space-x-3 ">
@@ -136,31 +143,18 @@
                         @endauth
                     </div>
                 @endif
-
-
+                <!-- Hamburger -->
             @endauth
 
 
-            <!-- Hamburger -->
-            <div class="flex items-center -mr-2 sm:hidden">
-                <button @click="open = ! open"
-                    class="inline-flex items-center justify-center p-2 text-gray-400 transition duration-150 ease-in-out rounded-md hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500">
-                    <svg class="w-6 h-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
-                        <path :class="{ 'hidden': open, 'inline-flex': !open }" class="inline-flex"
-                            stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M4 6h16M4 12h16M4 18h16" />
-                        <path :class="{ 'hidden': !open, 'inline-flex': open }" class="hidden" stroke-linecap="round"
-                            stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                    </svg>
-                </button>
-            </div>
+
         </div>
     </div>
 
     <!-- Responsive Navigation Menu -->
     <div :class="{ 'block': open, 'hidden': !open }" class="hidden sm:hidden">
         <div class="pt-2 pb-3 space-y-1">
-            
+
             @auth
                 @if (Auth::user()->hasRole('admin'))
                     <x-jet-responsive-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
@@ -201,20 +195,18 @@
                 <div class="mt-3 space-y-1">
                     <!-- Account Management -->
                     <x-jet-responsive-nav-link href="{{ route('profile.show') }}" :active="request()->routeIs('profile.show')">
-                        <i class="bi bi-person"></i>  {{ __('Profile') }}
+                        <i class="bi bi-person"></i> {{ __('Profile') }}
                     </x-jet-responsive-nav-link>
                     @can('config.negocio')
-                    <x-jet-dropdown-link href="{{ route('profile.show2') }}">
-                        <i class="bi bi-gear"></i>  {{ __('Configuracion') }}
-                    </x-jet-dropdown-link>
-                    <x-jet-dropdown-link href="{{ route('areaymesa.index') }}">
-                        <i class="bi bi-layers"></i>  {{ __('Gestion de mesas') }}
-                    </x-jet-dropdown-link>
-                    <x-jet-dropdown-link href="{{ route('impresoras.index') }}">
-                        <i class="bi bi-printer"></i>  {{ __('Impresoras') }}
-                    </x-jet-dropdown-link>
-
-
+                        <x-jet-dropdown-link href="{{ route('profile.show2') }}">
+                            <i class="bi bi-gear"></i> {{ __('Configuracion') }}
+                        </x-jet-dropdown-link>
+                        <x-jet-dropdown-link href="{{ route('areaymesa.index') }}">
+                            <i class="bi bi-layers"></i> {{ __('Gestion de mesas') }}
+                        </x-jet-dropdown-link>
+                        <x-jet-dropdown-link href="{{ route('impresoras.index') }}">
+                            <i class="bi bi-printer"></i> {{ __('Impresoras') }}
+                        </x-jet-dropdown-link>
                     @endcan
 
 

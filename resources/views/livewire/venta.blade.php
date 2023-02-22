@@ -1,172 +1,93 @@
-<div class="container mx-auto mt-1 md:mt-15">
-    {{-- loading --}}
-    <div wire:loading wire:target="selecionar_area,mostrar_comanda,agregar,comandar"
-        class="fixed top-0 left-0 z-40 w-full h-full bg-gray-800 bg-opacity-75">
-        <div class="h-full w-ful ">
-            <div class="flex justify-center h-full">
+<div class="flex flex-col md:flex-row mx-auto">
+    <div class="md:w-1/2 px-4">
+        <h1 class="text-2xl font-bold mb-4">Productos</h1>
+        <div class="grid grid-cols-5 gap-4">
+            @foreach ($productos as $producto)
+                @if ($producto->presentaciones->count() == 1)
+                    <div wire:click="addProduct('{{ $producto->id }}', '{{ $producto->presentaciones->first()->name }}', {{ $producto->presentaciones->first()->precio_venta }})"
+                        class="bg-white rounded-lg shadow-md overflow-hidden relative w-full">
+                        <img class="h-24 w-full object-cover" src="{{ $producto->img }}" alt="{{ $producto->name }}">
+                        <div class="absolute bottom-0 left-0 right-0 h-5  bg-gray-200">
+                            <h2 class="text-xs font-bold text-center text-gray-900 truncate">{{ $producto->name }}</h2>
+                        </div>
 
-                <div class="z-50 w-24 h-24 my-auto ">
-                    <div role="status">
-                        <svg class="mr-3 -ml-1 text-blue-800 animate-spin h-18 w-18" xmlns="http://www.w3.org/2000/svg"
-                            fill="none" viewBox="0 0 24 24">
-                            <circle class="opacity-25" cx="12" cy="12" r="10"
-                                stroke="currentColor" stroke-width="4"></circle>
-                            <path class="opacity-75" fill="currentColor"
-                                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
-                            </path>
-                        </svg>
-                        <span class="sr-only">Loading...</span>
                     </div>
-                </div>
+                @else
+                    <div wire:click="verPresentaciones({{ $producto->id }})"
+                        class="bg-white rounded-lg shadow-md overflow-hidden relative w-full">
+                        <img class="h-24 w-full object-cover" src="{{ $producto->img }}" alt="{{ $producto->name }}">
+                        <div class="absolute bottom-0 left-0 right-0 h-5  bg-gray-200">
+                            <h2 class="text-xs font-bold text-center text-gray-900 truncate">{{ $producto->name }}</h2>
+                        </div>
 
-            </div>
+                    </div>
+                @endif
+            @endforeach
+
         </div>
     </div>
-    <div class="grid w-11/12 grid-cols-1 gap-5 mx-auto ">
-        <div class="border border-gray-500">
-
-            @switch($vista_principal)
-                @case(1)
-                    <div class="grid grid-cols-4 gap-5 p-2 ">
-
-                        @foreach ($areas as $area)
-                            <div wire:click="selecionar_area({{ $area->id }})">
-                                <x-btn_areas>
-                                    {{ $area->name }}
-                                </x-btn_areas>
-                            </div>
-                        @endforeach
-
-                    </div>
-                @break
-
-                @case(2)
-                    <div class="grid grid-cols-4 gap-5 p-2 ">
-                        @foreach ($area_seleccionada->mesas as $mesa)
-                            <div wire:click="mostrar_comanda({{ $mesa->id }})">
-                                <x-btn_areas>
-                                    {{ $mesa->nro }}
-                                </x-btn_areas>
-                            </div>
-                        @endforeach
-                        <div wire:click="volver_areas">
-                            <x-btn_areas>
-                                Volver
-                            </x-btn_areas>
-                        </div>
-
-                    </div>
-                @break
-
-                @case(3)
-                    <div class="grid grid-cols-3 gap-0 text-xs font-bold text-white bg-blue-900 md:text-base">
-                        <div class="col-span-3 text-lg text-center ">mesa:{{$mesa_seleccionada->area->name}}-{{ $mesa_seleccionada->nro }}</div>
-
-                        <div class="px-1 text-left">tipo:{{ $mesa_seleccionada->documento->where('estado', '=', 'activa')->first()->tipo }}</div>
-                        <div class="px-1 text-center">estado:{{ $mesa_seleccionada->documento->where('estado', '=', 'activa')->first()->estado }}</div>
-                        <div class="px-1 text-right">N/S{{ $mesa_seleccionada->documento->where('estado', '=', 'activa')->first()->nro_documento }}
-                        </div>
-                    </div>
-                    <table class="table w-full table-auto ">
-                        <tr class="p-1 text-xs font-bold text-white bg-blue-900 md:text-base">
-                            <td>#</td>
-                            <td>descripcion</td>
-                            {{-- <td class="text-right">P/U</td>
-                            <td class="text-right"> total</td> --}}
-                            <td>acciones</td>
-
+    <div class="md:w-1/2 px-4">
+        <h1 class="text-2xl font-bold mb-4">Carrito</h1>
+        <div class="bg-white rounded-lg shadow-md overflow-y-scroll" style="max-height: 500px;">
+            <table class="w-full table-fixed">
+                <thead>
+                    <tr class="border-b-2 border-gray-300">
+                        <th class="w-1/4 py-2 px-4">Cantidad</th>
+                        <th class="w-1/2 py-2 px-4">Producto</th>
+                        <th class="w-1/4 py-2 px-4">Precio</th>
+                        <th class="w-1/4 py-2 px-4">total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($detalles as $detalle)
+                        <tr>
+                            <td>{{ $detalle['cantidad'] }}</td>
+                            <td>{{ $detalle['name'] }}-{{ $detalle['tipo_presentacion'] }}</td>
+                            <td>{{ $detalle['precio_venta'] }}</td>
+                            <td>{{ $detalle['cantidad'] * $detalle['precio_venta'] }}</td>
                         </tr>
-
-                        @foreach ($mesa_seleccionada->documento->where('estado', '=', 'activa')->first()->detalles as $detalle)
-                            <tr class="p-1 text-xs border-b border-gray-500 md:text-base">
-
-                                <td class="w-auto"> {{ $detalle->cantidad }}</td>
-                                <td class="w-auto">{{ $detalle->name }}({{ $detalle->tipo_presentacion }})</td>
-                               {{--  <td class="w-10 text-right">{{ number_format($detalle->precio_venta, 2, '.', '')  }}</td>
-                                <td class="w-10 text-right">{{number_format( $detalle->precio_venta * $detalle->cantidad, 2, '.', '')  }}</td> --}}
-                                <td>
-                                    <div class="flex ">
-                                    <i wire:click="disminuir({{$detalle->id}})" class="p-1 mr-4 text-white bg-red-700 cursor-pointer bi bi-dash rounded-sx"></i>
-                                    <i wire:click="agregar({{ $detalle->producto->id }},{{ $detalle->producto->presentaciones->where('name','=',$detalle->tipo_presentacion)->first()->id }})" class="p-1 text-white bg-green-800 cursor-pointer bi bi-plus-lg rounded-sx"></i> 
-                                    </div>
-                                    
-                                    
-                                </td>
-                                
-                            </tr>
-                        @endforeach
-
-                    </table>
-                    @if (count($array_comanda) > 0)
-                        <x-jet-secondary-button class="m-5 text-center" wire:click="comandar">
-                            comfirmar
-                        </x-jet-secondary-button>
-                    @endif
-                @break
-
-                @default
-            @endswitch
-
-        </div>
-        @switch($mesas_view)
-            @case(1)
-                <div class="grid grid-cols-4 gap-1 p-2 overflow-auto border border-gray-500">
-                    <div>Area</div>
-                    <div>Nro mesa</div>
-                    <div>Cantidad</div>
-                    <div>N/F</div>
-                  
-                    @foreach ($areas as $area)
-                        <div class=" col-span-4 text-center bg-gray-700 ">{{$area->name}}</div>
-                        @foreach ($area->mesas as $mesa)
-                            @foreach ($mesa->documento->where('estado','=','activa') as $documentos)
-                            <div wire:click="mostrar_comanda({{ $documentos->mesa->id }})">{{$documentos->mesa->area->name}}</div>
-                            <div>{{$documentos->mesa->nro}}</div>
-                            <div>{{$documentos->total}}</div>
-                            <div>{{$documentos->nro_documento}}</div>
-                            @endforeach    
-                        @endforeach
-                            
-                        
                     @endforeach
-                </div>
-            @break
 
-            @case(2)
-                <div class="grid grid-cols-4 gap-1 p-2 overflow-auto border border-gray-500 h-96">
-                    @foreach ($productos as $key => $producto)
-                        <x-btn-producto>
-                            <div wire:click="mostrar_presentacion({{ $producto->id }})">
-                                <div class="truncate ">{{ $producto->id }}</div>
-                                <div>{{ $producto->name }}</div>
-                            </div>
 
-                        </x-btn-producto>
-                    @endforeach
-                </div>
-            @break
 
-            @default
-        @endswitch
-        @if ($documento)
-            <x-jet-secondary-button class="fixed bottom-0 left-0 w-full text-center " wire:click="imprimir_tiket({{$documento->id}})">
-            tiker
-        </x-jet-secondary-button>
-        @endif
-        
-    </div>
-    @if ($presentaciones_view == 1)
-        <div class="fixed top-0 left-0 flex items-center w-full h-full bg-blue-300 bg-opacity-75 ">
-            <div class="grid w-8/12 grid-cols-3 gap-2 mx-auto">
-                @foreach ($presentaciones as $presentacion)
-                    <div wire:click="agregar({{ $presentacion->producto->id }},{{ $presentacion->id }})"
-                        class="h-10 pt-1 text-center bg-teal-700 border border-gray-600 rounded-md hover:bg-teal-200 hover:text-cool-gray-900 text-cool-gray-50">
-                        {{ $presentacion->name }}</div>
-                @endforeach
+                </tbody>
+            </table>
+            <div class="p-4 flex justify-between">
+                <p class="text-gray-700 text-base font-bold">Total:</p>
+                <p class="text-gray-700 text-base font-bold">${{ $total }} </p>
             </div>
+            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full mb-4">Finalizar
+                compra</button>
         </div>
-    @endif
 
 
+        <x-jet-dialog-modal wire:model="showModal">
+            <x-slot name="title">
+                Presentaciones del producto "{{ $productoselect->name }}"
+            </x-slot>
 
+            <x-slot name="content">
+                @if ($presentaciones->count() > 0)
+                    <ul class="grid grid-cols-1 gap-2">
+                        @foreach ($presentaciones as $presentacion)
+                            <li>
+                                <button
+                                    wire:click="addProduct('{{ $productoselect->id }}', '{{ $presentacion->name }}', {{ $presentacion->precio_venta }})"
+                                    class="w-full py-4 bg-blue-500 text-white font-bold rounded-lg shadow-md hover:bg-blue-700 my-2">{{ $presentacion->name }}</button>
+                            </li>
+                        @endforeach
+                    </ul>
+                @else
+                    <p>No hay presentaciones disponibles para este producto.</p>
+                @endif
+            </x-slot>
+
+            <x-slot name="footer">
+                <x-jet-secondary-button wire:click="$toggle('showModal')" wire:loading.attr="disabled">
+                    Cerrar
+                </x-jet-secondary-button>
+            </x-slot>
+        </x-jet-dialog-modal>
+
+    </div>
 </div>
