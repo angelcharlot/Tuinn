@@ -10,6 +10,20 @@
         })
 
     });
+    Livewire.on('productoAgregado', function(){
+        Swal.fire({
+            toast: true,
+            position: 'bottom-end',
+            showConfirmButton: false,
+            timer: 2000,
+            icon: 'success',
+            title: 'Producto agregado a la factura',
+            customClass: {
+                popup: 'bg-green-500 text-white',
+                title: 'text-lg',
+            }
+        })
+    });
     Livewire.on('votoguardado1', function(){
 
         Swal.fire({
