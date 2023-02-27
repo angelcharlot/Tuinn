@@ -17,7 +17,7 @@
             showConfirmButton: false,
             timer: 2000,
             icon: 'success',
-            title: 'Producto agregado a la factura',
+            title: 'Producto agregado a la venta',
             customClass: {
                 popup: 'bg-green-500 text-white',
                 title: 'text-lg',
