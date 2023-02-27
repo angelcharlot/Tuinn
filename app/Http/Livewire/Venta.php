@@ -94,7 +94,7 @@ public function addProduct($producto_id, $presentacion_name, $precio_venta)
        foreach ($this->detalles as $key => $detalle) {
         $this->total+=$detalle['sub_total'];
        }
-       
+       $this->emit('productoAgregado');
     $this->showModal = false;
 }
 

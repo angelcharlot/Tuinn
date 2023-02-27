@@ -195,32 +195,32 @@ class apiuser extends Controller
             $documento->cam1=$request->nro_comensales;
             $documento->save();
 
-                }else{
+            }else{
                     $documento=$mesa->documento->where('estado', '=', 'activa')->first();
-                }
+        }
            
-            for ($i=0; $i <count($array) ; $i++) { 
-                
-                if ($documento->detalles->where("producto_id","=",$array[$i]["producto_id"])->where("tipo_presentacion","=",$array[$i]["tipo"])->first()) {
-                   $detalle_update=$documento->detalles->where("producto_id","=",$array[$i]["producto_id"])->where("tipo_presentacion","=",$array[$i]["tipo"])->first();
-                    $detalle_update->cantidad+=$array[$i]["cantidad"];
-                    $documento->total+=($array[$i]["cantidad"]*$array[$i]["precio"]);
-                    $documento->save();
-                    $detalle_update->save();
-                }else{
-
-                $new_detalle=new detalle();
-                $new_detalle->producto_id=$array[$i]["producto_id"];
-                $new_detalle->cantidad=$array[$i]["cantidad"];
-                $new_detalle->name=$array[$i]["name"];
-                $new_detalle->tipo_presentacion=$array[$i]["tipo"];
-                $new_detalle->precio_venta=$array[$i]["precio"];
-                $new_detalle->documento_id=$documento->id;
+        for ($i=0; $i <count($array) ; $i++) { 
+            
+            if ($documento->detalles->where("producto_id","=",$array[$i]["producto_id"])->where("tipo_presentacion","=",$array[$i]["tipo"])->first()) {
+                $detalle_update=$documento->detalles->where("producto_id","=",$array[$i]["producto_id"])->where("tipo_presentacion","=",$array[$i]["tipo"])->first();
+                $detalle_update->cantidad+=$array[$i]["cantidad"];
                 $documento->total+=($array[$i]["cantidad"]*$array[$i]["precio"]);
                 $documento->save();
-                $new_detalle->save();
-                }
+                $detalle_update->save();
+            }else{
+
+            $new_detalle=new detalle();
+            $new_detalle->producto_id=$array[$i]["producto_id"];
+            $new_detalle->cantidad=$array[$i]["cantidad"];
+            $new_detalle->name=$array[$i]["name"];
+            $new_detalle->tipo_presentacion=$array[$i]["tipo"];
+            $new_detalle->precio_venta=$array[$i]["precio"];
+            $new_detalle->documento_id=$documento->id;
+            $documento->total+=($array[$i]["cantidad"]*$array[$i]["precio"]);
+            $documento->save();
+            $new_detalle->save();
             }
+        }
 
           
         //datos del json recibido
@@ -240,6 +240,8 @@ class apiuser extends Controller
          }
  
        }
+
+
        $aray_comanda_impre=array_values($aray_comanda_impre);
        
        
@@ -247,7 +249,7 @@ class apiuser extends Controller
        foreach ($negocio->impresoras as $key_im => $impresora) {
          
          if (isset($aray_comanda_impre[$key_im])) {
-             $this->envio_a_empre_comanda($aray_comanda_impre[$key_im],$impresora->interface,$mesa->nro,$user->id,$area->name,$coment,$documento->cam1);
+             $this->envio_a_empre_comanda($aray_comanda_impre[$key_im],$impresora->interface,$mesa->nro,$user->id,urlencode($area->name),urlencode($coment),$documento->cam1);
          }
          
        }

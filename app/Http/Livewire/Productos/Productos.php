@@ -13,6 +13,7 @@ use App\Models\presentacion;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Storage;
 use Stichoza\GoogleTranslate\GoogleTranslate;
+use Intervention\Image\Facades\Image;
 
 class Productos extends Component
 {
@@ -114,9 +115,16 @@ class Productos extends Component
 
 
         $newproduct = new producto();
-        if ( is_object($this->photo)){
-            $newproduct->img = 'storage/' . $this->photo->store('productos', 'public');
-        }elseif($this->photo==""){
+        if (is_object($this->photo)) {
+            $image = Image::make($this->photo);
+            $image->resize(400,200, function ($constraint) {
+              $constraint->aspectRatio();
+              $constraint->upsize();
+            });
+            $path = 'productos/' . uniqid() . '.' . $this->photo->extension();
+            Storage::disk('public')->put($path, $image->encode());
+            $newproduct->img = 'storage/' . $path;
+          }elseif($this->photo==""){
 
             $newproduct->img="images/icons8-cubiertos-100.png";
 
@@ -212,7 +220,18 @@ class Productos extends Component
                 $url = str_replace('storage', 'public', $record->img);
                 Storage::disk('local')->delete($url);
 
-                $record->img = 'storage/' . $this->photo->store('productos', 'public');
+                $image = Image::make($this->photo); // Se crea una instancia de la clase "Image" utilizando la imagen recibida como parámetro.
+
+                $image->resize(400,200, function ($constraint) { // Se redimensiona la imagen utilizando el método "resize" de la instancia de la clase "Image".
+                    $constraint->aspectRatio(); // Se mantiene la proporción original de la imagen.
+                    $constraint->upsize(); // Se asegura de que la imagen no sea redimensionada a una escala mayor que la original.
+                });
+              
+                $path = 'productos/' . uniqid() . '.' . $this->photo->extension();
+                Storage::disk('public')->put($path, $image->encode());
+                $record->img = 'storage/' . $path;
+
+
             }
 
             $record->name = $this->name;

@@ -3,7 +3,7 @@
 namespace App\Http\Livewire;
 
 use Livewire\Component;
-use App\Models\Impresora;
+use App\Models\impresora;
 
 class Impresoras extends Component
 {
@@ -18,7 +18,7 @@ class Impresoras extends Component
     {
         $this->tipo="EPSON";
 
-        $this->impresoras = Impresora::where("negocio_id","=",auth()->user()->negocio->id)->get();
+        $this->impresoras = impresora::where("negocio_id","=",auth()->user()->negocio->id)->get();
         return view('livewire.impresoras');
     }
 
