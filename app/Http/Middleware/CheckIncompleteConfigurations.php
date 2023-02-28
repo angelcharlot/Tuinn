@@ -22,7 +22,9 @@ class CheckIncompleteConfigurations
         if (count($negocio->categorias) <= 0) {
             $config_faltantes+=1;
         }
-
+        if (count($negocio->areas) <= 0) {
+            $config_faltantes+=1;
+        }
         if (count($negocio->productos) <= 0) {
             $config_faltantes+=1;
         }

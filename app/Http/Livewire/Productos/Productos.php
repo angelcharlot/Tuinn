@@ -9,6 +9,7 @@ use Livewire\Component;
 use App\Models\productos as producto;
 use App\Models\categorias;
 use App\Models\negocio;
+use App\Models\impresora;
 use App\Models\presentacion;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Storage;
@@ -24,6 +25,8 @@ class Productos extends Component
     public $nombre_categoria;
     public $array_cat;
     public $descrip2;
+    public $impresoras;
+    public $impresora;//select de la vista 
     public $select_apartado;
     public $input_apartado;
     public $apartados;
@@ -44,6 +47,7 @@ class Productos extends Component
         'select_apartado' => 'required', 
         'input_apartado'=>'required_if:select_apartado,Otro...',
         'categorias' => 'required', 
+        'impresora'=>'required',
         'presentaciones.*.name'=> 'required', 
         'presentaciones.*.volumen'=> '', 
         'presentaciones.*.peso'=> '', 
@@ -57,6 +61,10 @@ class Productos extends Component
         $this->presentaciones=new Collection();
         $this->presentaciones->push(new presentacion());
         $this->allalargenos=alargeno::all();
+        if (impresora::where('negocio_id','=',auth()->user()->negocio->id)->first()) {
+             $this->impresora=impresora::where('negocio_id','=',auth()->user()->negocio->id)->first()->id;
+        }
+       
       
         //dd($this->alargenos);
         
@@ -66,8 +74,11 @@ class Productos extends Component
         $this->user = auth()->user();
 
         $negocioid = auth()->user()->negocio;
+
        // dd($negocioid);
         $this->negocio=negocio::find($negocioid->id);
+        $this->impresoras=$this->negocio->impresoras;
+      
        // dd($negocio->productos);
         $this->productos=producto::where('name','like','%'.$this->search.'%')->where('id_negocio','=',$this->negocio->id)->get();
         $this->allcategorias = categorias::where("id_negocio","=",auth()->user()->negocio->id,"and")->whereNull('id_categoria')->get();
@@ -139,6 +150,7 @@ class Productos extends Component
 
         $newproduct->id_negocio = $this->negocio->id;
         $newproduct->name = $this->name;
+        $newproduct->impresora_id = $this->impresora;
         $newproduct->descrip = $this->descrip;
         $newproduct->descrip2 = $this->descrip2;
         
@@ -234,6 +246,7 @@ class Productos extends Component
 
             }
 
+            $record->impresora_id = $this->impresora;
             $record->name = $this->name;
             $record->descrip = $this->descrip;
             $record->descrip2 = $this->descrip2;
@@ -278,6 +291,7 @@ class Productos extends Component
         $this->photo = $change->img;
         $this->updateMode = true;
         $this->name = $change->name;
+        $this->impresora = $change->impresora_id;
         $this->descrip = $change->descrip;
         $this->descrip2 = $change->descrip2;
         $this->presentaciones=presentacion::where('producto_id','=',$change->id)->get();

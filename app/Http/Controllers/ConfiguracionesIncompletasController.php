@@ -12,6 +12,15 @@ class ConfiguracionesIncompletasController extends Controller
         $negocio = negocio::find(auth()->user()->negocio->id);
       
         $config_fantantes=[];
+        
+        if(count($negocio->areas)<=0){
+            $config_fantantes[]=
+            [
+                "mensaje"=>"No has registrado ninguna Area para recibir a tu clientela en tu negocio. ¡Registra tus areas ahora!",
+                "url"=> route('areaymesa.index'),
+            ];
+
+        }
 
         if(count($negocio->categorias)<=0){
             $config_fantantes[]=
@@ -31,7 +40,7 @@ class ConfiguracionesIncompletasController extends Controller
         if(count($negocio->impresoras)<=0){
             $config_fantantes[]= [
                 "mensaje"=>"No has registrado ninguna impresora en tu negocio. ¡Registra tus impresoras ahora!",
-                "url"=> "algo",
+                "url"=> route("impresoras.index"),
             ];
             
         }

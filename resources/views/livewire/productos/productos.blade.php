@@ -1,16 +1,15 @@
 <div class=" hoja_base div ">
-
-    @if (count($allcategorias)==0)
+      @if (count($allcategorias)==0 or $impresoras->isEmpty())
 
         <h1 class="w-full h-16 rounded-md border border-red-700 p-4 bg-gray-50 text-lg text-center text-red-400">
             tiene que registrar las <a class="link underline decoration-solid hover:text-red-700" href="{{route('categorias.index')}}">categorias</a>
-
+            y las <a class="link underline decoration-solid hover:text-red-700" href="{{route('impresoras.index')}}">impresoras</a>
         </h1>
 
     @else
 
     {{-- loading --}}
-    <div wire:loading wire:target="photo,changeEvent"
+    <div wire:loading wire:target="photo,changeEvent,update,store"
         class="fixed z-40 w-full h-full top-0 left-0 bg-gray-500 bg-opacity-25">
         <div class="w-ful h-full ">
             <div class="flex justify-center h-full">

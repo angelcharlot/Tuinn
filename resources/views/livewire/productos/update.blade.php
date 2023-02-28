@@ -134,6 +134,14 @@
                         <span class="text-red-500 relative top-7 text-xs italic">{{ $message }}</span>
                     @enderror
             </div>
+            <div class="px-3 mb-5">
+                <label class="mx-1 text-xs text-gray-500 " for="">impresora</label>
+                <select wire:model.defer='impresora'>
+                    @foreach ($impresoras as $impresora)
+                        <option value="{{ $impresora->id }}">{{ $impresora->name }}</option>
+                    @endforeach
+                </select>
+            </div>
             <div class="px-3 text-left sm:col-span-1 md:col-span-3">
                 <label class="text-xs text-gray-500 mx-1 " for="">Descripcion</label>
                 <textarea wire:model.defer="descrip"
