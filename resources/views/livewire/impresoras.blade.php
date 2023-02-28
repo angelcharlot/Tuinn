@@ -31,12 +31,17 @@
                         <td class="py-3 px-6 text-left">{{ $impresora->interface }}</td>
                         <td class="py-3 px-6 text-center">
                             <div class="flex item-center justify-center">
-                                <a  wire:click="edit({{ $impresora->id }})" href="#" class="w-4 mr-2 transform hover:text-purple-500 hover:scale-110">
+                                <a  wire:click="edit({{ $impresora->id }})" href="#" class="w-4 mr-2 transform hover:text-purple-500 hover:scale-110"  title="Editar">
                                     <i class="bi bi-pencil-fill"></i>
                                 </a>
-                                <a   wire:click="delete({{ $impresora->id }})" href="#" class="w-4 transform hover:text-purple-500 hover:scale-110">
+                                <a   wire:click="delete({{ $impresora->id }})" href="#" class="w-4 mr-2  transform hover:text-purple-500 hover:scale-110"  title="eliminar">
                                     <i class="bi bi-trash-fill"></i>
                                 </a>
+                    
+
+
+
+
                             </div>
                         </td>
                     </tr>

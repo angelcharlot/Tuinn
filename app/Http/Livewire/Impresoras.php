@@ -4,6 +4,7 @@ namespace App\Http\Livewire;
 
 use Livewire\Component;
 use App\Models\impresora;
+use App\Models\productos as producto;
 
 class Impresoras extends Component
 {
@@ -62,8 +63,8 @@ class Impresoras extends Component
             'interface' => $this->interface,
         ]);
 
-        session()->flash('message', 'Impresora creada exitosamente.');
-
+        
+        $this->emit("mensaje-alert",'Impresora creada exitosamente.');
         $this->closeModal();
         $this->resetInputFields();
     }
@@ -95,16 +96,34 @@ class Impresoras extends Component
             'default' => $this->default,
             'interface' => $this->interface,
         ]);
-
-        session()->flash('message', 'Impresora actualizada exitosamente.');
+        $this->emit("mensaje-alert",'Impresora actualizada exitosamente.');
+       
 
         $this->closeModal();
         $this->resetInputFields();
     }
 
+  
     public function delete($id)
     {
-        Impresora::find($id)->delete();
-        session()->flash('message', 'Impresora eliminada exitosamente.');
+        $negocio_id = auth()->user()->negocio->id;
+        $impresoras = impresora::where('negocio_id', $negocio_id)->get();
+        $impresora = impresora::find($id);
+
+        // Si hay más de una impresora, eliminar la impresora y actualizar los productos
+        if ($impresoras->count() > 1) {
+            $next_impresora = $impresoras->where('id', '!=', $id)->first();
+
+            // Actualizar los productos que se imprimen en la impresora que se va a eliminar
+            $productos = producto::where('id_negocio', $negocio_id)
+                                ->where('impresora_id', $impresora->id)
+                                ->update(['impresora_id' => $next_impresora->id]);
+
+            $impresora->delete();
+            $this->emit("mensaje-alert-btn","todos los productos que se imprimen en esa imresora seran cambiados a la siguiente impresora   ");
+        }
+        else {
+            $this->emit("mensaje-alert", "Debes tener registrada al menos una impresora.");
+        }
     }
 }

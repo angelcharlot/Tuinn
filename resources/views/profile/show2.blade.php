@@ -20,7 +20,9 @@
             <div class="mt-10 sm:mt-0">
                 @livewire('config')
             </div>
-
+            <div class="mt-10 sm:mt-0">
+                @livewire('impresoras')
+            </div>
             @endcan
             <x-jet-section-border />
             

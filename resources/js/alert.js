@@ -10,6 +10,30 @@
         })
 
     });
+   
+    Livewire.on('mensaje-alert-btn', function (mensaje) {
+        Swal.fire({
+            icon: 'info',
+            text: mensaje,
+            toast: true,
+            position: 'top-end',
+            timer: 5000,
+            showConfirmButton: true,
+            confirmButtonText: 'Cerrar'
+        });
+    });
+    Livewire.on('mensaje-alert', function (mensaje) {
+        Swal.fire({
+            icon: 'info',
+            text: mensaje,
+            toast: true,
+            position: 'top-end',
+            timer: 5000,
+            showConfirmButton: false,
+           
+        });
+    });
+  
     Livewire.on('productoAgregado', function(){
         Swal.fire({
             toast: true,

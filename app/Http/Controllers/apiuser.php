@@ -168,7 +168,7 @@ class apiuser extends Controller
 
 
     }
-    public function comandar(request $request){
+    public function comandar(request $request){ 
 
         
         //recuperer datos 
@@ -364,7 +364,7 @@ class apiuser extends Controller
           ));
           curl_setopt($cliente, CURLOPT_POST, true);
           curl_setopt($cliente, CURLOPT_POSTFIELDS, $encodedData);
-        $respuesta=curl_exec($cliente);
+          $respuesta=curl_exec($cliente);
           //dd($respuesta);
           curl_close($cliente); 
   
