@@ -31,19 +31,31 @@
         <div class="grid gap-5 mt-10 mb-8 md:grid-cols-2 lg:grid-cols-3">
 
 
-            @forelse ($areas as $area)
-                <div wire:click="seleccionar({{ $area->id }})"
-                    class="p-5 duration-300 transform bg-white border rounded shadow-sm hover:-translate-y-2">
-                    <div class="flex items-center justify-center w-12 h-12 mb-4 rounded-full bg-indigo-50">
-                        <img src="{{ asset('storage/banner/mesas.png') }}" alt="">
+            @foreach ($areas as $area)
+                @if (count($area->mesas) > 0)
+                    <div wire:click="seleccionar({{ $area->id }})"
+                        class="p-5 duration-300 transform bg-white border rounded shadow-sm hover:-translate-y-2">
+                        <div class="flex items-center justify-center w-12 h-12 mb-4 rounded-full bg-indigo-50">
+                            <img src="{{ asset('storage/banner/mesas.png') }}" alt="">
+                        </div>
+                        <h6 class="mb-2 font-semibold leading-5">{{ $area->name }}</h6>
+                        <p class="text-sm text-gray-900">
+                            tienes un total de {{ count($area->mesas) }} mesas en esta area
+                        </p>
                     </div>
-                    <h6 class="mb-2 font-semibold leading-5">{{ $area->name }}</h6>
-                    <p class="text-sm text-gray-900">
-                        tienes un total de {{ count($area->mesas) }} mesas en esta area
-                    </p>
-                </div>
-            @empty
-            @endforelse
+                @else
+                    <div wire:click="seleccionar({{ $area->id }})"
+                        class=" text-red-500 bg-red-100 p-5 duration-300 transform  border rounded shadow-sm hover:-translate-y-2">
+                        <div class="flex items-center justify-center w-12 h-12 mb-4 rounded-full">
+                            <img src="{{ asset('storage/banner/mesas.png') }}" alt="">
+                        </div>
+                        <h6 class="mb-2 font-semibold leading-5">{{ $area->name }}</h6>
+                        <p class="text-sm  font-bold">
+                            Clickea aqui para registrar tus mesas en esta area.
+                        </p>
+                    </div>
+                @endif
+            @endforeach
 
 
         </div>
@@ -188,23 +200,23 @@
                         </h3>
                         <form class="space-y-6" action="#">
                             <div>
-                                
-                                <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">numero</label>
+
+                                <label
+                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">numero</label>
                                 <select wire:model="name_mesa"
                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                                     <option value="">Seleccione</option>
                                     @for ($i = 1; $i < 300; $i++)
                                         @php
-                                            $bn=sizeof($area_selec->mesas->where("nro","=",$i));
+                                            $bn = sizeof($area_selec->mesas->where('nro', '=', $i));
                                         @endphp
-                                        @if($bn==0)
-                                        <option value="{{$i}}">{{$i}}</option> 
-                                        
+                                        @if ($bn == 0)
+                                            <option value="{{ $i }}">{{ $i }}</option>
                                         @endif
                                     @endfor
                                 </select>
                             </div>
-                            <button type="button" wire:click="agregar_mesa({{$area_selec->id}})"
+                            <button type="button" wire:click="agregar_mesa({{ $area_selec->id }})"
                                 class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Guardar</button>
 
                         </form>

@@ -5,6 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 use App\Models\negocio;
+use App\Models\mesa;
 class CheckIncompleteConfigurations
 {
     /**
@@ -33,8 +34,25 @@ class CheckIncompleteConfigurations
             $config_faltantes+=1;
         }
         if($negocio->config->host_server_printer=="" or $negocio->config->port_server_printer=="" ){
-            $config_faltantes+=1;
-            
+            $config_faltantes+=1;  
+        }
+        if ($negocio->name="") {
+            $config_faltantes+=1;  
+        }
+        if ($negocio->telefono1="") {
+            $config_faltantes+=1;  
+        }
+        if ($negocio->img="") {
+            $config_faltantes+=1;  
+        }
+        
+
+        foreach ($negocio->areas as $key => $area) {
+           
+            if (count($area->mesas)<=0) {
+                $config_faltantes+=1;
+            }
+
         }
 
         if ($config_faltantes > 0) {

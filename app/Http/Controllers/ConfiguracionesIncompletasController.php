@@ -21,6 +21,16 @@ class ConfiguracionesIncompletasController extends Controller
             ];
 
         }
+        foreach ($negocio->areas as $key => $area) {
+           
+            if (count($area->mesas)<=0) {
+                $config_fantantes[]= [
+                    "mensaje"=>"deves registrar las mesas correspondientes en cada area, no puedes tener areas sin mesas",
+                    "url"=> route('areaymesa.index'),
+                ];
+            }
+
+        }
 
         if(count($negocio->categorias)<=0){
             $config_fantantes[]=
@@ -51,6 +61,34 @@ class ConfiguracionesIncompletasController extends Controller
             ];
             
         }
+        if($negocio->img=="" ){
+            $config_fantantes[]= [
+                "mensaje"=>"carga una imagen o el logo de tu negocio",
+                "url"=> route('profile.show2'),
+            ];
+            
+        }
+        if($negocio->name=="" ){
+            $config_fantantes[]= [
+                "mensaje"=>"registra el nombre de tu negocio",
+                "url"=> route('profile.show2'),
+            ];
+            
+        }
+        if($negocio->telfono1=="" ){
+            $config_fantantes[]= [
+                "mensaje"=>"registra por lo menos un telefono de contacto",
+                "url"=> route('profile.show2'),
+            ];
+            
+        }
+
+    
+
+
+
+
+
 
         $config_fantantes=collect( $config_fantantes);
 
