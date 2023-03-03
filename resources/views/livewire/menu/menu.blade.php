@@ -26,17 +26,20 @@
     <div wire:ignore.self class="container mx-auto mt-2 bg-local rounded-md shadow-sm pb-28">
         <div class="grid items-center justify-center grid-cols-6 gap-4 p-4">
             <div class="col-span-2 md:col-span-1">
-                <img id="imagen_logo" class="object-cover w-24 h-24 border-4 border-white rounded-full shadow-md" src="{{ asset($negocio->img) }}" alt="">
+                <img id="imagen_logo" class="object-cover w-24 h-24 border-4 border-white rounded-full shadow-md"
+                    src="{{ asset($negocio->img) }}" alt="">
             </div>
             <div class="col-span-4 md:col-span-5">
-                <h2 class="mb-2 text-2xl font-bold text-center text-gray-700 capitalize  font-Lobster md:text-left">{{ $negocio->name }}</h2>
+                <h2 class="mb-2 text-2xl font-bold text-center text-gray-700 capitalize  font-Lobster md:text-left">
+                    {{ $negocio->name }}</h2>
             </div>
         </div>
 
         <div class="w-1/2 m-5">
             <label for="idioma" class="block text-sm font-medium text-gray-700">Idioma</label>
             <div class="relative mt-1">
-                <select wire:model.debounce="idioma" id="idioma" name="idioma" class="block w-full pl-3 pr-10 text-base border-gray-300 rounded-md appearance-none focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+                <select wire:model.debounce="idioma" id="idioma" name="idioma"
+                    class="block w-full pl-3 pr-10 text-base border-gray-300 rounded-md appearance-none focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
                     <option value="es" class="font-bold text-gray-900">Español</option>
                     <option value="en" class="font-bold text-gray-900">Inglés</option>
                     <option value="fr" class="font-bold text-gray-900">Francés</option>
@@ -44,13 +47,14 @@
                     <option value="de" class="font-bold text-gray-900">Alemán</option>
                 </select>
                 <div class="absolute inset-y-0 right-0 flex items-center px-2 pointer-events-none">
-                    <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
                     </svg>
                 </div>
             </div>
         </div>
-        
+
         <div
             class="container w-11/12 px-2 py-1 mx-auto border-b border-gray-200 border-light shadow-card sm:px-6 md:px-8 md:py-2">
             <ul class="flex items-center">
@@ -69,36 +73,36 @@
                 {{-- migas --}}
                 <ul class="flex flex-wrap gap-2 text-sm text-gray-600">
                     @foreach ($migas as $index => $miga)
-                      <li>
-                        <a wire:click="nav_categorias('{{ $miga['id'] }}')"
-                           class="transition-colors duration-200 hover:text-gray-900 focus:text-gray-900 {{ $index === 0 ? '' : 'flex items-center' }}"
-                        >
-                          {{ $miga['name'] }}
-                        </a>
-                        @if ($index < count($migas) - 1)
-                          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mx-2 text-gray-400" viewBox="0 0 20 20" fill="currentColor">
-                            <path fill-rule="evenodd" d="M6.707 7.293a1 1 0 0 1 0 1.414L3.414 12l3.293 3.293a1 1 0 1 1-1.414 1.414L2 13.414a1 1 0 0 1 0-1.414L5.293 8.707a1 1 0 0 1 1.414 0z" clip-rule="evenodd" />
-                          </svg>
-                        @endif
-                      </li>
+                        <li>
+                            <a wire:click="nav_categorias('{{ $miga['id'] }}')"
+                                class="transition-colors duration-200 hover:text-gray-900 focus:text-gray-900 {{ $index === 0 ? '' : 'flex items-center' }}">
+                                {{ $miga['name'] }}
+                            </a>
+                            @if ($index < count($migas) - 1)
+                                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mx-2 text-gray-400"
+                                    viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd"
+                                        d="M6.707 7.293a1 1 0 0 1 0 1.414L3.414 12l3.293 3.293a1 1 0 1 1-1.414 1.414L2 13.414a1 1 0 0 1 0-1.414L5.293 8.707a1 1 0 0 1 1.414 0z"
+                                        clip-rule="evenodd" />
+                                </svg>
+                            @endif
+                        </li>
                     @endforeach
-                  </ul>
+                </ul>
             </ul>
         </div>
         {{-- selector de categorias --}}
 
         <div class="container grid w-11/12 max-w-screen-xl grid-cols-4 gap-1 mx-auto mt-2 mb-5">
             @foreach ($categorias as $categoria)
-
-              <button wire:click="nav_categorias('{{ $categoria->id }}')" class="flex items-center justify-center gap-2 p-2 text-xs font-medium text-white bg-blue-500 border border-blue-600 rounded-md shadow-md cursor-pointer hover:bg-indigo-500 hover:border-indigo-600 hover:text-white">
-                <i class="bi bi-filter"></i>
-                <span class=" md:inline-block">{{ $categoria->name }}</span>
-              </button>
-                            
-              
+                <button wire:click="nav_categorias('{{ $categoria->id }}')"
+                    class="flex items-center justify-center gap-2 p-2 text-xs font-medium text-white bg-blue-500 border border-blue-600 rounded-md shadow-md cursor-pointer hover:bg-indigo-500 hover:border-indigo-600 hover:text-white">
+                    <i class="bi bi-filter"></i>
+                    <span class=" md:inline-block">{{ $categoria->name }}</span>
+                </button>
             @endforeach
-          </div>
-          
+        </div>
+
 
         {{-- cartas de los productos --}}
         <div wire:change wire:target="idioma"
@@ -115,10 +119,10 @@
 
                 {{-- cartita --}}
                 @foreach ($productos->where('descrip3', '=', $apartado->descrip3)->where('activo', '=', 1) as $key => $producto)
-                @php
-                $imagenes = ['morado.png', 'verde.png', 'negro.png', 'rojo.png'];
-                $imagen_actual = $imagenes[$key % count($imagenes)];
-                @endphp
+                    @php
+                        $imagenes = ['morado.png', 'verde.png', 'negro.png', 'rojo.png'];
+                        $imagen_actual = $imagenes[$key % count($imagenes)];
+                    @endphp
                     <div wire:click.prefetch="producto('{{ $producto->id }}')"
                         class="relative p-2 m-2 rounded-md shadow-md bg-gray-50 hover:shadow-lg hover:bg-gray-100">
                         <div class="relative overflow-hidden rounded-md h-52">
@@ -126,10 +130,12 @@
                                 alt="{{ $producto->name }}">
                             <div
                                 class="absolute top-0 bottom-0 left-0 z-10 flex justify-center w-full h-full bg-transparent ">
-                                 <img class="absolute mascara-carnaval top-2 right-2"
-                                 src="{{ asset('storage/banner/' . $imagen_actual) }}" height="45" width="45"
-                                    alt="Máscara de carnaval"> 
-                                <div class="absolute bottom-0 text-xl w-full font-bold text-center text-white bg-black opacity-50">{{ $producto->name }}</div>
+                                <img class="absolute mascara-carnaval top-2 right-2"
+                                    src="{{ asset('storage/banner/' . $imagen_actual) }}" height="45" width="45"
+                                    alt="Máscara de carnaval">
+                                <div
+                                    class="absolute bottom-0 text-xl w-full font-bold text-center text-white bg-black opacity-50">
+                                    {{ $producto->name }}</div>
                             </div>
                         </div>
                         <div class="px-2 py-3">
@@ -182,7 +188,7 @@
     </div>
     {{-- 3  datos del negocio --}}
     <div
-        class="fixed bottom-0 grid w-full grid-cols-3 p-2 mx-auto text-xs text-white bg-black border-t-2 border-indigo-300">
+        class="fixed bottom-0 z-50 grid w-full grid-cols-3 p-2 mx-auto text-xs text-white bg-black border-t-2 border-black-300">
         <div>
             <div class="w-full text-left">
                 Direccion: {{ $negocio->direccion }}
@@ -200,7 +206,7 @@
             <a href="whatsapp://send?text=https://tuinn.es/menu/1"
                 class="flex items-center justify-center px-4 py-2 font-semibold text-white bg-green-500 rounded-lg focus:outline-none focus:shadow-outline-green hover:bg-green-600">
                 <span class="text-xl text-white  bi bi-whatsapp"></span>
-        </a>
+            </a>
         </div>
         <div class="col-span-3 mx-auto text-xs">
             designer by ING. Angel Charlot, olvera cadiz
@@ -303,25 +309,25 @@
         <x-slot name="title">
             <h1 class="font-Lobster text-center w-full text-lg">¡Celebra la Semana Santa con nosotros!</h1>
         </x-slot>
-    
+
         <x-slot name="content">
             <div class="relative h-96">
-                <img class="absolute top-0 left-0 w-full h-full "
-                src="{{ asset('storage/banner/mensaje.png') }}"
-                     alt="Imagen de fondo del modal">
-                     <div class="absolute inset-0 flex items-center justify-center">
-                        <div class="text-center">
-                            <h1 class="text-black text-xl font-Lobster font-bold">{{$negocio->name}}</h1>
-                            <p class="text-lg text-justify font-Lobster text-gray-700 mt-2">"Les deseamos una feliz Semana Santa, disfrutando de nuestras tapas, platos y sugerencias gastronómicas."</p>
-                        </div>
+                <img class="absolute top-0 left-0 w-full h-full " src="{{ asset('storage/banner/mensaje.png') }}"
+                    alt="Imagen de fondo del modal">
+                <div class="absolute inset-0 flex items-center justify-center">
+                    <div class="text-center">
+                        <h1 class="text-black text-xl font-Lobster font-bold">{{ $negocio->name }}</h1>
+                        <p class="text-lg text-justify font-Lobster text-gray-700 mt-2">"Les deseamos una feliz Semana
+                            Santa, disfrutando de nuestras tapas, platos y sugerencias gastronómicas."</p>
                     </div>
-                  {{--   <img class="absolute top-0 left-0 w-full h-full "
+                </div>
+                {{--   <img class="absolute top-0 left-0 w-full h-full "
                 src="{{ asset('storage/banner/vela.png') }}"
                      alt="Imagen de fondo del modal"> --}}
-                    
+
             </div>
         </x-slot>
-    
+
         <x-slot name="footer">
             <!-- Botones del pie de página del modal -->
             <x-jet-secondary-button wire:click="$set('modalVisible',false)" wire:loading.attr="disabled">
