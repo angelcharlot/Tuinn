@@ -25,7 +25,10 @@ class apiuser extends Controller
     public function index(request $request){
         $respuesta=[];
         $pass=json_decode($request->pass);
+        
         $usuario=User::where('email','=',$request->email)->first();
+
+
         $negocio=negocio::find($usuario->id_negocio);
         $negocio->img=asset($negocio->img);
         $negocio->img_qr=asset("storage/qr/")."/".$negocio->id.".png";

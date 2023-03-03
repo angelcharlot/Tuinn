@@ -5,14 +5,15 @@
 @endsection 
 @section('body')
 {{--nieve--}
-{{-- <div class="tpl-snow w-full">
+{{-- <div class="w-full tpl-snow">
     <div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
     <div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
     <div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
     <div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
 </div> --}}
 {{-- CONFETIS --}}
-<div id="confettis">
+{{-- <div id="confettis">
+
     <div class="confetti"></div>
     <div class="confetti"></div>
     <div class="confetti"></div>
@@ -37,7 +38,8 @@
     <div class="confetti"></div>
     <div class="confetti"></div>
 
-  </div>
+</div> --}}
+
 @livewire('menu.menu',['id_negocio' => $id_negocio])
 @endsection
  @push('js')

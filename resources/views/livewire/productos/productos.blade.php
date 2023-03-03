@@ -42,7 +42,7 @@
 
         <div class="flex flex-row w-full my-3"> 
             
-            <div class=" text-right p-2"><i class="bi bi-search"></i></div>
+            <div class=" text-right p-2"><i title="" class="bi bi-search"></i></div>
             <div class="w-2/6"><input wire:model="search" type="text" class="focus:outline-none focus:shadow-md   focus:bg-gray-100 focus:border-gray-600" ></div>
             
             
@@ -103,17 +103,17 @@
                      
                         <td class=" hidden md:table-cell ">
                             <button wire:click="edit({{$producto->id }})"
-                                class="px-2  bg-indigo-200 text-indigo-500 hover:bg-indigo-500 hover:text-white rounded"><i class="bi bi-pencil"></i></button>
+                                class="px-2  bg-indigo-200 text-indigo-500 hover:bg-indigo-500 hover:text-white rounded"><i title="editar" class="bi bi-pencil" ></i></button>
                             <button wire:click="copiar({{ $producto->id }})"
-                                class="px-2 copiar disabled:bg-blue-800 bg-green-200 text-green-500 hover:bg-green-500 hover:text-white rounded"><i class="bi bi-clipboard-plus"></i></button>
+                                class="px-2 copiar disabled:bg-blue-800 bg-green-200 text-green-500 hover:bg-green-500 hover:text-white rounded"><i title="copiar producto" class="bi bi-clipboard-plus"></i></button>
                             <button wire:click="$emit('borrar',{{ $producto->id }})"
-                                class="px-2   bg-red-200 text-red-500 hover:bg-red-500 hover:text-white rounded"><i class="bi bi-trash"></i></button>
+                                class="px-2   bg-red-200 text-red-500 hover:bg-red-500 hover:text-white rounded"><i title="eliminar" class="bi bi-trash"></i></button>
                             @if ($producto->activo==1)
                             <button wire:click="pausar({{ $producto->id }})"
-                                class="px-2  bg-indigo-200 text-indigo-500 hover:bg-indigo-500 hover:text-white rounded"><i class="bi bi-pause-circle"></i></button>
+                                class="px-2  bg-indigo-200 text-indigo-500 hover:bg-indigo-500 hover:text-white rounded"><i title="quitar de la carta" class="bi bi-pause-circle"></i></button>
                             @else
                             <button wire:click="reanudar({{ $producto->id }})"
-                                class="px-2  bg-indigo-200 text-indigo-500 hover:bg-indigo-500 hover:text-white rounded"><i class="bi bi-play"></i></button>
+                                class="px-2  bg-indigo-200 text-indigo-500 hover:bg-indigo-500 hover:text-white rounded"><i title="mostrar en carta" class="bi bi-play"></i></button>
                             @endif
                         </td>
                     </tr>
@@ -154,19 +154,24 @@
                     </tr>
                     <tr class="visible md:hidden ">
                         <td class=" border-slate-100  p-2 md:p-4 text-gray-500" colspan="5">
-                            <button wire:click="edit({{ $producto->id }})"
-                                class="px-2  bg-indigo-200 text-indigo-500 hover:bg-indigo-500 hover:text-white rounded"><i class="bi bi-pencil"></i></button>
-                            <button wire:click="copiar({{ $producto->id }})"
-                                class="px-2 copiar disabled:bg-blue-800 bg-green-200 text-green-500 hover:bg-green-500 hover:text-white rounded"><i class="bi bi-clipboard-plus"></i></button>
+                            <button title="" wire:click="edit({{ $producto->id }})"
+                                class="px-2  bg-indigo-200 text-indigo-500 hover:bg-indigo-500 hover:text-white rounded">
+                                <i title="editar" class="bi bi-pencil"></i></button>
+                            <button title="" wire:click="copiar({{ $producto->id }})"
+                                class="px-2 copiar disabled:bg-blue-800 bg-green-200 text-green-500 hover:bg-green-500 hover:text-white rounded">
+                                <i title="copiar producto" class="bi bi-clipboard-plus"></i></button>
 
-                            <button wire:click="$emit('borrar',{{ $producto->id }})"
-                                class="px-2   bg-red-200 text-red-500 hover:bg-red-500 hover:text-white rounded"><i class="bi bi-trash"></i></button>
+                            <button title="" wire:click="$emit('borrar',{{ $producto->id }})"
+                                class="px-2   bg-red-200 text-red-500 hover:bg-red-500 hover:text-white rounded">
+                                <i title="eliminar" class="bi bi-trash"></i></button>
                              @if ($producto->activo==1)
-                            <button wire:click="pausar({{ $producto->id }})"
-                                class="px-2  bg-indigo-200 text-indigo-500 hover:bg-indigo-500 hover:text-white rounded"><i class="bi bi-pause-circle"></i></button>
+                            <button title="" wire:click="pausar({{ $producto->id }})"
+                                class="px-2  bg-indigo-200 text-indigo-500 hover:bg-indigo-500 hover:text-white rounded">
+                                <i title="quitar de la carta" class="bi bi-pause-circle"></i></button>
                             @else
-                            <button wire:click="reanudar({{ $producto->id }})"
-                                class="px-2  bg-indigo-200 text-indigo-500 hover:bg-indigo-500 hover:text-white rounded"><i class="bi bi-play"></i></button>
+                            <button title="" wire:click="reanudar({{ $producto->id }})"
+                                class="px-2  bg-indigo-200 text-indigo-500 hover:bg-indigo-500 hover:text-white rounded">
+                                <i title="mostrar en carta" class="bi bi-play"></i></button>
                             @endif
                         </td>
                     </tr>

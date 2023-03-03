@@ -28,6 +28,7 @@ class Menu extends Component
     public $agente;
     public $alargenos;
     public $apartados;
+    public  $modalVisible =true;
 
 
     public function mount(Request $request)
