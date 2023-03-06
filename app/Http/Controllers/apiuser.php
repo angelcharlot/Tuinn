@@ -24,55 +24,60 @@ class apiuser extends Controller
 
     public function index(request $request){
         $respuesta=[];
+        $respuesta["mensaje"]="";
+
         $pass=json_decode($request->pass);
         
+
         $usuario=User::where('email','=',$request->email)->first();
+        if (!$usuario) {
+            $respuesta['mensaje'] = '1';
+            return json_encode($respuesta);
+        }else{
+            if(!Hash::check($pass,$usuario->password)){
+                $respuesta['mensaje'] = '2';
+                return json_encode($respuesta);
 
-
-        $negocio=negocio::find($usuario->id_negocio);
-        $negocio->img=asset($negocio->img);
-        $negocio->img_qr=asset("storage/qr/")."/".$negocio->id.".png";
-        $areas=area::where("negocio_id","=",$negocio->id)->get();
-        foreach ($areas as  $area) {
-            foreach ($area->mesas as  $mesa) {
-                if ($mesa->documento->where("estado","=","activa")->first()) {
-                    $mesa->doc_activo=1;
-                    $mesa->id_doc_activo=$mesa->documento->where("estado","=","activa")->first()->id;
-                    $mesa->total_doc=$mesa->documento->where("estado","=","activa")->first()->total;
-                    unset($mesa->documento);
-                }else{
-                    $mesa->doc_activo=0;
-                    unset($mesa->documento);
+            }else{
+                $respuesta['mensaje'] = '3';
+                $negocio=negocio::find($usuario->id_negocio);
+                $negocio->img=asset($negocio->img);
+                $negocio->img_qr=asset("storage/qr/")."/".$negocio->id.".png";
+                $areas=area::where("negocio_id","=",$negocio->id)->get();
+                foreach ($areas as  $area) {
+                    foreach ($area->mesas as  $mesa) {
+                        if ($mesa->documento->where("estado","=","activa")->first()) {
+                            $mesa->doc_activo=1;
+                            $mesa->id_doc_activo=$mesa->documento->where("estado","=","activa")->first()->id;
+                            $mesa->total_doc=$mesa->documento->where("estado","=","activa")->first()->total;
+                            unset($mesa->documento);
+                        }else{
+                            $mesa->doc_activo=0;
+                            unset($mesa->documento);
+                        }
+                    } 
                 }
-            } 
-        }
-
-        $categorias=$negocio->categorias;
-        unset($negocio->categorias);
-        foreach ($categorias as $key => $categoria) {
-           $categoria->productos;
-           
-           foreach ($categoria->productos as $key => $value) {
-               $value->presentaciones;
-           }
-        }
-
-
-
-        $productos=productos::where("id_negocio","=",$negocio->id)->get() ;
-        foreach ($productos as $key => $value) {
-            $value->presentaciones;
-        }
-     
+        
+                $categorias=$negocio->categorias;
+                unset($negocio->categorias);
+                foreach ($categorias as $key => $categoria) {
+                   $categoria->productos;
+                   
+                   foreach ($categoria->productos as $key => $value) {
+                       $value->presentaciones;
+                   }
+                }
         
         
-        unset($negocio->documentos);
-   
-
-        if ($usuario) {
-            if(Hash::check($pass,$usuario->password)){
+        
+                $productos=productos::where("id_negocio","=",$negocio->id)->get() ;
+                foreach ($productos as $key => $value) {
+                    $value->presentaciones;
+                }
+             
                 
                 
+                unset($negocio->documentos); 
                 $respuesta["areas"]=$areas;
                 $respuesta['usuario']=$usuario;
                 $respuesta["negocio"]=$negocio;
@@ -80,8 +85,10 @@ class apiuser extends Controller
                 $respuesta["categorias"]=$categorias;
                 return json_encode($respuesta);
             }
-            
         }
+
+        
+      
         
     }
     public function mesas(request $request){
