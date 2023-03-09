@@ -1,10 +1,7 @@
-@extends('layouts/Coffeemaker')
+@extends('layouts/menu')
 
 @section('body')
-
-  @livewire('venta') 
-
-
+    @livewire('venta', ['caja' => $caja,'caso' =>$caso])
 @endsection
 
 

@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\caja;
 use SimpleSoftwareIO\QrCode\Facades\QrCode ;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Storage;
@@ -72,7 +73,29 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function(){
     })->middleware('aut_negocio')->name('productos.index');
 
     Route::get('/ventas', function () {
-    return view('ventas/index');
+        $negocio = negocio::find(auth()->user()->negocio->id);
+        // Verificar si la cookie 'my_cookie' existe
+
+        if (Cookie::has('caja')) {
+            // Si la cookie existe, obtener su valor
+            $caja = Cookie::get('caja');
+            // Hacer algo con el valor de la cookie
+            return view('ventas/index', ['caja' => $caja,'caso'=>1]);
+        } else {
+
+            // Si la cookie no existe, crearla con un valor y tiempo de expiración
+            $caja = new caja();
+            $caja->nombre = "caja-" . count($negocio->cajas);
+            $caja->negocio_id = $negocio->id;
+            $caja->saldo_actual = 0;
+            $caja->save();
+
+            $value = $caja->nombre;
+            $minutes = 60*24*365*5;
+            $response = new Illuminate\Http\Response(view('ventas/index', ['caja' => $value,'caso'=>2]));
+            $response->withCookie(cookie('caja', $value, $minutes));
+            return $response;
+        }
     })->middleware('check-incomplete-configurations')->name('ventas.index');
 
     Route::get('/show2', function () {

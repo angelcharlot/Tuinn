@@ -42,6 +42,10 @@ class negocio extends Model
     public function config() {
         return $this->hasOne('App\Models\config');
       }
+      public function cajas()
+      {
+          return $this->hasMany('App\Models\caja');
+      }
 
 
 }
