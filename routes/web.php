@@ -53,8 +53,13 @@ Route::get('/configuraciones', 'App\Http\Controllers\ConfiguracionesIncompletasC
 /////////////////////////////////////////////////////////////////////////////////*/
 Route::middleware(['auth:sanctum', 'verified'])->group(function(){
 
-  
-   
+    //ruta para error de cooki de caja//control de entrada a caja 
+    Route::get('/caja/error', 'App\Http\Controllers\caja_error@index')->name('caja_error');
+    Route::post('/cajas', 'App\Http\Controllers\caja_error@store')->name('cajas.create');
+    Route::get('/cajas/cookin', 'App\Http\Controllers\caja_error@createcookin')->name('cajas.cookin');
+
+
+
     Route::get('/dashboard', function () {
     return view('dashboard');
     })->middleware('aut_negocio','check-incomplete-configurations')->name('dashboard');
@@ -69,34 +74,13 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function(){
     })->middleware('aut_negocio')->name('negocio.index');
 
     Route::get('/productos/index', function () {
-    return view('productos/index');
+        return view('productos/index');
     })->middleware('aut_negocio')->name('productos.index');
 
+    
     Route::get('/ventas', function () {
-        $negocio = negocio::find(auth()->user()->negocio->id);
-        // Verificar si la cookie 'my_cookie' existe
-
-        if (Cookie::has('caja')) {
-            // Si la cookie existe, obtener su valor
-            $caja = Cookie::get('caja');
-            // Hacer algo con el valor de la cookie
-            return view('ventas/index', ['caja' => $caja,'caso'=>1]);
-        } else {
-
-            // Si la cookie no existe, crearla con un valor y tiempo de expiración
-            $caja = new caja();
-            $caja->nombre = "caja-" . count($negocio->cajas);
-            $caja->negocio_id = $negocio->id;
-            $caja->saldo_actual = 0;
-            $caja->save();
-
-            $value = $caja->nombre;
-            $minutes = 60*24*365*5;
-            $response = new Illuminate\Http\Response(view('ventas/index', ['caja' => $value,'caso'=>2]));
-            $response->withCookie(cookie('caja', $value, $minutes));
-            return $response;
-        }
-    })->middleware('check-incomplete-configurations')->name('ventas.index');
+        return view('ventas.index');
+    })->middleware('check-incomplete-configurations','chekeo_de_caja')->name('ventas.index');
 
     Route::get('/show2', function () {
     return view('profile.show2');

@@ -39,7 +39,7 @@ class Venta extends Component
     public $monto_caja;
     public $caja;
     public $diferencia_caja;
-    public function mount($caja,$caso)
+    public function mount()
     {
         $this->productoselect = new productos();
         $this->productos = productos::where('id_negocio', '=', auth()->user()->negocio->id)->get();
@@ -50,24 +50,10 @@ class Venta extends Component
         $this->presentaciones = presentacion::all();
         $this->detalles = [];
         $this->total = 0;
-        $this->caja = Caja::where('nombre',$caja)->first();
+
+        $this->caja = Caja::where('nombre',request()->cookie('caja'))->first();
         
-        $negocio = negocio::find(auth()->user()->negocio->id);
-      
-        if ($caso==2) {
-            
-          
-            $this->modal_caja = true;
-       
-        } else {
-            
-            $this->modal_caja = false;
-
-        }
-
-
-
-
+    
 
     }
 

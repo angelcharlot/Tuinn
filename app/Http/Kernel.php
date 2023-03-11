@@ -65,6 +65,7 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'aut_negocio' => \App\Http\Middleware\aut_negocio::class,
         'check-incomplete-configurations' => \App\Http\Middleware\CheckIncompleteConfigurations::class,
+        'chekeo_de_caja' => \App\Http\Middleware\chekeo_de_caja::class,
     
     ];
 }

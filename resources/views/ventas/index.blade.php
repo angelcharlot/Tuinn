@@ -1,7 +1,11 @@
 @extends('layouts/menu')
 
 @section('body')
-    @livewire('venta', ['caja' => $caja,'caso' =>$caso])
+
+@livewire('venta', [
+    'caja' => session('caja'),
+    'caso' => session('caso')
+])
 @endsection
 
 
