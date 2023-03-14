@@ -5,11 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class caja extends Model
+class movimientocaja extends Model
 {
     use HasFactory;
-    public function apertura()
-    {
-        return $this->hasMany('App\Models\apertura_de_caja');
-    }
 }

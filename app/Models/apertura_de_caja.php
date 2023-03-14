@@ -13,5 +13,9 @@ class apertura_de_caja extends Model
     {
         return $this->belongsTo("App\Models\caja");
     }
+    public function movimientos()
+    {
+        return $this->hasMany("App\Models\movimientocaja");
+    }
 
 }
