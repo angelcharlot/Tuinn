@@ -30,7 +30,7 @@
                     src="{{ asset($negocio->img) }}" alt="">
             </div>
             <div class="col-span-4 md:col-span-5">
-                <h2 class="mb-2 text-2xl font-bold text-center text-gray-700 capitalize  font-Lobster md:text-left">
+                <h2 class="mb-2 text-2xl font-bold text-center text-gray-700 capitalize font-Lobster md:text-left">
                     {{ $negocio->name }}</h2>
             </div>
         </div>
@@ -130,11 +130,11 @@
                                 alt="{{ $producto->name }}">
                             <div
                                 class="absolute top-0 bottom-0 left-0 z-10 flex justify-center w-full h-full bg-transparent ">
-                                <img class="absolute mascara-carnaval top-2 right-2"
+                                {{-- <img class="absolute mascara-carnaval top-2 right-2"
                                     src="{{ asset('storage/banner/' . $imagen_actual) }}" height="45" width="45"
-                                    alt="Máscara de carnaval">
+                                    alt="Máscara de carnaval"> --}}
                                 <div
-                                    class="absolute bottom-0 text-xl w-full font-bold text-center text-white bg-black opacity-50">
+                                    class="absolute bottom-0 w-full text-xl font-bold text-center text-white bg-black opacity-50">
                                     {{ $producto->name }}</div>
                             </div>
                         </div>
@@ -205,7 +205,7 @@
         <div class="flex flex-col items-end justify-center px-4">
             <a href="whatsapp://send?text=https://tuinn.es/menu/1"
                 class="flex items-center justify-center px-4 py-2 font-semibold text-white bg-green-500 rounded-lg focus:outline-none focus:shadow-outline-green hover:bg-green-600">
-                <span class="text-xl text-white  bi bi-whatsapp"></span>
+                <span class="text-xl text-white bi bi-whatsapp"></span>
             </a>
         </div>
         <div class="col-span-3 mx-auto text-xs">
@@ -228,10 +228,10 @@
             </div>
         </x-slot>
         <x-slot name="content">
-            <div class="justify-center w-5/6 mx-auto h-36 md:h-48 ">
-                <img class="object-scale-down h-full mx-auto " src="{{ asset($producto_selecionado->img) }}"
-                    alt="Sunset">
+            <div class="justify-center w-full mx-auto h-52 md:h-48">
+                <img class="w-auto h-full mx-auto" src="{{ asset($producto_selecionado->img) }}" alt="Sunset">
             </div>
+            
             @foreach ($producto_selecionado->presentaciones as $presentacion)
                 <div class="w-5/6 mx-auto "
                     style="letter-spacing: -0.044em;font-weight: 600;font-size: 21px;font-style: italic;">
@@ -307,7 +307,7 @@
     {{-- modal de los mensajes --}}
     <x-jet-dialog-modal wire:model="modalVisible">
         <x-slot name="title">
-            <h1 class="font-Lobster text-center w-full text-lg">¡Celebra la Semana Santa con nosotros!</h1>
+            <h1 class="w-full text-lg text-center font-Lobster">¡Celebra la Semana Santa con nosotros!</h1>
         </x-slot>
 
         <x-slot name="content">
@@ -316,8 +316,8 @@
                     alt="Imagen de fondo del modal">
                 <div class="absolute inset-0 flex items-center justify-center">
                     <div class="text-center">
-                        <h1 class="text-black text-xl font-Lobster font-bold">{{ $negocio->name }}</h1>
-                        <p class="text-lg text-justify font-Lobster text-gray-700 mt-2">"Les deseamos una feliz Semana
+                        <h1 class="text-xl font-bold text-black font-Lobster">{{ $negocio->name }}</h1>
+                        <p class="mt-2 text-lg text-justify text-gray-700 font-Lobster">"Les deseamos una feliz Semana
                             Santa, disfrutando de nuestras tapas, platos y sugerencias gastronómicas."</p>
                     </div>
                 </div>

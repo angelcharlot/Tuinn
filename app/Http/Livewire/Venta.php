@@ -40,7 +40,9 @@ class Venta extends Component
     public $modal_caja = false;
     public $modal_apertura_de_caja = false;
     public $showModalingresoyegreso = false;
+    public $showModalcobrar=false;   
     public $monto_caja;
+    public $pago;
     public $caja, $apertura;
     public $diferencia_caja;
     public function mount()
@@ -352,7 +354,6 @@ class Venta extends Component
         $this->emit("mensaje-alert", "venta realizada");
 
     }
-
     public function envio_a_empre_tiket($data, $interface, $name_n, $direccion, $nif, $serie,$caja)
     {
 
@@ -380,6 +381,11 @@ class Venta extends Component
         curl_close($cliente);
 
 
+
+    }
+    public function cobrar(){
+
+        $this->showModalcobrar=true;
 
     }
 

@@ -36,7 +36,7 @@
 
             </div>
             {{-- area de opciones  --}}
-            <div class="grid w-full grid-cols-7 ">
+            <div class="grid w-full grid-cols-7 mt-5">
                 <button class="w-24 h-24 font-bold text-white bg-green-500 rounded-lg ">Cambio de mesas</button>
 
                 <button class="w-24 h-24 font-bold text-white bg-yellow-500 rounded-lg">venta en mesas</button>
@@ -100,7 +100,7 @@
                 <p class="font-bold text-gray-700">€{{ number_format($total, 2) }} </p>
             </div>
             <div class="flex justify-between gap-2 p-4">
-                <button wire:click="venta_en_barra_rapida"
+                <button wire:click="cobrar"
                     class="w-full px-4 py-2 mb-4 text-xs font-bold text-white bg-blue-500 rounded-lg hover:bg-blue-700 focus:outline-none focus:shadow-outline-blue">
                     Finalizar venta
                 </button>
@@ -265,6 +265,62 @@
             </x-jet-button>
         </x-slot>
     </x-jet-dialog-modal>
+        {{-- modal para ingresos y egresos --}}
+        <x-jet-dialog-modal wire:model="showModalcobrar">
+            <x-slot name="title">
+                Cobro
+            </x-slot>
+            <x-slot name="content">
+                <div class="p-4">
+                    <form wire:submit.prevent="finalizarVenta" class="space-y-4">
+                        <div class="flex items-center justify-between">
+                            <span class="font-bold text-lg">Total de la venta:</span>
+                            <span class="text-2xl font-bold">{{$total}}</span>
+                        </div>
+                
+                        <div class="flex flex-col space-y-2">
+                            <label for="cantidadRecibida" class="font-bold text-lg">Cantidad recibida:</label>
+                            <input wire:model.lazy="cantidadRecibida" type="number" step="0.01" class="border p-2 rounded-md" id="cantidadRecibida" required>
+                        </div>
+                
+                        <div class="flex flex-col space-y-2">
+                            <label class="font-bold text-lg">Cambio:</label>
+                            <input disabled value="{{$pago-$total}}" class="border p-2 rounded-md"  >
+                        </div>
+                
+                        <div class="flex flex-col space-y-2">
+                            <label for="metodoPago" class="font-bold text-lg">Método de pago:</label>
+                            <select wire:model="metodoPago" id="metodoPago" class="border p-2 rounded-md" required>
+                                <option value="">Selecciona un método de pago</option>
+                                <option value="efectivo">Efectivo</option>
+                                <option value="tarjeta">Tarjeta de crédito/débito</option>
+                                <option value="transferencia">Transferencia bancaria</option>
+                            </select>
+                        </div>
+                
+                        <div class="flex flex-col space-y-2">
+                            <label for="notas" class="font-bold text-lg">Notas:</label>
+                            <textarea wire:model.lazy="notas" id="notas" class="border p-2 rounded-md"></textarea>
+                        </div>
+                
+                
+                    </form>
+                </div>
+                
+            </x-slot>
+        
+            <x-slot name="footer">
+                <x-jet-secondary-button wire:click="$set('showModalcobrar',false)" wire:loading.attr="disabled">
+                    Cancelar
+                </x-jet-secondary-button>
+        
+                <x-jet-button wire:click="venta_en_barra_rapida" wire:loading.attr="disabled">
+                    cobrar
+                </x-jet-button>
+            </x-slot>
+        </x-jet-dialog-modal>
+        
+
 {{--     <x-jet-dialog-modal wire:model="showModacierre_caja">
     </x-jet-dialog-modal> --}}
     
