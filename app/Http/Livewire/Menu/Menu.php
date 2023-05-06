@@ -174,7 +174,7 @@ public function enviarwasap()
     $url = "https://graph.facebook.com/v16.0/102751036152700/messages";
 
     $headers = [
-        "Authorization: Bearer EAAK1XPFuHvcBAG9ped6M0BJ3XDhMZCoXZCc7IPJ9UVwOtOgRkyRZCHi8WVDNMoozTaN1VuUmF9Rp4tY85WJtdRX1ZAObEXcyZBjNKuLyp7nZBNxcxRb5vd7ZCzAe6lSMSotJZACkWEYjzrXdr9IF29SrqxSSe0nZA1dSBLUIBv29Q1hlrpo2H1rvA17VIMZASHQOgtysqx5qIt3wZDZD",
+        "Authorization: Bearer EAAK1XPFuHvcBAFpj84wZAN3GigrG4aF9lUCP291bETlQuyxE1FNCAU8GcGQXFX7sBZAZCJisVI5wuueQOJSVBus75IehaXUIEDe3W9PDZAJ93ksCHqzII6RN3an95QCXaBRZBZC4UT1A5XXj9j2XHRMH2pQXYFrlRqocMMaYRP0ulJDdoc4c7gkUlO4amlWMXweBBpZAy8OhAZDZD",
         "Content-Type: application/json"
     ];
 

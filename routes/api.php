@@ -14,4 +14,5 @@ Route::post('/imprimir_tiket', 'App\\Http\\Controllers\\apiuser@imprimir_tiket')
 Route::post('/cobrar', 'App\\Http\\Controllers\\apiuser@cobrar');
 Route::get('/whatsapp/incoming', 'App\\Http\\Controllers\\WhatsAppController@handleIncomingMessage');
 Route::post('/whatsapp/incoming', 'App\\Http\\Controllers\\WhatsAppController@recibir_mensajes');
+Route::get('/whatsapp/incomingg', 'App\\Http\\Controllers\\WhatsAppController@pruebaia');
 
