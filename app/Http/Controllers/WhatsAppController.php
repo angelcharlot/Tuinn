@@ -49,7 +49,8 @@ class WhatsAppController extends Controller
             $aiResponse->tipo = 'respuesta';
             $aiResponse->contenido = $responseText;
             $aiResponse->save();
-            Log::info('AI response saved: ', ['response' => $aiResponse->toArray()]);
+
+
 
             // Enviar la respuesta de OpenAI al usuario
             $this->enviarwasap($senderPhone, $responseText);
@@ -68,7 +69,7 @@ class WhatsAppController extends Controller
         $url = "https://graph.facebook.com/v16.0/106010125825283/messages";
 
         $headers = [
-            "Authorization: Bearer EAAK1XPFuHvcBAGUB6SeCDZA2VeyzvSPjLuTKKvTE1lvUpUAGfQ5VZA7sUM8wgPkrYmy9LhPnq9HCZAyYH1E2Nrom2Y9X9zZAqwMZBW8B6rLso14nCLFrqjEDTW4KiQQs2hDZApHKENqtdExeOi4prmEAV6nzzD5SjBllfIFp9SA58OdJcvAlBSoBpusGtGyZCZAJBhIyzdlO6QZDZD",
+            "Authorization: Bearer EAAK1XPFuHvcBAPH1rQ6MTrNA5bjQJ8LY18DfvMbK51rrhLBnYTRKhNQoC7f1CZB6aKYVk7UXayL77o35flpikcuzeI2N70AHjx8C3ZCpAY7YUTZAfMZC7w07eP7z6mqoz7zzAltxfdlcZAwyCEXPcfyaSZBiN1kztBUhCZAo4mTbQbuSfQftL0yKSts2QbirGnN8JtYVVZABKAZDZD",
             "Content-Type: application/json"
         ];
 
@@ -99,33 +100,7 @@ class WhatsAppController extends Controller
         //echo $response;
     }
 
-    public function pruebaia()
-    {
 
-
-
-        // Obtener información del negocio (bar)
-        $bar = negocio::find(1); // Asume que el negocio con id=1 es el bar Bodeguita mi pueblo
-
-        // Obtener algunos productos populares (por ejemplo, los 5 primeros productos activos)
-        $productosPopulares = Productos::where('id_negocio', $bar->id)->where('activo', 1)->orderBy('precio_venta', 'desc')->get();
-
-        // Construir el contexto con la conversación anterior y detalles del negocio
-        $contexto = "Eres el Encargado de reservas del bar {$bar->name}, ubicado en {$bar->direccion}, que tiene los horarios de lunes a viernes de 2 de la tarde a 5 de la tarde. Las reservas solo se pueden hacer a las 2 de la tarde. En base a esto,no puedes actar reservas que se sean a la 2 de la tarde,respnde sin espesificar que es una respuesta osea haslo de manera natural, tienes que conseguir que el cliente reserve. Hoy es " . date('Y-m-d') . ".\n\n";
-
-        $contexto .= "Algunos de nuestros productos populares son:\n";
-        foreach ($productosPopulares as $producto) {
-            $contexto .= "- {$producto->name} ({$producto->descrip}): \n";
-            foreach ($producto->presentaciones as $key => $presentacion) {
-                $contexto .= "presentacion " . $presentacion->name . " con precio :" . $presentacion->precio_venta . " \n";
-            }
-
-        }
-        $contexto .= "\n";
-
-        return $contexto;
-
-    }
     public function callOpenAI($prompt, $senderPhone)
     {
         // Obtener la conversación anterior basada en el número de teléfono
@@ -151,12 +126,8 @@ class WhatsAppController extends Controller
         $contexto .= "- Obtener confirmación del cliente y finalizar la conversación.\n";
         $contexto .= "- No ser insistente ni repetir las mismas cosas en varios mensajes.\n";
         $contexto .= "- Generar y devolver un JSON con los detalles de la reserva confirmada.\n";
-
         /*  $contexto .= "-en dado caso que las reservas esten completas, se dire al cliente que no se puede reservar pero que pueden ir a local y esperar por turno " . " \n"; */
-
-
-
-        /*         $contexto .= "Algunos de nuestros productos populares son:\n";
+        /*$contexto .= "Algunos de nuestros productos populares son:\n";
         foreach ($productosPopulares as $producto) {
         $contexto .= "- {$producto->name} ({$producto->descrip}): \n";
         foreach ($producto->presentaciones as $key => $presentacion) {
@@ -182,6 +153,10 @@ class WhatsAppController extends Controller
                 'content' => $message->contenido,
             ];
         }
+        $messages[] = [
+            'role' => 'assistant',
+            'content' => 'ok te Generare JSON con los detalles de la reserva confirmada(nombre,nro_per,fecha en formato(d/m/Y),preferencia).',
+        ];
         // Agregar el último mensaje del usuario al arreglo de mensajes
         $messages[] = [
             'role' => 'user',
@@ -214,18 +189,62 @@ class WhatsAppController extends Controller
         curl_close($ch);
         $decoded_json = json_decode($response, true);
 
-        // Comprobar si existe la clave 'choices' en la respuesta
-        if (isset($decoded_json['choices'])) {
-            // Retorna la respuesta que se extrae del JSON
-            return $decoded_json['choices'][0]['message']['content'];
-        } else {
-            // Retorna la respuesta completa para examinarla
-            return $response;
+        $conversation_text = '';
+        foreach ($messages as $message) {
+            $conversation_text .= $message['content'] . ' ';
         }
+        $conversation_text .= $decoded_json['choices'][0]['message']['content'];;
+        // Llamar a find_json y pasarle la conversación
+        $json_objects = $this->find_json($conversation_text);
+        Log::info('Datos de la función find_json:', ['datos' => $json_objects]);
+
+        // Verificar si find_json encontró un objeto JSON en la conversación
+        if ($json_objects) {
+            // Si hay un objeto JSON, devuelve "xxxxxxxx"
+            Log::info('Se encontró un objeto JSON en la conversación, devolviendo "xxxxxxxx"');
+           
+            return  $json_objects[0]['nombre'];
+        } else {
+            Log::info('No se encontró un objeto JSON en la conversación');
+
+            // Comprobar si existe la clave 'choices' en la respuesta
+            if (isset($decoded_json['choices'])) {
+                // Retorna la respuesta que se extrae del JSON
+                Log::info('La clave "choices" existe en la respuesta, devolviendo el contenido del mensaje');
+                return $decoded_json['choices'][0]['message']['content'];
+            } else {
+                // Retorna la respuesta completa para examinarla
+                Log::info('La clave "choices" no existe en la respuesta, devolviendo la respuesta completa');
+                return $response;
+            }
+        }
+
 
 
     }
 
-    
+    public function find_json($text)
+    {
+        // Expresión regular para identificar objetos JSON
+        $json_pattern = '/\{(?:[^{}]|(?R))*\}/';
+        $matches = array();
+
+        // Buscar objetos JSON en el texto
+        preg_match_all($json_pattern, $text, $matches);
+
+        // Decodificar y almacenar objetos JSON encontrados
+        $json_objects = array();
+        foreach ($matches[0] as $match) {
+            $json_objects[] = json_decode($match, true);
+        }
+
+        // Comprobar si se encontraron objetos JSON
+        if (empty($json_objects)) {
+            return 0;
+        }
+
+        return $json_objects;
+    }
+
 
 }
