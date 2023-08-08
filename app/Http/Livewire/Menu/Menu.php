@@ -41,13 +41,20 @@ class Menu extends Component
         $this->producto_selecionado = new productos();
         $this->migas = array();
         $this->negocio = negocio::find($this->id_negocio);
-        $this->categorias = categorias::where('id_negocio', '=', $this->negocio->id)->whereNull('id_categoria')->get();
+        $this->categorias = Categorias::where('id_negocio', '=', $this->negocio->id)
+                             ->whereNull('id_categoria')
+                            // ->orderBy('peso', 'asc')
+                             ->get();
+
         $this->productos = productos::where('id_negocio', '=', $this->negocio->id)->where('activo', '=', 1)->get();
         $this->apartados = $this->productos->unique('descrip3');
+       
 
 
 
-        // $this->apartados->prepend($this->apartados->pop());
+
+         $this->apartados->prepend($this->apartados->pop());
+         $this->apartados->prepend($this->apartados->pop());
 
         if (session('id_sessions') == null) {
 

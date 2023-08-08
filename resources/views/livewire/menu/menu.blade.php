@@ -31,8 +31,20 @@
             </div>
             <div class="col-span-4 md:col-span-5">
                 <h2 class="mb-2 text-2xl font-bold text-center text-gray-700 capitalize font-Lobster md:text-left">
-                    {{ $negocio->name }}</h2>
+                    {{ $negocio->name }}
+                </h2>
+
+                <div class="flex justify-center">
+                    <img class="mascara-carnaval" src="{{ asset('storage/banner/sol.png') }}" height="65"
+                        width="65" alt="Máscara de carnaval">
+                    <img class="mascara-carnaval" src="{{ asset('storage/banner/sombrilla.png') }}" height="65"
+                        width="65" alt="Máscara de carnaval">
+                    <img class="mascara-carnaval" src="{{ asset('storage/banner/playa.png') }}" height="65"
+                        width="65" alt="Máscara de carnaval">
+
+                </div>
             </div>
+
         </div>
 
         <div class="w-1/2 m-5">
@@ -120,22 +132,22 @@
                 {{-- cartita --}}
                 @foreach ($productos->where('descrip3', '=', $apartado->descrip3)->where('activo', '=', 1) as $key => $producto)
                     @php
-                        $imagenes = ['morado.png', 'verde.png', 'negro.png', 'rojo.png'];
+                        $imagenes = ['playa.png', 'sol.png', 'sombrilla.png'];
                         $imagen_actual = $imagenes[$key % count($imagenes)];
                     @endphp
                     <div wire:click.prefetch="producto('{{ $producto->id }}')"
                         class="relative p-2 m-2 rounded-md shadow-md bg-gray-50 hover:shadow-lg hover:bg-gray-100">
                         <div class="relative overflow-hidden rounded-md h-52">
-                            <img class="object-cover object-center w-full h-full" src="{{ asset($producto->img) }}"
-                                alt="{{ $producto->name }}">
-                            <div
-                                class="absolute top-0 bottom-0 left-0 z-10 flex justify-center w-full h-full bg-transparent ">
-                                {{-- <img class="absolute mascara-carnaval top-2 right-2"
-                                    src="{{ asset('storage/banner/' . $imagen_actual) }}" height="45" width="45"
-                                    alt="Máscara de carnaval"> --}}
-                                <div
-                                    class="absolute bottom-0 w-full text-xl font-bold text-center text-white bg-black opacity-50">
-                                    {{ $producto->name }}</div>
+                            <img class="object-cover object-center w-full h-full" src="{{ asset($producto->img) }}" alt="{{ $producto->name }}">
+    
+                            <div class="absolute top-0 left-0 z-10 flex justify-between w-full bg-transparent">
+                                <img class="mascara-carnaval" src="{{ asset('storage/banner/playa.png') }}" height="55" width="55" alt="Máscara de carnaval">
+                                <img class="mascara-carnaval" src="{{ asset('storage/banner/sol.png') }}" height="55" width="55" alt="Máscara de carnaval">
+                                <img class="mascara-carnaval" src="{{ asset('storage/banner/sombrilla.png') }}" height="55" width="55" alt="Máscara de carnaval">
+                            </div>
+                            
+                            <div class="absolute bottom-0 w-full text-xl font-bold text-center text-white bg-black opacity-50">
+                                {{ $producto->name }}
                             </div>
                         </div>
                         <div class="px-2 py-3">
@@ -231,7 +243,7 @@
             <div class="justify-center w-full mx-auto h-52 md:h-48">
                 <img class="w-auto h-full mx-auto" src="{{ asset($producto_selecionado->img) }}" alt="Sunset">
             </div>
-            
+
             @foreach ($producto_selecionado->presentaciones as $presentacion)
                 <div class="w-5/6 mx-auto "
                     style="letter-spacing: -0.044em;font-weight: 600;font-size: 21px;font-style: italic;">

@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Conversation;
 use App\Models\productos;
 use App\Models\negocio;
-
+use App\Models\Reservation;
 
 
 class WhatsAppController extends Controller
@@ -176,7 +176,7 @@ class WhatsAppController extends Controller
         curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode([
             'model' => 'gpt-3.5-turbo',
             'messages' => $messages,
-            'temperature' => 0.8,
+            'temperature' => 0.6,
             'top_p' => 1,
             'n' => 1,
         ]));
@@ -193,7 +193,8 @@ class WhatsAppController extends Controller
         foreach ($messages as $message) {
             $conversation_text .= $message['content'] . ' ';
         }
-        $conversation_text .= $decoded_json['choices'][0]['message']['content'];;
+        $conversation_text .= $decoded_json['choices'][0]['message']['content'];
+        ;
         // Llamar a find_json y pasarle la conversación
         $json_objects = $this->find_json($conversation_text);
         Log::info('Datos de la función find_json:', ['datos' => $json_objects]);
@@ -202,8 +203,15 @@ class WhatsAppController extends Controller
         if ($json_objects) {
             // Si hay un objeto JSON, devuelve "xxxxxxxx"
             Log::info('Se encontró un objeto JSON en la conversación, devolviendo "xxxxxxxx"');
-           
-            return  $json_objects[0]['nombre'];
+            $reservation_json = $json_objects[0];
+
+            $reservation = new Reservation();
+            $reservation->name = $reservation_json['nombre'];
+            $reservation->number_of_people = $reservation_json['nro_per'];
+            $reservation->date = date('Y-m-d', strtotime($reservation_json['fecha']));
+            $reservation->preference = $reservation_json['preferencia'];
+            $reservation->save();
+            return "gracias por preferirnos, ya tu reserva esta realizada";
         } else {
             Log::info('No se encontró un objeto JSON en la conversación');
 
